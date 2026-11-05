@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import PageHero from '../components/PageHero';
+import { rich, useLanguage } from '../context/LanguageContext';
 
 const PRODUCTS = [
   {
@@ -45,6 +47,30 @@ const PRODUCTS = [
     ticksCol2: [
       'Reduces gasping and improves oxygenation',
       'Visible relief within 24–48 hours'
+    ],
+    specs: [
+      { label: 'FORMAT', val: 'Water soluble liquid' },
+      { label: 'SPECIES', val: 'Broilers, layers, breeders' },
+      { label: 'PACKING', val: '5 kg and 20 kg HMHDPE bottles' }
+    ]
+  },
+  {
+    id: 'eksit-crd',
+    cls: 't-eksit',
+    color: '#7B2CBF',
+    tags: ['broilers', 'layers', 'breeders', 'resp', 'crd'],
+    name: 'EKSIT-CRD',
+    kicker: 'CHRONIC RESPIRATORY DISEASE · ANTI-MYCOPLASMA',
+    desc: 'Breakthrough synergy of Cinnamon, Curcuminoids, Eucalyptus, Mint, Oregano and Vasaka. Curative properties against resistant Mycoplasma Gallisepticum with superior zone of inhibition.',
+    img: '/assets/img/eksit-crd.webp',
+    href: '/products/eksit-crd',
+    ticksCol1: [
+      'Proven curative action against Mycoplasma Gallisepticum',
+      'Superior zone of inhibition vs. resistant antibiotic strains'
+    ],
+    ticksCol2: [
+      'Vasaka & Eucalyptus liquefy deep fibrinous plugs',
+      'Structured 2-days ON / 2-days OFF drinking water cycle'
     ],
     specs: [
       { label: 'FORMAT', val: 'Water soluble liquid' },
@@ -133,13 +159,14 @@ const FILTERS = [
   { id: 'breeders', label: 'Breeders' },
   { id: 'livestock', label: 'Livestock' },
   { id: 'gut', label: 'Gut & growth' },
-  { id: 'resp', label: 'Respiratory' },
+  { id: 'resp', label: 'Respiratory & CRD' },
   { id: 'egg', label: 'Egg quality' },
   { id: 'pest', label: 'Red mites' },
   { id: 'skin', label: 'Wounds & skin' }
 ];
 
 export default function ProductsPage() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState('all');
 
   const filtered = PRODUCTS.filter((p) => {
@@ -150,77 +177,43 @@ export default function ProductsPage() {
   return (
     <div style={{ background: '#FAFBFB', minHeight: '100vh', paddingBottom: '60px' }}>
       {/* Products Page Header */}
-      <section style={{ background: '#FFFFFF', borderBottom: '1px solid #EAEFF2', padding: '40px 0 32px' }}>
-        <div className="wrap">
-          <nav className="crumbs" aria-label="Breadcrumb" style={{ marginBottom: '16px' }}>
-            <Link href="/" style={{ color: 'var(--blue)', textDecoration: 'none' }}>Home</Link>
-            <span aria-hidden="true" style={{ margin: '0 8px', color: '#94A3B8' }}>/</span>
-            <span style={{ color: 'var(--muted)' }}>Products</span>
-          </nav>
-          
-          <h1 style={{ 
-            fontSize: 'clamp(36px, 4.5vw, 54px)', 
-            fontWeight: 700, 
-            color: 'var(--ink)', 
-            letterSpacing: '-.02em', 
-            lineHeight: 1.1,
-            margin: '0 0 16px',
-            maxWidth: '22ch'
-          }}>
-            Natural solutions for every stage of production
-          </h1>
-
-          <p style={{ 
-            fontSize: '18px', 
-            color: 'var(--slate)', 
-            lineHeight: 1.55, 
-            maxWidth: '68ch', 
-            margin: '0 0 28px' 
-          }}>
-            Five targeted formulations for gut health, breathing, egg quality, red mites and wound care. Feed, water and spray formats that fit your existing routine.
-          </p>
-
-          {/* Filter Pills */}
-          <div className="filters" role="group" aria-label="Filter products" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-            {FILTERS.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                aria-pressed={filter === f.id}
-                onClick={() => setFilter(f.id)}
-                style={{
-                  minHeight: '40px',
-                  padding: '0 20px',
-                  borderRadius: '999px',
-                  fontSize: '15px',
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  transition: 'all .15s ease',
-                  border: filter === f.id ? '1.5px solid #0F1B3D' : '1.5px solid #DCE3EA',
-                  background: filter === f.id ? '#0F1B3D' : '#FFFFFF',
-                  color: filter === f.id ? '#FFFFFF' : '#0F1B3D'
-                }}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
+      <PageHero
+        scene="products"
+        crumb={t("Products")}
+        title={t("Natural solutions for every stage of production")}
+        lede={t("Six targeted formulations across liquids and powders for gut health, chronic respiratory diseases, egg quality, red mites, and wound care. Standard 5 kg & 20 kg HMHDPE liquid cans and 50 kg lined powder bags that seamlessly fit your farm and feed mill routines.")}
+        facts={{
+          title: t("Range Facts"),
+          sub: t("The whole Remevia range at a glance"),
+          rows: [
+            { label: t("Formulations"), value: '6' },
+            { label: t("Format"), value: t("Feed, water & spray") },
+            { label: t("Packing"), value: t("5 kg & 20 kg cans, 50 kg bags") },
+            { label: t("Shelf life"), value: t("24 months") },
+            { label: t("Withdrawal"), value: t("0 days"), highlight: true },
+          ],
+        }}
+      >
+        <div className="filters" role="group" aria-label={t("Filter products")}>
+          {FILTERS.map((f) => (
+            <button key={f.id} type="button" className="filter" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
+              {t(f.label)}
+            </button>
+          ))}
         </div>
-      </section>
+      </PageHero>
 
       {/* Product List */}
       <section style={{ padding: '36px 0 56px' }}>
         <div className="wrap">
           <p style={{ fontSize: '15px', color: 'var(--muted)', marginBottom: '24px' }} aria-live="polite">
-            Showing {filtered.length} of {PRODUCTS.length} products
+            {t("Showing {shown} of {total} products", { shown: filtered.length, total: PRODUCTS.length })}
           </p>
 
           {filtered.length > 0 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
               {filtered.map((p) => (
                 <article key={p.id} className={`prow ${p.cls}`} style={{
-                  display: 'grid',
-                  gridTemplateColumns: '72px minmax(0, 360px) minmax(0, 1.4fr)',
                   borderRadius: '24px',
                   overflow: 'hidden',
                   background: '#FFFFFF',
@@ -241,12 +234,7 @@ export default function ProductsPage() {
                   </div>
 
                   {/* Product Media */}
-                  <div className="prow__media" style={{
-                    background: 'radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F5F7F8 75%)',
-                    display: 'grid',
-                    placeItems: 'center',
-                    padding: '36px'
-                  }}>
+                  <div className="prow__media">
                     <img 
                       src={p.img} 
                       alt={p.name} 
@@ -272,7 +260,7 @@ export default function ProductsPage() {
                       textTransform: 'uppercase',
                       color: 'var(--muted)'
                     }}>
-                      {p.kicker}
+                      {t(p.kicker)}
                     </span>
 
                     <h2 style={{
@@ -291,33 +279,33 @@ export default function ProductsPage() {
                       color: 'var(--slate)',
                       margin: 0
                     }}>
-                      {p.desc}
+                      {t(p.desc)}
                     </p>
 
                     {/* 2-column Checkmarks */}
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
                       gap: '10px 24px',
                       margin: '6px 0'
                     }}>
                       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {p.ticksCol1.map((t, idx) => (
+                        {p.ticksCol1.map((tick, idx) => (
                           <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '15px', color: 'var(--ink)', lineHeight: 1.4 }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '18px', height: '18px', flexShrink: 0, color: p.color, marginTop: '2px' }}>
                               <path d="M5 12.5l4.2 4.2L19 7"/>
                             </svg>
-                            <span>{t}</span>
+                            <span>{t(tick)}</span>
                           </li>
                         ))}
                       </ul>
                       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {p.ticksCol2.map((t, idx) => (
+                        {p.ticksCol2.map((tick, idx) => (
                           <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '15px', color: 'var(--ink)', lineHeight: 1.4 }}>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '18px', height: '18px', flexShrink: 0, color: p.color, marginTop: '2px' }}>
                               <path d="M5 12.5l4.2 4.2L19 7"/>
                             </svg>
-                            <span>{t}</span>
+                            <span>{t(tick)}</span>
                           </li>
                         ))}
                       </ul>
@@ -336,10 +324,10 @@ export default function ProductsPage() {
                       {p.specs.map((s, idx) => (
                         <div key={idx}>
                           <dt style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '.06em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-                            {s.label}
+                            {t(s.label)}
                           </dt>
                           <dd style={{ margin: '4px 0 0', fontWeight: 500, fontSize: '14px', color: 'var(--ink)', lineHeight: 1.35 }}>
-                            {s.val}
+                            {t(s.val)}
                           </dd>
                         </div>
                       ))}
@@ -360,9 +348,7 @@ export default function ProductsPage() {
                           textDecoration: 'none',
                           border: 'none'
                         }}
-                      >
-                        View details
-                      </Link>
+                      >{t("View details")}</Link>
 
                       <Link 
                         className="btn" 
@@ -383,9 +369,7 @@ export default function ProductsPage() {
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '16px', height: '16px' }}>
                           <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                        </svg>
-                        Datasheet (PDF)
-                      </Link>
+                        </svg>{t("Datasheet (PDF)")}</Link>
                     </div>
                   </div>
                 </article>
@@ -393,10 +377,8 @@ export default function ProductsPage() {
             </div>
           ) : (
             <div className="empty is-on" style={{ background: '#FFFFFF', borderRadius: '18px', padding: '56px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '22px', color: 'var(--ink)', margin: '0 0 8px' }}>No products match this filter</h3>
-              <p style={{ color: 'var(--slate)', margin: 0 }}>
-                Choose "All products" or tell us your challenge and we will recommend one.
-              </p>
+              <h3 style={{ fontSize: '22px', color: 'var(--ink)', margin: '0 0 8px' }}>{t("No products match this filter")}</h3>
+              <p style={{ color: 'var(--slate)', margin: 0 }}>{t("Choose \"All products\" or tell us your challenge and we will recommend one.")}</p>
             </div>
           )}
         </div>
@@ -406,12 +388,27 @@ export default function ProductsPage() {
       <section style={{ padding: '24px 0 64px' }} id="dosing">
         <div className="wrap">
           <div style={{ marginBottom: '24px' }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--muted)', display: 'block', marginBottom: '6px' }}>
-              FOR NUTRITIONISTS & FEED MILLS
-            </span>
-            <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 40px)', fontWeight: 700, color: 'var(--ink)', margin: 0, letterSpacing: '-.02em' }}>
-              Quick dosing guide
-            </h2>
+            <span style={{ fontSize: '12px', fontWeight: 700, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--muted)', display: 'block', marginBottom: '6px' }}>{t("FOR NUTRITIONISTS & FEED MILLS")}</span>
+            <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 40px)', fontWeight: 700, color: 'var(--ink)', margin: '0 0 16px', letterSpacing: '-.02em' }}>{t("Quick dosing guide & packaging formats")}</h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '12px',
+              marginBottom: '20px'
+            }}>
+              <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '12px', padding: '14px 18px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: '#1D4ED8', letterSpacing: '.05em', display: 'block', marginBottom: '4px' }}>{t("Liquid Products (EKSIT · CURTECT-CRD · TLREPEAL · TL HEALER)")}</span>
+                <p style={{ margin: 0, fontSize: '14px', color: '#1E3A8A', lineHeight: 1.45 }}>
+                  {rich(t("Supplied in heavy-duty <b>5 kg & 20 kg HMHDPE bottles/cans</b>. Standardized uniform container design with tamper-evident caps and distinct color-coded product labeling."))}
+                </p>
+              </div>
+              <div style={{ background: '#F7FEE7', border: '1px solid #D9F99D', borderRadius: '12px', padding: '14px 18px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: '#4D7C0F', letterSpacing: '.05em', display: 'block', marginBottom: '4px' }}>{t("Powder Premixes (TLTREAT · TLEGG)")}</span>
+                <p style={{ margin: 0, fontSize: '14px', color: '#365314', lineHeight: 1.45 }}>
+                  {rich(t("Packaged in moisture-resistant <b>50 kg PP woven outer laminated bags with inner HMHDPE liners</b> for automated feed mill micro-dosing and maximum free-flow shelf stability."))}
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="table-wrap" style={{
@@ -421,14 +418,14 @@ export default function ProductsPage() {
             overflowX: 'auto',
             boxShadow: '0 4px 16px -6px rgba(15,27,61,.04)'
           }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '760px', textAlign: 'left' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '760px', textAlign: 'start' }}>
               <thead>
                 <tr style={{ background: '#F8FAFB', borderBottom: '1px solid #E2E8F0' }}>
-                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>PRODUCT</th>
-                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>USE</th>
-                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>RATE</th>
-                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>PROGRAMME</th>
-                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>PACKING</th>
+                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t("PRODUCT")}</th>
+                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t("USE")}</th>
+                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t("RATE")}</th>
+                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t("PROGRAMME")}</th>
+                  <th style={{ padding: '16px 20px', fontSize: '13px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t("PACKING")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -436,81 +433,88 @@ export default function ProductsPage() {
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tltreat" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLTREAT</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Broilers</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>1–2 kg / 1,000 kg feed</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Day 1 to day 40</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>50 kg laminated bag</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Broilers")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("1–2 kg / 1,000 kg feed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Day 1 to day 40")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("50 kg laminated bag")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tltreat" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLTREAT</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Layers</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>2 kg / 1,000 kg feed</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Week 60 to week 110</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>50 kg laminated bag</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Layers")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("2 kg / 1,000 kg feed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Week 60 to week 110")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("50 kg laminated bag")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/curtect-crd" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>CURTECT-CRD</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Prevention</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>200 ml / 1,000 L water</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Twice a week, 12-hour cycle</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>5 kg, 20 kg bottles</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Prevention")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("200 ml / 1,000 L water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Twice a week, 12-hour cycle")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/curtect-crd" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>CURTECT-CRD</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Post-vaccination / adjunct</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>200 ml / 1,000 L water</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Twice a day for 4 days, 8 h apart</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>5 kg, 20 kg bottles</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Post-vaccination / adjunct")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("200 ml / 1,000 L water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Twice a day for 4 days, 8 h apart")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
+                </tr>
+                <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
+                  <td style={{ padding: '16px 20px' }}>
+                    <Link href="/products/eksit-crd" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>EKSIT-CRD</Link>
+                  </td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Mycoplasma Gallisepticum & CRD")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("200 ml / 1,000 L water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Day 16 to 36 (2-days ON / 2-days OFF)")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tlegg" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLEGG</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Layers</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>1 kg / 1,000 kg feed</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Continuous in feed</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>50 kg laminated bag</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Layers")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("1 kg / 1,000 kg feed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Continuous in feed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("50 kg laminated bag")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tlrepeal" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLREPEAL</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>In water</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>150 ml / 1,000 L water</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Alternate weeks</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>5 kg, 20 kg bottles</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("In water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("150 ml / 1,000 L water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Alternate weeks")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tlrepeal" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLREPEAL</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Nest spray</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>300 ml / 1,000 L water</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Alternate weeks, rotate with water use</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>5 kg, 20 kg bottles</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Nest spray")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("300 ml / 1,000 L water")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Alternate weeks, rotate with water use")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
                 <tr>
                   <td style={{ padding: '16px 20px' }}>
                     <Link href="/products/tl-healer" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TL HEALER</Link>
                   </td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Wounds, tick bites</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>Spray or apply directly</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>On affected area as needed</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>5 kg, 20 kg bottles</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Wounds, tick bites")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Spray or apply directly")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("On affected area as needed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <p style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '16px' }}>
-            Rates from Remevia product literature. Consult your nutritionist or veterinarian for your flock.
-          </p>
+          <p style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '16px' }}>{t("Rates from Remevia product literature. Consult your nutritionist or veterinarian for your flock.")}</p>
         </div>
       </section>
 
@@ -536,17 +540,13 @@ export default function ProductsPage() {
                 fontWeight: 700,
                 letterSpacing: '-.02em',
                 margin: '0 0 10px'
-              }}>
-                Not sure which product fits your flock?
-              </h2>
+              }}>{t("Not sure which product fits your flock?")}</h2>
               <p style={{
                 color: '#C9D3EA',
                 fontSize: '16px',
                 lineHeight: 1.55,
                 margin: 0
-              }}>
-                Share your challenge and flock size. Our technical team will recommend a programme within one working day.
-              </p>
+              }}>{t("Share your challenge and flock size. Our technical team will recommend a programme within one working day.")}</p>
             </div>
 
             <div className="btn-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center' }}>
@@ -563,9 +563,7 @@ export default function ProductsPage() {
                   border: 'none',
                   transition: 'opacity .15s'
                 }}
-              >
-                Talk to an expert
-              </Link>
+              >{t("Talk to an expert")}</Link>
 
               <Link
                 href="/contact?type=trial"
@@ -580,9 +578,7 @@ export default function ProductsPage() {
                   border: 'none',
                   transition: 'opacity .15s'
                 }}
-              >
-                Request a trial
-              </Link>
+              >{t("Request a trial")}</Link>
             </div>
           </div>
         </div>

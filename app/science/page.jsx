@@ -3,23 +3,31 @@
 import React from 'react';
 import Link from 'next/link';
 import CtaSection from '../components/CtaSection';
+import PageHero from '../components/PageHero';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function SciencePage() {
+  const { t } = useLanguage();
   return (
     <>
-      <section className="phero">
-        <div className="wrap">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span>Science</span>
-          </nav>
-          <h1>Backed by data. Powered by nature.</h1>
-          <p className="lede">
-            How we turn the molecules plants use to defend themselves into reliable, standardised solutions for poultry and livestock.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        scene="science"
+        crumb={t("Science")}
+        title={t("Backed by data. Powered by nature.")}
+        lede={t("How we turn the molecules plants use to defend themselves into reliable, standardised solutions for poultry and livestock.")}
+        facts={{
+          title: t("Formula Facts"),
+          sub: t("What goes into every Remevia blend"),
+          rows: [
+            { label: t("Source"), value: t("Essential oils, oleoresins & carotenoids") },
+            { label: t("Action"), value: t("Multi-target") },
+            { label: t("Resistance risk"), value: t("Low") },
+            { label: t("Batch control"), value: t("Standardised") },
+            { label: t("Antibiotic residues"), value: '0', highlight: true },
+          ],
+          foot: t("Actives include curcumin, menthol, carvacrol, thymol, lutein and vasicine."),
+        }}
+      />
 
       {/* Quote */}
       <section className="section">
@@ -29,11 +37,9 @@ export default function SciencePage() {
               <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
             </svg>
           </span>
-          <blockquote>“Let food be thy medicine.”</blockquote>
-          <cite>Commonly attributed to Hippocrates</cite>
-          <p>
-            Every living thing has natural enemies, and nature has already made the molecules to fight them. Plants use essential oils and oleoresins to protect themselves from bacteria, fungi and pests. We don't reinvent these molecules. We find them, purify them and put them to work.
-          </p>
+          <blockquote>{t("“Let food be thy medicine.”")}</blockquote>
+          <cite>{t("Commonly attributed to Hippocrates")}</cite>
+          <p>{t("Every living thing has natural enemies, and nature has already made the molecules to fight them. Plants use essential oils and oleoresins to protect themselves from bacteria, fungi and pests. We don't reinvent these molecules. We find them, purify them and put them to work.")}</p>
         </div>
       </section>
 
@@ -41,42 +47,72 @@ export default function SciencePage() {
       <section className="section section--mist">
         <div className="wrap">
           <div className="head">
-            <h2>Our bio-active library</h2>
-            <p className="lede">The plant actives inside Remevia products, what they do, and where you will find them.</p>
+            <h2>{t("Our bio-active library")}</h2>
+            <p className="lede">{t("The plant actives inside Remevia products, what they do, and where you will find them.")}</p>
           </div>
           <div className="library">
             <article className="ing">
-              <h3>Turmeric & curcumin</h3>
-              <span className="ing__mol">Curcuminoids</span>
-              <p>Anti-inflammatory, antioxidant and wound-healing spice active.</p>
+              <h3>{t("Turmeric & curcumin")}</h3>
+              <span className="ing__mol">{t("Curcuminoids")}</span>
+              <p>{t("Anti-inflammatory, antioxidant and tissue-protective spice active.")}</p>
               <div className="ing__used">
                 <Link className="t-treat" href="/products/tltreat">TLTREAT</Link>
+                <Link className="t-eksit" href="/products/eksit-crd">EKSIT-CRD</Link>
                 <Link className="t-healer" href="/products/tl-healer">TL HEALER</Link>
               </div>
             </article>
 
             <article className="ing">
-              <h3>Ginger & nutmeg</h3>
-              <span className="ing__mol">Gingerols, myristicin</span>
-              <p>Spice extracts that support digestion and the immune response.</p>
+              <h3>{t("Ginger & nutmeg")}</h3>
+              <span className="ing__mol">{t("Gingerols, myristicin")}</span>
+              <p>{t("Spice extracts that support digestion, gut immunity and FCR.")}</p>
               <div className="ing__used">
                 <Link className="t-treat" href="/products/tltreat">TLTREAT</Link>
               </div>
             </article>
 
             <article className="ing">
-              <h3>Marigold</h3>
-              <span className="ing__mol">Lutein carotenoids</span>
-              <p>Fat-soluble pigments and antioxidants that colour the yolk.</p>
+              <h3>{t("Marigold")}</h3>
+              <span className="ing__mol">{t("Lutein carotenoids")}</span>
+              <p>{t("Fat-soluble pigments and antioxidants that colour the yolk and protect human eye cornea.")}</p>
               <div className="ing__used">
                 <Link className="t-egg" href="/products/tlegg">TLEGG</Link>
               </div>
             </article>
 
             <article className="ing">
-              <h3>Menthol & eucalyptus</h3>
-              <span className="ing__mol">Menthol, 1,8-cineole</span>
-              <p>Open airways, loosen mucus and give a cooling effect in heat stress.</p>
+              <h3>{t("Menthol & eucalyptus")}</h3>
+              <span className="ing__mol">{t("Menthol, 1,8-cineole")}</span>
+              <p>{t("Open airways, loosen mucus and give a cooling effect in heat stress.")}</p>
+              <div className="ing__used">
+                <Link className="t-curtect" href="/products/curtect-crd">CURTECT-CRD</Link>
+                <Link className="t-eksit" href="/products/eksit-crd">EKSIT-CRD</Link>
+                <Link className="t-repeal" href="/products/tlrepeal">TLREPEAL</Link>
+              </div>
+            </article>
+
+            <article className="ing">
+              <h3>{t("Cinnamon & Oregano")}</h3>
+              <span className="ing__mol">{t("Cinnamaldehyde, carvacrol, thymol")}</span>
+              <p>{t("Direct cell membrane disruption against antibiotic-resistant Mycoplasma and CRD pathogens.")}</p>
+              <div className="ing__used">
+                <Link className="t-eksit" href="/products/eksit-crd">EKSIT-CRD</Link>
+              </div>
+            </article>
+
+            <article className="ing">
+              <h3>{t("Vasaka (Adhatoda vasica)")}</h3>
+              <span className="ing__mol">{t("Vasicine & vasicinone")}</span>
+              <p>{t("Clinically proven natural bronchodilator and secretolytic agent that liquefies bronchial mucus.")}</p>
+              <div className="ing__used">
+                <Link className="t-eksit" href="/products/eksit-crd">EKSIT-CRD</Link>
+              </div>
+            </article>
+
+            <article className="ing">
+              <h3>{t("Rosemary & pine terpenes")}</h3>
+              <span className="ing__mol">{t("Alpha-pinene, limonene")}</span>
+              <p>{t("Terpenes with antimicrobial, antioxidant and decongestant action.")}</p>
               <div className="ing__used">
                 <Link className="t-curtect" href="/products/curtect-crd">CURTECT-CRD</Link>
                 <Link className="t-repeal" href="/products/tlrepeal">TLREPEAL</Link>
@@ -84,37 +120,27 @@ export default function SciencePage() {
             </article>
 
             <article className="ing">
-              <h3>Rosemary & pine terpenes</h3>
-              <span className="ing__mol">Alpha-pinene, limonene</span>
-              <p>Terpenes with antimicrobial, antioxidant and decongestant action.</p>
-              <div className="ing__used">
-                <Link className="t-curtect" href="/products/curtect-crd">CURTECT-CRD</Link>
-                <Link className="t-repeal" href="/products/tlrepeal">TLREPEAL</Link>
-              </div>
-            </article>
-
-            <article className="ing">
-              <h3>Basil & camphor</h3>
-              <span className="ing__mol">Estragole, camphor</span>
-              <p>Strong-smelling oils that repel mites through smell and contact.</p>
+              <h3>{t("Basil & camphor")}</h3>
+              <span className="ing__mol">{t("Estragole, camphor")}</span>
+              <p>{t("Strong-smelling oils that repel mites through smell and contact.")}</p>
               <div className="ing__used">
                 <Link className="t-repeal" href="/products/tlrepeal">TLREPEAL</Link>
               </div>
             </article>
 
             <article className="ing">
-              <h3>Neem & cedarwood</h3>
-              <span className="ing__mol">Azadirachtin, cedrol</span>
-              <p>Traditional antiseptic and insect-repellent oils for skin care.</p>
+              <h3>{t("Neem & cedarwood")}</h3>
+              <span className="ing__mol">{t("Azadirachtin, cedrol")}</span>
+              <p>{t("Traditional antiseptic and insect-repellent oils for skin care.")}</p>
               <div className="ing__used">
                 <Link className="t-healer" href="/products/tl-healer">TL HEALER</Link>
               </div>
             </article>
 
             <article className="ing">
-              <h3>Terpineol</h3>
-              <span className="ing__mol">Alpha-terpineol</span>
-              <p>Antimicrobial terpene alcohol that supports wound cleaning.</p>
+              <h3>{t("Terpineol")}</h3>
+              <span className="ing__mol">{t("Alpha-terpineol")}</span>
+              <p>{t("Antimicrobial terpene alcohol that supports wound cleaning.")}</p>
               <div className="ing__used">
                 <Link className="t-healer" href="/products/tl-healer">TL HEALER</Link>
               </div>
@@ -127,29 +153,29 @@ export default function SciencePage() {
       <section className="section section--dark">
         <div className="wrap">
           <div className="head">
-            <h2>Our R&D process</h2>
-            <p className="lede">Four steps take a plant molecule from the field to a proven product.</p>
+            <h2>{t("Our R&D process")}</h2>
+            <p className="lede">{t("Four steps take a plant molecule from the field to a proven product.")}</p>
           </div>
           <ol className="process">
             <li>
               <span className="process__node"></span>
-              <h3>Identify</h3>
-              <p>Screen botanical compounds with known antimicrobial, anti-inflammatory and repellent properties.</p>
+              <h3>{t("Identify")}</h3>
+              <p>{t("Screen botanical compounds with known antimicrobial, anti-inflammatory and repellent properties.")}</p>
             </li>
             <li>
               <span className="process__node"></span>
-              <h3>Extract</h3>
-              <p>Recover pure essential oils and oleoresins without damaging the active molecules.</p>
+              <h3>{t("Extract")}</h3>
+              <p>{t("Recover pure essential oils and oleoresins without damaging the active molecules.")}</p>
             </li>
             <li>
               <span className="process__node"></span>
-              <h3>Formulate for synergy</h3>
-              <p>Combine compounds that hit a problem from several angles, lowering the chance of resistance.</p>
+              <h3>{t("Formulate for synergy")}</h3>
+              <p>{t("Combine compounds that hit a problem from several angles, lowering the chance of resistance.")}</p>
             </li>
             <li>
               <span className="process__node"></span>
-              <h3>Validate</h3>
-              <p>In-vitro lab work and in-vivo flock trials back every claim with data.</p>
+              <h3>{t("Validate")}</h3>
+              <p>{t("In-vitro lab work and in-vivo flock trials back every claim with data.")}</p>
             </li>
           </ol>
         </div>
@@ -159,23 +185,23 @@ export default function SciencePage() {
       <section className="section">
         <div className="wrap">
           <div className="head">
-            <h2>One molecule can be beaten. A combination is much harder.</h2>
-            <p className="lede">Bacteria and pests adapt to a single mode of action. Blends that act on several targets at once give them far fewer ways out.</p>
+            <h2>{t("One molecule can be beaten. A combination is much harder.")}</h2>
+            <p className="lede">{t("Bacteria and pests adapt to a single mode of action. Blends that act on several targets at once give them far fewer ways out.")}</p>
           </div>
           <div className="compare" style={{ marginBottom: '24px' }}>
             <div style={{ background: 'var(--mist)' }}>
-              <h3 style={{ marginBottom: '12px' }}>Single active</h3>
-              <svg viewBox="0 0 320 160" role="img" aria-label="One compound acting on one target">
+              <h3 style={{ marginBottom: '12px' }}>{t("Single active")}</h3>
+              <svg viewBox="0 0 320 160" role="img" aria-label={t("One compound acting on one target")}>
                 <circle cx="60" cy="80" r="22" fill="#94A3BF"/>
                 <path d="M84 80h120" stroke="#94A3BF" strokeWidth="3" strokeDasharray="6 6"/>
                 <circle cx="240" cy="80" r="34" fill="none" stroke="#B3261E" strokeWidth="3"/>
                 <circle cx="240" cy="80" r="8" fill="#B3261E"/>
-                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">1 target · easier to resist</text>
+                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("1 target · easier to resist")}</text>
               </svg>
             </div>
             <div style={{ background: 'linear-gradient(140deg,#EEF2FB,#E6F5EC)' }}>
-              <h3 style={{ marginBottom: '12px' }}>Remevia synergy blend</h3>
-              <svg viewBox="0 0 320 160" role="img" aria-label="Several compounds acting on several targets">
+              <h3 style={{ marginBottom: '12px' }}>{t("Remevia synergy blend")}</h3>
+              <svg viewBox="0 0 320 160" role="img" aria-label={t("Several compounds acting on several targets")}>
                 <defs>
                   <linearGradient id="sg" x1="0" x2="1">
                     <stop offset="0" stopColor="#2C49A6"/>
@@ -187,29 +213,29 @@ export default function SciencePage() {
                 <path d="M66 40C140 40 160 60 214 70M66 80h146M66 120C140 120 160 100 214 90M66 40C150 30 170 120 222 106" stroke="url(#sg)" strokeWidth="3" fill="none"/>
                 <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="3"/>
                 <circle cx="240" cy="80" r="8" fill="#1E7A34"/>
-                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">Many targets · hard to resist</text>
+                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("Many targets · hard to resist")}</text>
               </svg>
             </div>
           </div>
           <div className="synergy">
             <div className="syn t-curtect">
-              <div className="syn__head"><h3>CURTECT-CRD</h3><span>6 actions</span></div>
+              <div className="syn__head"><h3>CURTECT-CRD</h3><span>{t("6 actions")}</span></div>
               <div className="syn__body">
-                <span>Bronchodilator</span>
-                <span>Expectorant</span>
-                <span>Mucolytic</span>
-                <span>Decongestant</span>
-                <span>Anti-inflammatory</span>
-                <span>Antimicrobial & immune support</span>
+                <span>{t("Bronchodilator")}</span>
+                <span>{t("Expectorant")}</span>
+                <span>{t("Mucolytic")}</span>
+                <span>{t("Decongestant")}</span>
+                <span>{t("Anti-inflammatory")}</span>
+                <span>{t("Antimicrobial & immune support")}</span>
               </div>
             </div>
             <div className="syn t-repeal">
-              <div className="syn__head"><h3>TLREPEAL</h3><span>4 modes against mites</span></div>
+              <div className="syn__head"><h3>TLREPEAL</h3><span>{t("4 modes against mites")}</span></div>
               <div className="syn__body">
-                <span>Taste avoidance</span>
-                <span>Smell repellency</span>
-                <span>Contact toxicity</span>
-                <span>Vapour toxicity</span>
+                <span>{t("Taste avoidance")}</span>
+                <span>{t("Smell repellency")}</span>
+                <span>{t("Contact toxicity")}</span>
+                <span>{t("Vapour toxicity")}</span>
               </div>
             </div>
           </div>
@@ -220,8 +246,8 @@ export default function SciencePage() {
       <section className="section section--mist" id="quality">
         <div className="wrap two-col">
           <div className="head" style={{ margin: 0 }}>
-            <h2>Consistent from batch to batch</h2>
-            <p className="lede">Natural raw materials vary. Our quality process makes sure what reaches your farm does not.</p>
+            <h2>{t("Consistent from batch to batch")}</h2>
+            <p className="lede">{t("Natural raw materials vary. Our quality process makes sure what reaches your farm does not.")}</p>
           </div>
           <div className="grid grid--2">
             <div className="card">
@@ -230,8 +256,8 @@ export default function SciencePage() {
                   <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
                 </svg>
               </span>
-              <h3>Raw material checks</h3>
-              <p>Every lot of spice, flower and oil is tested for identity and quality on arrival.</p>
+              <h3>{t("Raw material checks")}</h3>
+              <p>{t("Every lot of spice, flower and oil is tested for identity and quality on arrival.")}</p>
             </div>
             <div className="card">
               <span className="card__icon">
@@ -239,8 +265,8 @@ export default function SciencePage() {
                   <path d="M9 3h6M10 3v6.2L4.8 18a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 9.2V3"/><path d="M7.5 14h9"/>
                 </svg>
               </span>
-              <h3>Standardised actives</h3>
-              <p>Formulations are adjusted so active content stays within specification.</p>
+              <h3>{t("Standardised actives")}</h3>
+              <p>{t("Formulations are adjusted so active content stays within specification.")}</p>
             </div>
             <div className="card">
               <span className="card__icon">
@@ -248,8 +274,8 @@ export default function SciencePage() {
                   <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>
                 </svg>
               </span>
-              <h3>Batch QC & COA</h3>
-              <p>Each batch is released with a certificate of analysis, available to buyers.</p>
+              <h3>{t("Batch QC & COA")}</h3>
+              <p>{t("Each batch is released with a certificate of analysis, available to buyers.")}</p>
             </div>
             <div className="card">
               <span className="card__icon">
@@ -257,17 +283,17 @@ export default function SciencePage() {
                   <rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>
                 </svg>
               </span>
-              <h3>Protective packing</h3>
-              <p>HMHDPE bottles and lined laminated bags protect actives from light and moisture.</p>
+              <h3>{t("Protective packing")}</h3>
+              <p>{t("HMHDPE bottles and lined laminated bags protect actives from light and moisture.")}</p>
             </div>
           </div>
         </div>
         <div className="wrap" style={{ marginTop: '32px' }}>
           <div className="grid grid--4">
-            <div className="placeholder" style={{ minHeight: '180px' }}>[GMP Certified Facility]</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>[QC Analytical Laboratory]</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>[ISO 9001 Quality System]</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>[Export Registrations]</div>
+            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[GMP Certified Facility]")}</div>
+            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[QC Analytical Laboratory]")}</div>
+            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[ISO 9001 Quality System]")}</div>
+            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[Export Registrations]")}</div>
           </div>
         </div>
       </section>

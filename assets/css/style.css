@@ -25,6 +25,7 @@
   --egg: #7DBE3F;     --egg-ink: #4E7F22;    --egg-soft: #F1F8E9;
   --repeal: #D7262E;  --repeal-ink: #B51F26; --repeal-soft: #FCECEC;
   --healer: #EE8A1C;  --healer-ink: #A85E0C; --healer-soft: #FEF3E6;
+  --eksit: #7B2CBF;   --eksit-ink: #5A189A;  --eksit-soft: #F6EEFB;
 
   /* Product accent defaults; each .t-* class below overrides them */
   --c: var(--blue); --ci: var(--blue); --cs: var(--mist);
@@ -289,6 +290,7 @@ a:hover { color: var(--indigo); }
 .t-egg { --c: var(--egg); --ci: var(--egg-ink); --cs: var(--egg-soft); }
 .t-repeal { --c: var(--repeal); --ci: var(--repeal-ink); --cs: var(--repeal-soft); }
 .t-healer { --c: var(--healer); --ci: var(--healer-ink); --cs: var(--healer-soft); }
+.t-eksit { --c: var(--eksit); --ci: var(--eksit-ink); --cs: var(--eksit-soft); }
 @media (max-width: 1180px) { .shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pcard__band { width: 34px; } .pcard__band span { font-size: 16px; } }
 @media (max-width: 460px) { .shelf { grid-template-columns: 1fr; } }

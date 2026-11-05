@@ -3,6 +3,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import PageHero from '../components/PageHero';
+import { rich, useLanguage } from '../context/LanguageContext';
 
 const ETYPE = {
   trial: { title: 'Tell us about your flock', btn: 'Request my free trial' },
@@ -11,6 +13,7 @@ const ETYPE = {
 };
 
 function ContactForm() {
+  const { t } = useLanguage();
   const searchParams = useSearchParams();
   const [etype, setEtype] = useState('trial');
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -35,8 +38,8 @@ function ContactForm() {
       setEtype(qType);
     }
     const qProduct = searchParams.get('product');
-    if (qProduct && !selectedProducts.includes(qProduct)) {
-      setSelectedProducts([qProduct]);
+    if (qProduct) {
+      setSelectedProducts(qProduct.split(', '));
     }
   }, [searchParams]);
 
@@ -75,27 +78,31 @@ function ContactForm() {
 
   return (
     <>
-      <section className="phero">
-        <div className="wrap">
-          <nav className="crumbs" aria-label="Breadcrumb">
-            <Link href="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span>Contact</span>
-          </nav>
-          <h1>Let's grow healthier flocks together</h1>
-          <p className="lede">
-            Request a field trial, get a quote, or join our distributor network. We reply within one working day.
-          </p>
-
-          <div className="etypes" role="group" aria-label="Type of enquiry">
+      <PageHero
+        scene="contact"
+        crumb={t("Contact")}
+        title={t("Let's grow healthier flocks together")}
+        lede={t("Request a field trial, get a quote, or join our distributor network. We reply within one working day.")}
+        facts={{
+          title: t("What Happens Next"),
+          sub: t("From your first message to your first trial"),
+          rows: [
+            { label: t("1. We reply"), value: t("Within one working day") },
+            { label: t("2. We review"), value: t("Your flock and goals") },
+            { label: t("3. We recommend"), value: t("A programme for your farm") },
+            { label: t("4. You trial"), value: t("With our technical support"), highlight: true },
+          ],
+        }}
+      >
+        <div className="etypes" role="group" aria-label={t("Type of enquiry")}>
             <button
               className="etype"
               type="button"
               aria-pressed={etype === 'trial'}
               onClick={() => setEtype('trial')}
             >
-              <b>Request a free trial</b>
-              <span>Test a Remevia programme on your own flock with our technical support.</span>
+              <b>{t("Request a free trial")}</b>
+              <span>{t("Test a Remevia programme on your own flock with our technical support.")}</span>
             </button>
             <button
               className="etype"
@@ -103,8 +110,8 @@ function ContactForm() {
               aria-pressed={etype === 'quote'}
               onClick={() => setEtype('quote')}
             >
-              <b>Get a quote</b>
-              <span>Pricing, datasheets and lead times for feed mills, integrators and farms.</span>
+              <b>{t("Get a quote")}</b>
+              <span>{t("Pricing, datasheets and lead times for feed mills, integrators and farms.")}</span>
             </button>
             <button
               className="etype"
@@ -112,46 +119,39 @@ function ContactForm() {
               aria-pressed={etype === 'distributor'}
               onClick={() => setEtype('distributor')}
             >
-              <b>Become a distributor</b>
-              <span>Represent Remevia in your country or region.</span>
+              <b>{t("Become a distributor")}</b>
+              <span>{t("Represent Remevia in your country or region.")}</span>
             </button>
           </div>
-        </div>
-      </section>
+      </PageHero>
 
       <section className="section" id="enquiry">
         <div className="wrap contact-grid">
           <form className={`form ${isSent ? 'is-sent' : ''}`} onSubmit={handleSubmit} noValidate>
-            <h3>{currentType.title}</h3>
+            <h3>{t(currentType.title)}</h3>
             <input type="hidden" name="type" value={etype} />
 
-            <label className={`field ${errors.name ? 'has-error' : ''}`}>
-              Full name *
-              <input 
+            <label className={`field ${errors.name ? 'has-error' : ''}`}>{t("Full name *")}<input 
                 name="name" 
                 required 
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 autoComplete="name" 
               />
-              {errors.name && <span className="err">{errors.name}</span>}
+              {errors.name && <span className="err">{t(errors.name)}</span>}
             </label>
 
-            <label className={`field ${errors.company ? 'has-error' : ''}`}>
-              Company name *
-              <input 
+            <label className={`field ${errors.company ? 'has-error' : ''}`}>{t("Company name *")}<input 
                 name="company" 
                 required 
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                 autoComplete="organization" 
               />
-              {errors.company && <span className="err">{errors.company}</span>}
+              {errors.company && <span className="err">{t(errors.company)}</span>}
             </label>
 
-            <label className={`field ${errors.email ? 'has-error' : ''}`}>
-              Work email *
-              <input 
+            <label className={`field ${errors.email ? 'has-error' : ''}`}>{t("Work email *")}<input 
                 name="email" 
                 type="email" 
                 required 
@@ -159,12 +159,10 @@ function ContactForm() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 autoComplete="email" 
               />
-              {errors.email && <span className="err">{errors.email}</span>}
+              {errors.email && <span className="err">{t(errors.email)}</span>}
             </label>
 
-            <label className={`field ${errors.phone ? 'has-error' : ''}`}>
-              Phone / WhatsApp *
-              <input 
+            <label className={`field ${errors.phone ? 'has-error' : ''}`}>{t("Phone / WhatsApp *")}<input 
                 name="phone" 
                 type="tel" 
                 required 
@@ -172,24 +170,20 @@ function ContactForm() {
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 autoComplete="tel" 
               />
-              {errors.phone && <span className="err">{errors.phone}</span>}
+              {errors.phone && <span className="err">{t(errors.phone)}</span>}
             </label>
 
-            <label className={`field ${errors.country ? 'has-error' : ''}`}>
-              Country *
-              <input 
+            <label className={`field ${errors.country ? 'has-error' : ''}`}>{t("Country *")}<input 
                 name="country" 
                 required 
                 value={formData.country}
                 onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                 autoComplete="country-name" 
               />
-              {errors.country && <span className="err">{errors.country}</span>}
+              {errors.country && <span className="err">{t(errors.country)}</span>}
             </label>
 
-            <label className="field">
-              State / city
-              <input 
+            <label className="field">{t("State / city")}<input 
                 name="city" 
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
@@ -197,46 +191,40 @@ function ContactForm() {
               />
             </label>
 
-            <label className={`field ${errors.business ? 'has-error' : ''}`}>
-              Business type *
-              <select 
+            <label className={`field ${errors.business ? 'has-error' : ''}`}>{t("Business type *")}<select 
                 name="business" 
                 required
                 value={formData.business}
                 onChange={(e) => setFormData({ ...formData, business: e.target.value })}
               >
-                <option value="">Choose one</option>
-                <option>Poultry farm</option>
-                <option>Integrator</option>
-                <option>Feed mill</option>
-                <option>Distributor</option>
-                <option>Veterinarian</option>
-                <option>Other</option>
+                <option value="">{t("Choose one")}</option>
+                <option value="Poultry farm">{t("Poultry farm")}</option>
+                <option value="Integrator">{t("Integrator")}</option>
+                <option value="Feed mill">{t("Feed mill")}</option>
+                <option value="Distributor">{t("Distributor")}</option>
+                <option value="Veterinarian">{t("Veterinarian")}</option>
+                <option value="Other">{t("Other")}</option>
               </select>
-              {errors.business && <span className="err">{errors.business}</span>}
+              {errors.business && <span className="err">{t(errors.business)}</span>}
             </label>
 
-            <label className="field">
-              Flock size
-              <select 
+            <label className="field">{t("Flock size")}<select 
                 name="flock"
                 value={formData.flock}
                 onChange={(e) => setFormData({ ...formData, flock: e.target.value })}
               >
-                <option>Under 10,000 birds</option>
+                <option value="Under 10,000 birds">{t("Under 10,000 birds")}</option>
                 <option>10,000 – 50,000</option>
                 <option>50,000 – 200,000</option>
-                <option>Over 200,000</option>
-                <option>Not applicable</option>
+                <option value="Over 200,000">{t("Over 200,000")}</option>
+                <option value="Not applicable">{t("Not applicable")}</option>
               </select>
             </label>
 
             <fieldset className="full" style={{ border: 0, margin: 0, padding: 0 }}>
-              <legend style={{ fontSize: '15px', fontWeight: 500, marginBottom: '10px' }}>
-                Products of interest
-              </legend>
+              <legend style={{ fontSize: '15px', fontWeight: 500, marginBottom: '10px' }}>{t("Products of interest")}</legend>
               <div className="checks">
-                {['TLTREAT', 'CURTECT-CRD', 'TLEGG', 'TLREPEAL', 'TL HEALER'].map((prod) => (
+                {['TLTREAT', 'CURTECT-CRD', 'EKSIT-CRD', 'TLEGG', 'TLREPEAL', 'TL HEALER'].map((prod) => (
                   <label key={prod}>
                     <input 
                       type="checkbox" 
@@ -251,11 +239,9 @@ function ContactForm() {
               </div>
             </fieldset>
 
-            <label className="field full">
-              Message
-              <textarea 
+            <label className="field full">{t("Message")}<textarea 
                 name="message" 
-                placeholder="Your challenge, current programme or questions"
+                placeholder={t("Your challenge, current programme or questions")}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               ></textarea>
@@ -268,24 +254,22 @@ function ContactForm() {
                 checked={formData.consent}
                 onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
               />
-              <span>I agree that Remevia may store my details and contact me about this enquiry, as described in the <a href="#">Privacy policy</a>.</span>
-              {errors.consent && <span className="err">{errors.consent}</span>}
+              <span>{rich(t("I agree that Remevia may store my details and contact me about this enquiry, as described in the <a>Privacy policy</a>."), { href: '#' })}</span>
+              {errors.consent && <span className="err">{t(errors.consent)}</span>}
             </label>
 
             <button className="btn btn--grad full" type="submit">
-              {currentType.btn}
+              {t(currentType.btn)}
             </button>
 
             {isSent && (
-              <p className="form__ok" role="status">
-                Thank you. Your enquiry was sent and our team will reply within one working day.
-              </p>
+              <p className="form__ok" role="status">{t("Thank you. Your enquiry was sent and our team will reply within one working day.")}</p>
             )}
           </form>
 
           <aside style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div className="info">
-              <h3>Contact us directly</h3>
+              <h3>{t("Contact us directly")}</h3>
               <div className="info__row">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>
@@ -312,20 +296,18 @@ function ContactForm() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
                 </svg>
-                <span>Monday to Saturday, 9:00–18:00 IST</span>
+                <span>{t("Monday to Saturday, 9:00–18:00 IST")}</span>
               </div>
               <a className="btn btn--light" href="https://wa.me/917994764845" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M4 20l1.3-4.2A8.2 8.2 0 1 1 8.4 19z"/>
                   <path d="M9 8.5c0 3.4 3 6.5 6.5 6.5l1-1.6-2-1-1 1c-1.2-.4-2.5-1.7-2.9-2.9l1-1-1-2z"/>
-                </svg>
-                Chat on WhatsApp
-              </a>
+                </svg>{t("Chat on WhatsApp")}</a>
             </div>
 
             <div className="map">
               <iframe
-                title="Map of Remevia office in Irinjalakuda, Kerala"
+                title={t("Map of Remevia office in Irinjalakuda, Kerala")}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps?q=Edakulam,+Irinjalakuda,+Kerala+680688&output=embed"
@@ -340,9 +322,9 @@ function ContactForm() {
       <section className="section section--mist">
         <div className="wrap">
           <div className="head">
-            <span className="kicker">Distributor programme</span>
-            <h2>Become a Remevia partner in your region</h2>
-            <p className="lede">We are building a global network of veterinary and feed-additive distributors.</p>
+            <span className="kicker">{t("Distributor programme")}</span>
+            <h2>{t("Become a Remevia partner in your region")}</h2>
+            <p className="lede">{t("We are building a global network of veterinary and feed-additive distributors.")}</p>
           </div>
           <div className="grid grid--3">
             <div className="card">
@@ -351,8 +333,8 @@ function ContactForm() {
                   <path d="M4 20h16M7 20V11M12 20V5M17 20v-6"/>
                 </svg>
               </span>
-              <h3>Growing demand</h3>
-              <p>Producers everywhere are moving to antibiotic-free programmes, and buyers are asking for proof.</p>
+              <h3>{t("Growing demand")}</h3>
+              <p>{t("Producers everywhere are moving to antibiotic-free programmes, and buyers are asking for proof.")}</p>
             </div>
             <div className="card">
               <span className="card__icon">
@@ -360,8 +342,8 @@ function ContactForm() {
                   <path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="12" r="2"/>
                 </svg>
               </span>
-              <h3>Technical support</h3>
-              <p>Product training, field trial support and marketing material in your language.</p>
+              <h3>{t("Technical support")}</h3>
+              <p>{t("Product training, field trial support and marketing material in your language.")}</p>
             </div>
             <div className="card">
               <span className="card__icon">
@@ -369,14 +351,12 @@ function ContactForm() {
                   <path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
                 </svg>
               </span>
-              <h3>Export-ready range</h3>
-              <p>Five products in feed, water and spray formats, in bulk packs for distribution.</p>
+              <h3>{t("Export-ready range")}</h3>
+              <p>{t("Six products in liquid and powder formats, in standardized export bulk packs for commercial distribution.")}</p>
             </div>
           </div>
           <div className="btn-row" style={{ marginTop: '28px' }}>
-            <button className="btn" onClick={() => { setEtype('distributor'); window.scrollTo({ top: 300, behavior: 'smooth' }); }}>
-              Apply as a distributor
-            </button>
+            <button className="btn" onClick={() => { setEtype('distributor'); window.scrollTo({ top: 300, behavior: 'smooth' }); }}>{t("Apply as a distributor")}</button>
           </div>
         </div>
       </section>
@@ -384,27 +364,27 @@ function ContactForm() {
       {/* FAQs */}
       <section className="section">
         <div className="wrap two-col">
-          <h2>Common questions</h2>
+          <h2>{t("Common questions")}</h2>
           <div className="faq">
             <details open>
-              <summary>Do you offer free trials?</summary>
-              <p>Yes. Choose "Request a free trial" above and our technical team will plan a trial for your flock or feed mill.</p>
+              <summary>{t("Do you offer free trials?")}</summary>
+              <p>{t("Yes. Choose \"Request a free trial\" above and our technical team will plan a trial for your flock or feed mill.")}</p>
             </details>
             <details>
-              <summary>Which products go in drinking water?</summary>
-              <p>CURTECT-CRD and TLREPEAL are water soluble. TLTREAT and TLEGG are mixed into feed. TL HEALER is applied to the skin.</p>
+              <summary>{t("Which products go in drinking water?")}</summary>
+              <p>{t("EKSIT-CRD, CURTECT-CRD, and TLREPEAL are water-soluble liquid concentrates designed for drinking water lines. TLTREAT and TLEGG are powder premixes mixed directly into feed mash or pellets. TL HEALER is applied topically to wounds and skin.")}</p>
             </details>
             <details>
-              <summary>What pack sizes are available?</summary>
-              <p>Liquids come in 5 kg and 20 kg HMHDPE bottles. Powders come in 50 kg PP woven laminated bags with an HMHDPE liner.</p>
+              <summary>{t("What pack sizes and packaging are available?")}</summary>
+              <p>{t("All liquid formulations (EKSIT, CURTECT-CRD, TLREPEAL, TL HEALER) use standard heavy-duty 5 kg and 20 kg HMHDPE cans/bottles with specialized product-specific labelling. Powder premixes (TLTREAT, TLEGG) are packaged in 50 kg PP woven outer laminated bags with inner HMHDPE moisture barrier liners.")}</p>
             </details>
             <details>
-              <summary>What is the minimum order quantity?</summary>
-              <p>MOQ depends on whether products are shipped domestically or via export cargo. Contact our export desk for details.</p>
+              <summary>{t("What is the minimum order quantity?")}</summary>
+              <p>{t("MOQ depends on whether products are shipped domestically or via export cargo. Contact our export desk for details.")}</p>
             </details>
             <details>
-              <summary>Do you export to my country?</summary>
-              <p>Remevia exports across the Middle East, Southeast Asia and South Asia with full export registration documentation.</p>
+              <summary>{t("Do you export to my country?")}</summary>
+              <p>{t("Remevia exports across the Middle East, Southeast Asia and South Asia with full export registration documentation.")}</p>
             </details>
           </div>
         </div>
@@ -413,9 +393,14 @@ function ContactForm() {
   );
 }
 
+function ContactLoading() {
+  const { t } = useLanguage();
+  return <div className="wrap" style={{ padding: '60px 0' }}>{t("Loading contact page...")}</div>;
+}
+
 export default function ContactPage() {
   return (
-    <Suspense fallback={<div className="wrap" style={{ padding: '60px 0' }}>Loading contact page...</div>}>
+    <Suspense fallback={<ContactLoading />}>
       <ContactForm />
     </Suspense>
   );
