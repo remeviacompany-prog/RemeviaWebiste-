@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '../context/LanguageContext';
 
 const FINDER = {
   growth: {
@@ -19,6 +20,14 @@ const FINDER = {
     img: '/assets/img/curtect-crd.webp',
     href: '/products/curtect-crd',
     text: 'Menthol, eucalyptus and rosemary oils open airways, loosen mucus and ease gasping. Visible relief within 24–48 hours at 200 ml per 1,000 L of water.'
+  },
+  crd: {
+    cls: 't-eksit',
+    cat: 'Anti-Mycoplasma CRD solution',
+    name: 'EKSIT-CRD',
+    img: '/assets/img/eksit-crd.webp',
+    href: '/products/eksit-crd',
+    text: 'Cinnamon, Curcuminoids, Eucalyptus, Mint, Oregano and Vasaka fight resistant Mycoplasma Gallisepticum with superior zone of inhibition. Dose 200 ml / 1,000 L on a 2-days ON / 2-days OFF cycle.'
   },
   yolk: {
     cls: 't-egg',
@@ -47,6 +56,7 @@ const FINDER = {
 };
 
 export default function ChallengeFinder() {
+  const { t } = useLanguage();
   const [activeKey, setActiveKey] = useState('growth');
   const [swapping, setSwapping] = useState(false);
 
@@ -65,24 +75,24 @@ export default function ChallengeFinder() {
     <section className="finder section">
       <div className="wrap">
         <div className="finder__intro">
-          <span className="badge">Interactive product guide</span>
-          <h2>What is holding your flock back?</h2>
-          <p className="lede">Select your primary concern to see the proven botanical formula developed for it.</p>
+          <span className="eyebrow">{t("Interactive product guide")}</span>
+          <h2>{t("What is holding your flock back?")}</h2>
+          <p className="lede">{t("Select your primary concern to see the proven botanical formula developed for it.")}</p>
         </div>
 
         <div className="finder__grid">
-          <div className="finder__list" role="tablist" aria-label="Farm challenges">
+          <div className="finder__list" role="tablist" aria-label={t("Farm challenges")}>
             <button 
               type="button" 
               role="tab"
               aria-selected={activeKey === 'growth'}
-              className="finder__opt"
+              className="finder__opt t-treat"
               onClick={() => handleSelect('growth')}
             >
               <span className="finder__bullet" style={{ background: '#B5692A' }}></span>
               <span>
-                <b>Gut health, immunity & growth</b>
-                <small>Looking for a proven, zero-residue alternative to AGPs</small>
+                <b>{t("Gut health, immunity & growth")}</b>
+                <small>{t("Looking for a proven, zero-residue alternative to AGPs")}</small>
               </span>
             </button>
 
@@ -90,13 +100,27 @@ export default function ChallengeFinder() {
               type="button" 
               role="tab"
               aria-selected={activeKey === 'breath'}
-              className="finder__opt"
+              className="finder__opt t-curtect"
               onClick={() => handleSelect('breath')}
             >
               <span className="finder__bullet" style={{ background: '#1B7EC0' }}></span>
               <span>
-                <b>Respiratory distress & CRD</b>
-                <small>Wheezing, gasping, tracheal mucus and seasonal distress</small>
+                <b>{t("Respiratory distress & post-vaccination")}</b>
+                <small>{t("Wheezing, gasping, tracheal mucus and seasonal distress")}</small>
+              </span>
+            </button>
+
+            <button 
+              type="button" 
+              role="tab"
+              aria-selected={activeKey === 'crd'}
+              className="finder__opt t-eksit"
+              onClick={() => handleSelect('crd')}
+            >
+              <span className="finder__bullet" style={{ background: '#7B2CBF' }}></span>
+              <span>
+                <b>{t("Chronic Respiratory Disease (CRD) & Mycoplasma")}</b>
+                <small>{t("Resistant Mycoplasma Gallisepticum, deep bronchial mucus & airsacculitis")}</small>
               </span>
             </button>
 
@@ -104,13 +128,13 @@ export default function ChallengeFinder() {
               type="button" 
               role="tab"
               aria-selected={activeKey === 'yolk'}
-              className="finder__opt"
+              className="finder__opt t-egg"
               onClick={() => handleSelect('yolk')}
             >
               <span className="finder__bullet" style={{ background: '#7DBE3F' }}></span>
               <span>
-                <b>Pale egg yolks & consumer demand</b>
-                <small>Need consistent golden-orange yolk colour naturally</small>
+                <b>{t("Pale egg yolks & consumer demand")}</b>
+                <small>{t("Need consistent golden-orange yolk colour naturally")}</small>
               </span>
             </button>
 
@@ -118,13 +142,13 @@ export default function ChallengeFinder() {
               type="button" 
               role="tab"
               aria-selected={activeKey === 'mites'}
-              className="finder__opt"
+              className="finder__opt t-repeal"
               onClick={() => handleSelect('mites')}
             >
               <span className="finder__bullet" style={{ background: '#D7262E' }}></span>
               <span>
-                <b>Avian red mite infestations</b>
-                <small>Blood loss, stress, egg stains and mite resistance to chemicals</small>
+                <b>{t("Avian red mite infestations")}</b>
+                <small>{t("Blood loss, stress, egg stains and mite resistance to chemicals")}</small>
               </span>
             </button>
 
@@ -132,28 +156,28 @@ export default function ChallengeFinder() {
               type="button" 
               role="tab"
               aria-selected={activeKey === 'wounds'}
-              className="finder__opt"
+              className="finder__opt t-healer"
               onClick={() => handleSelect('wounds')}
             >
               <span className="finder__bullet" style={{ background: '#EE8A1C' }}></span>
               <span>
-                <b>Skin wounds, tick bites & maggots</b>
-                <small>Topical antiseptic and fly-repelling wound spray</small>
+                <b>{t("Skin wounds, tick bites & maggots")}</b>
+                <small>{t("Topical antiseptic and fly-repelling wound spray")}</small>
               </span>
             </button>
           </div>
 
           <div className={`finder__result ${item.cls} ${swapping ? 'is-swapping' : ''}`}>
             <div className="finder__visual">
-              <img src={item.img} alt={`${item.name} for poultry`} />
+              <img src={item.img} alt={t("{name} for poultry", { name: item.name })} />
             </div>
             <div className="finder__details">
-              <span className="finder__cat">{item.cat}</span>
+              <span className="finder__cat">{t(item.cat)}</span>
               <h3 className="finder__name">{item.name}</h3>
-              <p className="finder__text">{item.text}</p>
+              <p className="finder__text">{t(item.text)}</p>
               <div className="finder__action">
                 <Link className="btn btn--grad" href={item.href}>
-                  View {item.name} full datasheet & dosing
+                  {t("View {name} full datasheet & dosing", { name: item.name })}
                 </Link>
               </div>
             </div>

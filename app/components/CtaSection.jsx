@@ -42,10 +42,8 @@ export default function CtaSection({ defaultProduct = '' }) {
     <section className="cta section">
       <div className="wrap">
         <div className="cta__copy">
-          <h2>{t('sec.ready', 'Ready to go antibiotic-free?')}</h2>
-          <p className="lede">
-            Tell us about your operation. A Remevia expert will recommend a programme and set up a field trial on your farm or feed mill.
-          </p>
+          <h2>{t("Ready to go antibiotic-free?")}</h2>
+          <p className="lede">{t("Tell us about your operation. A Remevia expert will recommend a programme and set up a field trial on your farm or feed mill.")}</p>
           <div className="cta__contact">
             <a href="https://wa.me/917994764845" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -66,42 +64,34 @@ export default function CtaSection({ defaultProduct = '' }) {
                 <path d="M3 6h11v10H3zM14 10h4l3 3v3h-7z"/>
                 <circle cx="7" cy="18" r="2"/>
                 <circle cx="17" cy="18" r="2"/>
-              </svg>
-              Apply to become a distributor
-            </a>
+              </svg>{t("Apply to become a distributor")}</a>
           </div>
         </div>
 
         <form className={`form ${isSent ? 'is-sent' : ''}`} onSubmit={handleSubmit} noValidate>
-          <h3>Request a free trial</h3>
+          <h3>{t("Request a free trial")}</h3>
           
-          <label className={`field ${errors.name ? 'has-error' : ''}`}>
-            Full name *
-            <input 
+          <label className={`field ${errors.name ? 'has-error' : ''}`}>{t("Full name *")}<input 
               name="name" 
               required 
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               autoComplete="name" 
             />
-            {errors.name && <span className="err">{errors.name}</span>}
+            {errors.name && <span className="err">{t(errors.name)}</span>}
           </label>
 
-          <label className={`field ${errors.company ? 'has-error' : ''}`}>
-            Company *
-            <input 
+          <label className={`field ${errors.company ? 'has-error' : ''}`}>{t("Company *")}<input 
               name="company" 
               required 
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
               autoComplete="organization" 
             />
-            {errors.company && <span className="err">{errors.company}</span>}
+            {errors.company && <span className="err">{t(errors.company)}</span>}
           </label>
 
-          <label className={`field ${errors.email ? 'has-error' : ''}`}>
-            Work email *
-            <input 
+          <label className={`field ${errors.email ? 'has-error' : ''}`}>{t("Work email *")}<input 
               name="email" 
               type="email" 
               required 
@@ -109,12 +99,10 @@ export default function CtaSection({ defaultProduct = '' }) {
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               autoComplete="email" 
             />
-            {errors.email && <span className="err">{errors.email}</span>}
+            {errors.email && <span className="err">{t(errors.email)}</span>}
           </label>
 
-          <label className="field">
-            Phone / WhatsApp
-            <input 
+          <label className="field">{t("Phone / WhatsApp")}<input 
               name="phone" 
               type="tel" 
               value={formData.phone}
@@ -123,31 +111,27 @@ export default function CtaSection({ defaultProduct = '' }) {
             />
           </label>
 
-          <label className={`field ${errors.country ? 'has-error' : ''}`}>
-            Country *
-            <input 
+          <label className={`field ${errors.country ? 'has-error' : ''}`}>{t("Country *")}<input 
               name="country" 
               required 
               value={formData.country}
               onChange={(e) => setFormData({ ...formData, country: e.target.value })}
               autoComplete="country-name" 
             />
-            {errors.country && <span className="err">{errors.country}</span>}
+            {errors.country && <span className="err">{t(errors.country)}</span>}
           </label>
 
-          <label className="field">
-            Business type
-            <select 
+          <label className="field">{t("Business type")}<select 
               name="business"
               value={formData.business}
               onChange={(e) => setFormData({ ...formData, business: e.target.value })}
             >
-              <option>Poultry farm</option>
-              <option>Integrator</option>
-              <option>Feed mill</option>
-              <option>Distributor</option>
-              <option>Veterinarian</option>
-              <option>Other</option>
+              <option value="Poultry farm">{t("Poultry farm")}</option>
+              <option value="Integrator">{t("Integrator")}</option>
+              <option value="Feed mill">{t("Feed mill")}</option>
+              <option value="Distributor">{t("Distributor")}</option>
+              <option value="Veterinarian">{t("Veterinarian")}</option>
+              <option value="Other">{t("Other")}</option>
             </select>
           </label>
 
@@ -160,17 +144,15 @@ export default function CtaSection({ defaultProduct = '' }) {
               checked={formData.consent}
               onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
             />
-            <span>I agree that Remevia may contact me about this enquiry. <a href="#">Privacy policy</a></span>
+            <span>{t("I agree that Remevia may contact me about this enquiry.")}{' '}<a href="#">{t("Privacy policy")}</a></span>
           </label>
 
           <button className="btn btn--grad full" type="submit">
-            {t('form.submit', 'Send enquiry')}
+            {t("Send enquiry")}
           </button>
 
           {isSent && (
-            <p className="form__ok" role="status">
-              Thank you. Your enquiry was sent and our team will reply within one working day.
-            </p>
+            <p className="form__ok" role="status">{t("Thank you. Your enquiry was sent and our team will reply within one working day.")}</p>
           )}
         </form>
       </div>
