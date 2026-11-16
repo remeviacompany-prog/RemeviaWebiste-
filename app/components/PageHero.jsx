@@ -27,6 +27,7 @@ export default function PageHero({ crumb, title, lede, scene = 'science', facts,
   const { t } = useLanguage();
   return (
     <section className={`phero phero--${scene}`}>
+      <img className="hero-leaf" src="/assets/img/hero-leaf.webp" alt="" aria-hidden="true" width="1672" height="941" />
       <div className={`wrap phero__grid ${facts ? '' : 'phero__grid--solo'}`}>
         <div className="phero__copy">
           <nav className="crumbs hero-in" style={{ '--d': '0s' }} aria-label={t("Breadcrumb")}>

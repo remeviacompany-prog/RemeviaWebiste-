@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import CtaSection from '../components/CtaSection';
 import PageHero from '../components/PageHero';
+import { Icon } from '../components/icons';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function SciencePage() {
@@ -32,11 +32,7 @@ export default function SciencePage() {
       {/* Quote */}
       <section className="section">
         <div className="wrap quote">
-          <span className="card__icon" style={{ width: '64px', height: '64px' }}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
-            </svg>
-          </span>
+          <span className="quote__mark" aria-hidden="true"><Icon name="sprout" size={34} strokeWidth={1.7} /></span>
           <blockquote>{t("“Let food be thy medicine.”")}</blockquote>
           <cite>{t("Commonly attributed to Hippocrates")}</cite>
           <p>{t("Every living thing has natural enemies, and nature has already made the molecules to fight them. Plants use essential oils and oleoresins to protect themselves from bacteria, fungi and pests. We don't reinvent these molecules. We find them, purify them and put them to work.")}</p>
@@ -81,7 +77,7 @@ export default function SciencePage() {
             </article>
 
             <article className="ing">
-              <h3>{t("Menthol & eucalyptus")}</h3>
+              <h3>{t("Menthol & 1,8-cineole")}</h3>
               <span className="ing__mol">{t("Menthol, 1,8-cineole")}</span>
               <p>{t("Open airways, loosen mucus and give a cooling effect in heat stress.")}</p>
               <div className="ing__used">
@@ -110,7 +106,7 @@ export default function SciencePage() {
             </article>
 
             <article className="ing">
-              <h3>{t("Rosemary & pine terpenes")}</h3>
+              <h3>{t("Rosemary & terpenes")}</h3>
               <span className="ing__mol">{t("Alpha-pinene, limonene")}</span>
               <p>{t("Terpenes with antimicrobial, antioxidant and decongestant action.")}</p>
               <div className="ing__used">
@@ -149,10 +145,11 @@ export default function SciencePage() {
         </div>
       </section>
 
-      {/* R&D Process */}
+      {/* Our R&D Process */}
       <section className="section section--dark">
         <div className="wrap">
           <div className="head">
+            <span className="eyebrow eyebrow--light">{t("R&D Pipeline")}</span>
             <h2>{t("Our R&D process")}</h2>
             <p className="lede">{t("Four steps take a plant molecule from the field to a proven product.")}</p>
           </div>
@@ -184,36 +181,40 @@ export default function SciencePage() {
       {/* Synergy Section */}
       <section className="section">
         <div className="wrap">
-          <div className="head">
+          <div className="head head--line">
             <h2>{t("One molecule can be beaten. A combination is much harder.")}</h2>
             <p className="lede">{t("Bacteria and pests adapt to a single mode of action. Blends that act on several targets at once give them far fewer ways out.")}</p>
           </div>
-          <div className="compare" style={{ marginBottom: '24px' }}>
-            <div style={{ background: 'var(--mist)' }}>
-              <h3 style={{ marginBottom: '12px' }}>{t("Single active")}</h3>
+          <div className="compare duel" style={{ marginBottom: '24px' }}>
+            <div className="duel__card duel__card--single">
+              <h3>{t("Single active")}</h3>
               <svg viewBox="0 0 320 160" role="img" aria-label={t("One compound acting on one target")}>
-                <circle cx="60" cy="80" r="22" fill="#94A3BF"/>
-                <path d="M84 80h120" stroke="#94A3BF" strokeWidth="3" strokeDasharray="6 6"/>
-                <circle cx="240" cy="80" r="34" fill="none" stroke="#B3261E" strokeWidth="3"/>
-                <circle cx="240" cy="80" r="8" fill="#B3261E"/>
-                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("1 target · easier to resist")}</text>
+                <path d="M84 80h118" stroke="#94A3BF" strokeWidth="3" strokeDasharray="6 6" className="duel__line"/>
+                <circle cx="60" cy="80" r="22" fill="#94A3BF" className="duel__src"/>
+                <circle r="7" fill="#7C8AA5" className="duel__shot duel__shot--single"/>
+                <circle cx="240" cy="80" r="44" fill="none" stroke="#B3261E" strokeWidth="2.5" strokeDasharray="5 6" className="duel__shield"/>
+                <circle cx="240" cy="80" r="34" fill="#FDECEA" stroke="#B3261E" strokeWidth="3"/>
+                <circle cx="240" cy="80" r="9" fill="#B3261E" className="duel__core duel__core--alive"/>
+                <text x="240" y="150" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("1 target · easier to resist")}</text>
               </svg>
             </div>
-            <div style={{ background: 'linear-gradient(140deg,#EEF2FB,#E6F5EC)' }}>
-              <h3 style={{ marginBottom: '12px' }}>{t("Remevia synergy blend")}</h3>
+            <div className="duel__card duel__card--blend">
+              <h3>{t("Remevia synergy blend")}</h3>
               <svg viewBox="0 0 320 160" role="img" aria-label={t("Several compounds acting on several targets")}>
-                <defs>
-                  <linearGradient id="sg" x1="0" x2="1">
-                    <stop offset="0" stopColor="#2C49A6"/>
-                    <stop offset=".5" stopColor="#1A97A4"/>
-                    <stop offset="1" stopColor="#3BB54A"/>
-                  </linearGradient>
-                </defs>
-                <circle cx="50" cy="40" r="14" fill="#2C49A6"/><circle cx="50" cy="80" r="14" fill="#1A97A4"/><circle cx="50" cy="120" r="14" fill="#3BB54A"/>
-                <path d="M66 40C140 40 160 60 214 70M66 80h146M66 120C140 120 160 100 214 90M66 40C150 30 170 120 222 106" stroke="url(#sg)" strokeWidth="3" fill="none"/>
-                <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="3"/>
-                <circle cx="240" cy="80" r="8" fill="#1E7A34"/>
-                <text x="240" y="140" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("Many targets · hard to resist")}</text>
+                <path d="M66 40C140 40 160 70 206 77" stroke="#2C49A6" strokeWidth="3" fill="none" className="duel__flow"/>
+                <path d="M66 80H206" stroke="#1A97A4" strokeWidth="3" fill="none" className="duel__flow"/>
+                <path d="M66 120C140 120 160 90 206 83" stroke="#3BB54A" strokeWidth="3" fill="none" className="duel__flow"/>
+                <circle cx="50" cy="40" r="14" fill="#2C49A6" className="duel__src"/>
+                <circle cx="50" cy="80" r="14" fill="#1A97A4" className="duel__src" style={{ animationDelay: '.2s' }}/>
+                <circle cx="50" cy="120" r="14" fill="#3BB54A" className="duel__src" style={{ animationDelay: '.4s' }}/>
+                <circle r="6" fill="#2C49A6" className="duel__shot duel__shot--a"/>
+                <circle r="6" fill="#1A97A4" className="duel__shot duel__shot--b"/>
+                <circle r="6" fill="#3BB54A" className="duel__shot duel__shot--c"/>
+                <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="2" className="duel__ripple"/>
+                <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="2" className="duel__ripple" style={{ animationDelay: '.35s' }}/>
+                <circle cx="240" cy="80" r="34" fill="#E6F5EC" stroke="#1E7A34" strokeWidth="3"/>
+                <circle cx="240" cy="80" r="9" fill="#1E7A34" className="duel__core duel__core--beaten"/>
+                <text x="240" y="150" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("Many targets · hard to resist")}</text>
               </svg>
             </div>
           </div>
@@ -243,62 +244,36 @@ export default function SciencePage() {
       </section>
 
       {/* Quality Control */}
-      <section className="section section--mist" id="quality">
-        <div className="wrap two-col">
-          <div className="head" style={{ margin: 0 }}>
-            <h2>{t("Consistent from batch to batch")}</h2>
+      <section className="section qc" id="quality">
+        <div className="wrap">
+          <div className="qc__head">
+            <div>
+              <span className="eyebrow">{t("Quality control")}</span>
+              <h2>{t("Consistent from batch to batch")}</h2>
+            </div>
             <p className="lede">{t("Natural raw materials vary. Our quality process makes sure what reaches your farm does not.")}</p>
           </div>
-          <div className="grid grid--2">
-            <div className="card">
-              <span className="card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
-                </svg>
-              </span>
-              <h3>{t("Raw material checks")}</h3>
-              <p>{t("Every lot of spice, flower and oil is tested for identity and quality on arrival.")}</p>
-            </div>
-            <div className="card">
-              <span className="card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M9 3h6M10 3v6.2L4.8 18a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 9.2V3"/><path d="M7.5 14h9"/>
-                </svg>
-              </span>
-              <h3>{t("Standardised actives")}</h3>
-              <p>{t("Formulations are adjusted so active content stays within specification.")}</p>
-            </div>
-            <div className="card">
-              <span className="card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>
-                </svg>
-              </span>
-              <h3>{t("Batch QC & COA")}</h3>
-              <p>{t("Each batch is released with a certificate of analysis, available to buyers.")}</p>
-            </div>
-            <div className="card">
-              <span className="card__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>
-                </svg>
-              </span>
-              <h3>{t("Protective packing")}</h3>
-              <p>{t("HMHDPE bottles and lined laminated bags protect actives from light and moisture.")}</p>
-            </div>
-          </div>
-        </div>
-        <div className="wrap" style={{ marginTop: '32px' }}>
-          <div className="grid grid--4">
-            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[GMP Certified Facility]")}</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[QC Analytical Laboratory]")}</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[ISO 9001 Quality System]")}</div>
-            <div className="placeholder" style={{ minHeight: '180px' }}>{t("[Export Registrations]")}</div>
-          </div>
+          <ol className="qc__steps">
+            {[
+              ['leaf', 'Raw material checks', 'Every lot of spice, flower and oil is tested for identity and quality on arrival.', 'On arrival'],
+              ['bottle', 'Standardised actives', 'Formulations are adjusted so active content stays within specification.', 'During production'],
+              ['certificate', 'Batch QC & COA', 'Each batch is released with a certificate of analysis, available to buyers.', 'Before release'],
+              ['package', 'Protective packing', 'HMHDPE bottles and lined laminated bags protect actives from light and moisture.', 'At packing'],
+            ].map(([icon, title, text, when], i) => (
+              <li key={title} className="qc__step">
+                <div className="qc__top">
+                  <span className="qc__icon"><Icon name={icon} size={24} /></span>
+                  <span className="qc__num">{String(i + 1).padStart(2, '0')}</span>
+                </div>
+                <span className="qc__when">{t(when)}</span>
+                <h3>{t(title)}</h3>
+                <p>{t(text)}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      <CtaSection />
     </>
   );
 }

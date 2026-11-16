@@ -18,6 +18,7 @@ function ContactForm() {
   const [etype, setEtype] = useState('trial');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [isSent, setIsSent] = useState(false);
+  const [sendFailed, setSendFailed] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -51,7 +52,7 @@ function ContactForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -71,7 +72,18 @@ function ContactForm() {
     }
 
     setErrors({});
-    setIsSent(true);
+    setSendFailed(false);
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, products: selectedProducts, type: t(currentType.title), page: '/contact' }),
+      });
+      if (!res.ok) throw new Error('send failed');
+      setIsSent(true);
+    } catch {
+      setSendFailed(true);
+    }
   };
 
   const currentType = ETYPE[etype] || ETYPE.trial;
@@ -262,6 +274,10 @@ function ContactForm() {
               {t(currentType.btn)}
             </button>
 
+            {sendFailed && (
+              <p className="enq__fail full" role="alert">{t("Something went wrong. Please try again or email care@remevia.in.")}</p>
+            )}
+
             {isSent && (
               <p className="form__ok" role="status">{t("Thank you. Your enquiry was sent and our team will reply within one working day.")}</p>
             )}
@@ -290,7 +306,7 @@ function ContactForm() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>
                 </svg>
-                <a href="mailto:info@remevia.in">info@remevia.in</a>
+                <a href="mailto:care@remevia.in">care@remevia.in</a>
               </div>
               <div className="info__row">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

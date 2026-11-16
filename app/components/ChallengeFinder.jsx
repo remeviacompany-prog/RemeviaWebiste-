@@ -11,7 +11,7 @@ const FINDER = {
     name: 'TLTREAT',
     img: '/assets/img/tltreat.webp',
     href: '/products/tltreat',
-    text: 'Spice extracts of ginger, turmeric and nutmeg stimulate immunity and replace antibiotic growth promoters. Use 1–2 kg per tonne of broiler feed from day 1 to 40.'
+    text: 'Spice extracts of ginger, turmeric and nutmeg stimulate immunity and replace antibiotic growth promoters. Use 1 kg per tonne of broiler feed from day 1 to 40.'
   },
   breath: {
     cls: 't-curtect',
@@ -76,7 +76,7 @@ export default function ChallengeFinder() {
       <div className="wrap">
         <div className="finder__intro">
           <span className="eyebrow">{t("Interactive product guide")}</span>
-          <h2>{t("What is holding your flock back?")}</h2>
+          <h2>{t("What is holding your flock/animal back?")}</h2>
           <p className="lede">{t("Select your primary concern to see the proven botanical formula developed for it.")}</p>
         </div>
 

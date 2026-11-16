@@ -11,18 +11,18 @@ export const PRODUCTS_DATA = {
     lede: 'A scientific blend of potent spice extracts including curcumin, ginger extract, turmeric oil, and nutmeg extract. TLTREAT stimulates natural immunity, prevents coccidiosis, and replaces chemical antibiotic growth promoters (AGPs) across broilers and layers.',
     img: '/assets/img/tltreat.webp',
     keypoints: [
-      '2 kg of TLTREAT delivers 20 kg of additional meat',
+      '1 kg of TLTREAT delivers 15 kg of additional meat',
       'Regular use helps prevent coccidiosis',
       'Eliminates the need for antibiotic growth promoters (AGPs)',
       'Enhances natural immunity against bacterial, viral & fungal infections',
       'Healthier birds, lower mortality, and significantly improved FCR',
-      'Extends commercial laying cycle from the 60th to 110th week'
+      'Extends commercial laying cycle from the 60th to 100th week'
     ],
     facts: [
       { label: 'Format', val: 'Feed powder' },
       { label: 'Species', val: 'Broilers, layers, breeders' },
-      { label: 'Dose', val: '1–2 kg / 1,000 kg feed' },
-      { label: 'Field claim', val: '2 kg → 20 kg extra meat', highlight: true },
+      { label: 'Dose', val: '1 kg / 1,000 kg feed' },
+      { label: 'Field claim', val: '1 kg → 15 kg extra meat', highlight: true },
       { label: 'Packing', val: '50 kg laminated bag' }
     ],
     whyChooseTitle: 'Why Leading Farms & Feed Mills Choose TLTREAT',
@@ -31,7 +31,7 @@ export const PRODUCTS_DATA = {
       'Potent immune system stimulant that boosts cell-mediated and humoral bird immunity',
       'Standardised natural spice extracts: Ginger, Turmeric, Nutmeg, and Turmeric oil',
       'Highly effective, zero-residue alternative to antibiotic growth promoters',
-      'Extends laying persistence in commercial layers up to 110 weeks with strong shells',
+      'Extends laying persistence in commercial layers up to 100 weeks with strong shells',
       'Ideal for both high-efficiency broiler operations and commercial egg layers',
       'Simple to blend into mash or pelleted feeds with high pelleting heat stability',
       'Reduces abdominal fat weight to maximize lean meat quality and carcass grade'
@@ -47,7 +47,7 @@ export const PRODUCTS_DATA = {
       },
       { 
         title: 'Optimized FCR & Extra Meat', 
-        desc: 'Delivers up to 20 kg additional dressed meat per 2 kg inclusion through enhanced villus height and nutrient assimilation.' 
+        desc: 'Delivers up to 15 kg additional dressed meat per 1 kg inclusion through enhanced villus height and nutrient assimilation.' 
       },
       { 
         title: 'Outperforms Chemical AGPs', 
@@ -74,8 +74,8 @@ export const PRODUCTS_DATA = {
       { name: 'Grain powder & carrier', note: 'Natural plant carrier ensuring homogenous micro-dispersion in feed' }
     ],
     dosageTable: [
-      { use: 'Broilers (Starter to Finisher)', rate: '1 to 2 kg per 1,000 kg feed', prog: 'From Day 1 to 40th Day continuously in feed mash or pellets' },
-      { use: 'Commercial Layers (Extended Cycle)', rate: '2 kg per 1,000 kg feed', prog: 'From 60th to 110th week to support extended laying cycle & egg quality' },
+      { use: 'Broilers (Starter to Finisher)', rate: '1 kg per 1,000 kg feed', prog: 'From Day 1 to 40th Day continuously in feed mash or pellets' },
+      { use: 'Commercial Layers (Extended Cycle)', rate: '2 kg per 1,000 kg feed', prog: 'From 60th to 100th week to support extended laying cycle & egg quality' },
       { use: 'Breeders / Environmental Stress', rate: '2 kg per 1,000 kg feed', prog: 'During disease challenge, feed transition, or post-vaccination stress' }
     ],
     specs: [
@@ -87,20 +87,19 @@ export const PRODUCTS_DATA = {
     ],
     rates: {
       "Broilers at 1 kg/t": [1, "kg", "Tonnes of feed", "TLTREAT to mix into this feed"],
-      "Broilers at 2 kg/t": [2, "kg", "Tonnes of feed", "TLTREAT to mix into this feed"],
       "Layers at 2 kg/t": [2, "kg", "Tonnes of feed", "TLTREAT to mix into this feed"]
     },
     resultsTitle: 'Controlled Trial: TLTREAT vs. Antibiotic Growth Promoters',
     resultsLede: 'Commercial broiler trials across 40,000 birds demonstrate measurable improvements in final body weight, feed conversion ratio, and livability compared with standard chemical AGP controls.',
     resultsStats: [
-      { val: '+20 kg', label: 'Extra meat per 2 kg inclusion' },
+      { val: '+15 kg', label: 'Extra meat per 1 kg inclusion' },
       { val: '-56%', label: 'Reduction in flock mortality' },
       { val: '6.5%', label: 'Net improvement in FCR' },
       { val: '0 Days', label: 'Residue withdrawal period' }
     ],
     faqs: [
       { q: 'Can TLTREAT completely replace chemical antibiotic growth promoters?', a: 'Yes. TLTREAT is formulated as a natural, highly efficacious replacer for AGPs. Commercial trials demonstrate equivalent or superior growth rates and FCR without generating microbial resistance or leaving chemical residues.' },
-      { q: 'When should commercial layers be fed TLTREAT?', a: 'Include TLTREAT at 2 kg per tonne of layer feed continuously from the 60th week up to the 110th week. This sustains peak laying persistence, strengthens eggshell integrity, and enhances flock longevity during extended laying.' },
+      { q: 'When should commercial layers be fed TLTREAT?', a: 'Include TLTREAT at 2 kg per tonne of layer feed continuously from the 60th week up to the 100th week. This sustains peak laying persistence, strengthens eggshell integrity, and enhances flock longevity during extended laying.' },
       { q: 'Does TLTREAT help prevent coccidiosis in broilers?', a: 'Yes. Regular dietary inclusion from Day 1 creates a protective environment along the intestinal mucosa, suppressing Eimeria sporozoite mobility and significantly reducing the incidence of coccidial lesions.' },
       { q: 'Is TLTREAT heat-stable during feed pelleting and extrusion?', a: 'Yes. The active botanical polyphenols and essential oil fractions are bound within an inert plant matrix, maintaining full biological activity through standard commercial pelleting temperatures up to 85°C.' }
     ],
@@ -183,7 +182,7 @@ export const PRODUCTS_DATA = {
       { name: 'Water-soluble base', note: '100% water-soluble carrier leaving zero residue in drinker nipples' }
     ],
     dosageTable: [
-      { use: 'Prevention of Respiratory Diseases', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a week in a continuous 12-hour cycle' },
+      { use: 'Prevention of Respiratory Diseases', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 7–14 days' },
       { use: '48 Hours After Live Vaccination', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 4 days with an 8-hour interval between doses' },
       { use: 'Adjunct Therapy During Active Infections', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 4 days with an 8-hour interval between doses' },
       { use: 'Heat Stress Management', rate: '200 ml per 1,000 L drinking water', prog: 'Administer during the hottest hours of the day (11 AM to 4 PM)' }
@@ -512,8 +511,8 @@ export const PRODUCTS_DATA = {
       { name: 'Emulsifiers & natural carrier', note: 'Ensures uniform skin adhesion, penetration, and protective film formation' }
     ],
     dosageTable: [
-      { use: 'Wounds, Cuts & Tick Bites', rate: 'Spray or apply directly on affected area', prog: 'Clean surface dirt and apply generously; repeat daily until healed' },
-      { use: 'Infected & Maggot Wounds', rate: 'Spray thoroughly into the wound cavity', prog: 'Apply twice daily; maggots emerge and area cleans rapidly' },
+      { use: 'Wounds, Cuts & Tick Bites', rate: 'Spray or apply directly on affected area', prog: 'Apply twice daily until healed' },
+      { use: 'Infected & Maggot Wounds', rate: 'Spray thoroughly into the wound cavity', prog: 'Apply twice daily until healed' },
       { use: 'Post-Surgical & Castration Sites', rate: 'Spray a generous coat directly over incision', prog: 'Apply immediately after procedure and repeat daily for 3 to 5 days' },
       { use: 'Poultry Feather Pecking Injuries', rate: 'Spray directly over injured skin area', prog: 'Apply once daily until skin regenerates to prevent cannibalism' }
     ],

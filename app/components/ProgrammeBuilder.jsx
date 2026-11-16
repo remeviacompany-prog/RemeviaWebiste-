@@ -9,14 +9,7 @@ const LAYER_DAYS = 84;
 const FEED_BAG_KG = 50;
 
 // Dosing days on the label's schedule. Days are 1-based.
-const twiceWeekly = (days) => {
-  const out = [];
-  for (let day = 3; day <= days; day += 7) {
-    out.push(day);
-    if (day + 3 <= days) out.push(day + 3);
-  }
-  return out;
-};
+const courseDays = (length) => Array.from({ length }, (_, i) => i + 1);
 const eksitDays = () => {
   const out = [];
   for (let day = 16; day <= 36; day += 4) {
@@ -61,13 +54,13 @@ const FLOCKS = {
 const PLANS = {
   tltreat: {
     name: 'TLTREAT', cls: 't-treat', goal: 'Gut health & growth',
-    schedule: (flock) => ({ continuous: true, note: flock === 'broiler' ? 'From Day 1 to 40th Day continuously in feed mash or pellets' : 'From 60th to 110th week to support extended laying cycle & egg quality' }),
-    rate: (flock) => (flock === 'broiler' ? { kind: 'feed', min: 1, max: 2 } : { kind: 'feed', min: 2, max: 2 }),
+    schedule: (flock) => ({ continuous: true, note: flock === 'broiler' ? 'From Day 1 to 40th Day continuously in feed mash or pellets' : 'From 60th to 100th week to support extended laying cycle & egg quality' }),
+    rate: (flock) => (flock === 'broiler' ? { kind: 'feed', min: 1, max: 1 } : { kind: 'feed', min: 2, max: 2 }),
   },
   curtect: {
     name: 'CURTECT-CRD', cls: 't-curtect', goal: 'Respiratory support',
-    // Each dose runs for a 12-hour cycle, so it treats half a day of water.
-    schedule: (flock, days) => ({ days: twiceWeekly(days), note: 'Twice a week in a continuous 12-hour cycle', waterShare: 0.5 }),
+    // A course of up to 14 days from day 1, dosed twice a day, so it treats the full day's water.
+    schedule: (flock, days) => ({ days: courseDays(Math.min(14, days)), note: 'Twice a day for 7–14 days', waterShare: 1 }),
     rate: () => ({ kind: 'water', ml: 200 }),
   },
   eksit: {
@@ -156,8 +149,8 @@ export default function ProgrammeBuilder() {
     return {
       rows,
       feedTonnes,
-      // Remevia's field claim: 2 kg of TLTREAT delivers up to 20 kg of additional meat.
-      extraMeat: flockKey === 'broiler' && selected.includes('tltreat') ? feedTonnes * 2 * 10 : 0,
+      // Remevia's field claim: 1 kg of TLTREAT (the dose for 1 tonne of feed) delivers up to 15 kg of additional meat.
+      extraMeat: flockKey === 'broiler' && selected.includes('tltreat') ? feedTonnes * 15 : 0,
     };
   }, [birds, feed, water, flock, flockKey, selected]);
 
@@ -287,7 +280,7 @@ export default function ProgrammeBuilder() {
                 {plan.extraMeat > 0 && (
                   <p className="builder__claim">
                     <bdi>+{number(plan.extraMeat)} kg</bdi>{' '}
-                    {t("potential extra meat, based on the Remevia field claim for TLTREAT at 2 kg per tonne")}
+                    {t("potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne")}
                   </p>
                 )}
               </>

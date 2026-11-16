@@ -3,6 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import PageHero from '../components/PageHero';
+import MissionVision from '../components/MissionVision';
+import { Icon } from '../components/icons';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function AboutPage() {
@@ -29,27 +31,28 @@ export default function AboutPage() {
       />
 
       {/* Story */}
-      <section className="section">
-        <div className="wrap two-col">
-          <h2>{t("Our story")}</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '19px', color: 'var(--slate)', maxWidth: '64ch' }}>
-            <p>{t("Remevia began in Irinjalakuda, Kerala, when our founders saw how heavily poultry farming had come to rely on antibiotics, and how much risk that created for people and the planet.")}</p>
+      <section className="section story">
+        <div className="wrap story__grid">
+          <div className="story__text">
+            <span className="eyebrow">{t("Who we are")}</span>
+            <h2>{t("Our story")}</h2>
+            <p className="story__lead">{t("Remevia began in God's Own Country, Kerala, when our founders saw how heavily poultry farming had come to rely on antibiotics, and how much risk that created for people and the planet.")}</p>
             <p>{t("They believed the answer already existed in nature. Kerala's spices and medicinal plants have protected people and animals for centuries. Today we combine that botanical heritage with modern supercritical extraction and standardized formulation to give poultry and livestock producers a reliable, scientifically validated natural alternative.")}</p>
+            <ul className="story__points">
+              <li><Icon name="leaf" size={20} />{t("Spices & medicinal plants")}</li>
+              <li><Icon name="lab" size={20} />{t("Supercritical extraction")}</li>
+              <li><Icon name="check" size={20} />{t("Standardised formulations")}</li>
+            </ul>
           </div>
+          <figure className="story__art">
+            <img src="/assets/img/hero-leaf.webp" alt={t("A leaf with its natural active molecules highlighted")} width="1672" height="941" loading="lazy" />
+            <div className="story__badge story__badge--a"><b>6</b><span>{t("Formulations")}</span></div>
+            <div className="story__badge story__badge--b"><b>0</b><span>{t("Antibiotic residues")}</span></div>
+            <figcaption><Icon name="pin" size={16} />{t("Kerala, India")}</figcaption>
+          </figure>
         </div>
-      </section>
-
-      {/* Mission & Vision & Tagline */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap mv">
-          <div className="mv__m">
-            <small>{t("Our credo")}</small>
-            <p style={{ fontStyle: 'italic', fontWeight: 600 }}>{t("“Nature Provides the Molecules. Remevia Finds the Formulation.”")}</p>
-          </div>
-          <div className="mv__v">
-            <small>{t("Our vision")}</small>
-            <p>{t("A world where livestock thrive, farmers prosper and every family eats residue-free food.")}</p>
-          </div>
+        <div className="wrap story__mv">
+          <MissionVision />
         </div>
       </section>
 
@@ -100,56 +103,52 @@ export default function AboutPage() {
       </section>
 
       {/* Milestones */}
-      <section className="section">
+      <section className="section journey">
         <div className="wrap">
-          <div className="head"><h2>{t("Our journey")}</h2></div>
-          <ol className="timeline">
-            <li><b>{t("Origin")}</b><span>{t("Remevia founded in Irinjalakuda, Kerala to pioneer botanical animal health")}</span></li>
-            <li><b>{t("R&D")}</b><span>{t("TLTREAT developed and proven in field trials as an effective AGP alternative")}</span></li>
-            <li><b>{t("Portfolio")}</b><span>{t("CURTECT-CRD, TLEGG, TLREPEAL and TL HEALER formulated and standardized")}</span></li>
-            <li><b>{t("Global")}</b><span>{t("Expansion into Middle Eastern, South Asian and Southeast Asian export markets")}</span></li>
-          </ol>
+          <div className="head"><span className="eyebrow">{t("Milestones")}</span><h2>{t("Our journey")}</h2></div>
         </div>
+        <ol className="journey__line">
+          {[
+            ['sprout', 'Origin', "Remevia founded in God's Own Country, Kerala to pioneer botanical animal health"],
+            ['lab', 'R&D', 'TLTREAT developed and proven in field trials as an effective AGP alternative'],
+            ['layers', 'Portfolio', 'CURTECT-CRD, TLEGG, TLREPEAL and TL HEALER formulated and standardized'],
+            ['globe', 'Global', 'Expansion into Middle Eastern, South Asian and Southeast Asian export markets'],
+          ].map(([icon, title, text], i) => (
+            <li key={title} className="journey__step">
+              <span className="journey__node"><Icon name={icon} size={22} /></span>
+              <div className="journey__card">
+                <span className="journey__num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{t(title)}</h3>
+                <p>{t(text)}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Impact */}
-      <section className="section section--dark">
+      <section className="section impact">
         <div className="wrap">
           <div className="head">
+            <span className="eyebrow eyebrow--light">{t("Our impact")}</span>
             <h2>{t("Better for birds, farmers and the food chain")}</h2>
             <p className="lede">{t("Replacing antibiotics on the farm has effects far beyond the farm gate.")}</p>
           </div>
-          <div className="grid grid--3">
-            <div className="card" style={{ background: 'rgba(255,255,255,.06)', borderColor: 'rgba(255,255,255,.14)', color: '#fff' }}>
-              <span className="card__icon" style={{ color: '#8EE09A', background: 'rgba(255,255,255,.08)' }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 3c3.5 0 6.5 5.5 6.5 10a6.5 6.5 0 0 1-13 0C5.5 8.5 8.5 3 12 3z"/>
-                </svg>
-              </span>
-              <h3>{t("Safer food")}</h3>
-              <p style={{ color: '#C9D3EA' }}>{t("No antibiotic residues in the meat and eggs that reach consumers.")}</p>
-            </div>
-            <div className="card" style={{ background: 'rgba(255,255,255,.06)', borderColor: 'rgba(255,255,255,.14)', color: '#fff' }}>
-              <span className="card__icon" style={{ color: '#7FD3DD', background: 'rgba(255,255,255,.08)' }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>
-                </svg>
-              </span>
-              <h3>{t("Protecting medicine")}</h3>
-              <p style={{ color: '#C9D3EA' }}>{t("Less antibiotic use on farms helps keep antibiotics working for people.")}</p>
-            </div>
-            <div className="card" style={{ background: 'rgba(255,255,255,.06)', borderColor: 'rgba(255,255,255,.14)', color: '#fff' }}>
-              <span className="card__icon" style={{ color: '#A9C4FF', background: 'rgba(255,255,255,.08)' }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
-                </svg>
-              </span>
-              <h3>{t("Gentle on the environment")}</h3>
-              <p style={{ color: '#C9D3EA' }}>{t("Plant-based actives that are safe for farm workers, animals and soil.")}</p>
-            </div>
+          <div className="impact__grid">
+            {[
+              ['egg', 'Safer food', 'No antibiotic residues in the meat and eggs that reach consumers.'],
+              ['pulse', 'Protecting medicine', 'Less antibiotic use on farms helps keep antibiotics working for people.'],
+              ['sprout', 'Gentle on the environment', 'Plant-based actives that are safe for farm workers, animals and soil.'],
+            ].map(([icon, title, text]) => (
+              <article key={title} className="impact__card">
+                <span className="impact__icon"><Icon name={icon} size={26} /></span>
+                <h3>{t(title)}</h3>
+                <p>{t(text)}</p>
+              </article>
+            ))}
           </div>
-          <div className="btn-row" style={{ marginTop: '36px' }}>
-            <Link className="btn btn--light" href="/contact?type=distributor">{t("Partner with us")}</Link>
+          <div className="btn-row impact__actions">
+            <Link className="btn impact__btn" href="/contact?type=distributor">{t("Partner with us")}</Link>
             <Link className="btn btn--ghost-light" href="/products">{t("See our products")}</Link>
           </div>
         </div>

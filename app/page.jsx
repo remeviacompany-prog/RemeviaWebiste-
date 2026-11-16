@@ -3,10 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from './context/LanguageContext';
-import HeroShowcase from './components/HeroShowcase';
+import BrandHero from './components/BrandHero';
+import FoodChain from './components/FoodChain';
+import MissionVision from './components/MissionVision';
 import ChallengeFinder from './components/ChallengeFinder';
 import ProgrammeBuilder from './components/ProgrammeBuilder';
-import CtaSection from './components/CtaSection';
 
 const icon = (paths) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths}</svg>
@@ -43,21 +44,6 @@ const STEPS = [
   { title: 'Validate', text: 'Test in the lab and on live flocks, then standardise every batch before it ships.' },
 ];
 
-// Figures come straight from each product's results section in data/products.js.
-const RESULTS = [
-  { cls: 't-treat', value: '-56%', label: 'Reduction in flock mortality', name: 'TLTREAT', href: '/products/tltreat', wide: true, extra: { value: '6.5%', label: 'Net improvement in FCR' } },
-  { cls: 't-repeal', value: '-85%', label: 'Flock mite population drop', name: 'TLREPEAL', href: '/products/tlrepeal' },
-  { cls: 't-curtect', value: '-78%', label: 'Audible tracheal rales reduction', name: 'CURTECT-CRD', href: '/products/curtect-crd' },
-  { cls: 't-egg', value: '11–13', label: 'Target DSM yolk color rating', name: 'TLEGG', href: '/products/tlegg' },
-  { cls: 't-healer', value: '3–5 Days', label: 'Average dry granulation onset', name: 'TL HEALER', href: '/products/tl-healer' },
-];
-
-const QUOTES = [
-  { text: '“We replaced chemical AGPs with TLTREAT across 40,000 broilers. Zero drop in final body weight, significantly drier litter, and complete peace of mind on export testing.”', by: 'Commercial Poultry Integrator, South India', cls: 't-treat' },
-  { text: '“Post-vaccination respiratory wheezing used to cause major stress. CURTECT-CRD in the water line showed visible ease of breathing within 36 hours.”', by: 'Farm Manager, Broiler Operations, UAE', cls: 't-curtect' },
-  { text: '“Yolk colour rose from 8 to 12 on the DSM fan using TLEGG without altering our baseline feed formulation. Our premium egg buyers noticed immediately.”', by: 'Layer Farm Owner, Kerala', cls: 't-egg' },
-];
-
 const QUALITY = [
   { title: 'Standardised actives', text: 'Every formula is built on measured botanical actives.', icon: <><path d="M9 3h6M10 3v6.2L4.8 18a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 9.2V3" /><path d="M7.5 14h9" /></> },
   { title: 'Batch-wise quality control', text: 'Each batch is checked before it ships.', icon: <><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z" /><path d="M8.5 12l2.4 2.4 4.6-4.8" /></> },
@@ -70,7 +56,42 @@ export default function HomePage() {
 
   return (
     <>
-      <HeroShowcase />
+      <BrandHero />
+      <FoodChain />
+
+      {/* The range: product packs straight after the opening and food-chain sections */}
+      <section className="section section--mist">
+        <div className="wrap">
+          <div className="head head--row">
+            <div className="head__text">
+              <span className="eyebrow">{t("The range")}</span>
+              <h2>{t("One natural solution for every challenge on the farm")}</h2>
+              <p className="lede">{t("Six targeted formulations across liquids and powders for broilers, layers, breeders and livestock.")}</p>
+            </div>
+            <Link className="btn btn--ghost" href="/products">{t("Compare all products")}</Link>
+          </div>
+          <div className="shelf">
+            {SHELF.map((p) => (
+              <Link className={`pcard ${p.cls}`} href={p.href} key={p.name}>
+                <div className="pcard__media">
+                  <span className="pcard__band" aria-hidden="true"><span>{p.name}</span></span>
+                  <img src={p.img} alt={p.name} loading="lazy" width="400" height="400" />
+                </div>
+                <div className="pcard__body">
+                  <span className="pcard__cat">{t(p.cat)}</span>
+                  <h3>{p.name}</h3>
+                  <p>{t(p.text)}</p>
+                  <div className="pcard__meta">
+                    {p.chips.map((chip) => <span className="chip" key={chip}>{t(chip)}</span>)}
+                  </div>
+                  <span className="pcard__docs">{t("Brochure, MSDS & COA")}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* Who it is for, and what it is made from */}
       <section className="ribbon" aria-label={t("Who we serve")}>
@@ -121,38 +142,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Step 2: the range */}
-      <section className="section section--mist">
-        <div className="wrap">
-          <div className="head head--row">
-            <div className="head__text">
-              <span className="eyebrow">{t("The range")}</span>
-              <h2>{t("One natural solution for every challenge on the farm")}</h2>
-              <p className="lede">{t("Six targeted formulations across liquids and powders for broilers, layers, breeders and livestock.")}</p>
-            </div>
-            <Link className="btn btn--ghost" href="/products">{t("Compare all products")}</Link>
-          </div>
-          <div className="shelf">
-            {SHELF.map((p) => (
-              <Link className={`pcard ${p.cls}`} href={p.href} key={p.name}>
-                <div className="pcard__media">
-                  <span className="pcard__band" aria-hidden="true"><span>{p.name}</span></span>
-                  <img src={p.img} alt={p.name} loading="lazy" width="400" height="400" />
-                </div>
-                <div className="pcard__body">
-                  <span className="pcard__cat">{t(p.cat)}</span>
-                  <h3>{p.name}</h3>
-                  <p>{t(p.text)}</p>
-                  <div className="pcard__meta">
-                    {p.chips.map((chip) => <span className="chip" key={chip}>{t(chip)}</span>)}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Step 3: find the right one */}
       <ChallengeFinder />
 
@@ -160,10 +149,10 @@ export default function HomePage() {
       <ProgrammeBuilder />
 
       {/* Step 5: how it is made */}
-      <section className="section section--dark">
+      <section className="section section--process">
         <div className="wrap">
           <div className="head">
-            <span className="eyebrow eyebrow--light">{t("The process")}</span>
+            <span className="eyebrow">{t("The process")}</span>
             <h2>{t("From plant to poultry in four steps")}</h2>
             <p className="lede">{t("Every Remevia formulation follows the same path before it reaches a farm.")}</p>
           </div>
@@ -185,42 +174,26 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <Link className="link-arrow link-arrow--light" href="/science#quality">{t("Our quality process")}</Link>
+          <Link className="link-arrow" href="/science#quality">{t("Our quality process")}</Link>
         </div>
       </section>
 
-      {/* Step 6: proof */}
-      <section className="section section--mist">
+      {/* Who we are: mission and vision */}
+      <section className="section whoweare">
         <div className="wrap">
-          <div className="head">
-            <span className="eyebrow">{t("Proof from the field")}</span>
-            <h2>{t("Measured results, product by product")}</h2>
-            <p className="lede">{t("Trial figures from Remevia product literature, with what farmers say about them.")}</p>
+          <div className="whoweare__head">
+            <div>
+              <span className="eyebrow">{t("Who we are")}</span>
+              <h2>{t("Botanical animal health from God's Own Country, Kerala")}</h2>
+            </div>
+            <div>
+              <p className="lede">{t("We started Remevia to help farmers raise healthier animals without antibiotics, and to give families safer food.")}</p>
+              <Link className="link-arrow" href="/about">{t("Read our story")}</Link>
+            </div>
           </div>
-          <div className="bento">
-            {RESULTS.map((r) => (
-              <Link key={`${r.name}${r.value}`} href={r.href} className={`bento__tile ${r.cls} ${r.wide ? 'bento__tile--wide' : ''}`}>
-                <b>{t(r.value)}</b>
-                <span>{t(r.label)}</span>
-                {r.extra && <em><b>{r.extra.value}</b> {t(r.extra.label)}</em>}
-                <small>{r.name}</small>
-              </Link>
-            ))}
-          </div>
-          <div className="quotes">
-            {QUOTES.map((q) => (
-              <figure className={`quotes__card ${q.cls}`} key={q.by}>
-                <blockquote>{t(q.text)}</blockquote>
-                <figcaption>{t(q.by)}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="note">{t("* Claims and rates from Remevia product literature. Full trial reports are available to feed mills and distributors on request.")}</p>
+          <MissionVision />
         </div>
       </section>
-
-      {/* Step 7: start */}
-      <CtaSection />
     </>
   );
 }

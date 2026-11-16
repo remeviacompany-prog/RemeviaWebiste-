@@ -3,6 +3,27 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
+import { Icon } from './icons';
+
+const PRODUCT_LINKS = [
+  ['TLTREAT', '/products/tltreat', 'Gut health & growth'],
+  ['CURTECT-CRD', '/products/curtect-crd', 'Respiratory support'],
+  ['EKSIT-CRD', '/products/eksit-crd', 'CRD & Mycoplasma'],
+  ['TLEGG', '/products/tlegg', 'Egg quality'],
+  ['TLREPEAL', '/products/tlrepeal', 'Red mite control'],
+  ['TL HEALER', '/products/tl-healer', 'Wounds & skin'],
+];
+
+// Descriptive anchor text for the problems farmers search for.
+const SOLUTION_LINKS = [
+  ['Natural AGP alternative for broilers', '/products/tltreat'],
+  ['Poultry respiratory support', '/products/curtect-crd'],
+  ['Mycoplasma & CRD control', '/products/eksit-crd'],
+  ['Egg yolk colour & quality', '/products/tlegg'],
+  ['Red mite control for layers', '/products/tlrepeal'],
+  ['Wound care & fly repellent', '/products/tl-healer'],
+  ['Antibiotic-free poultry farming', '/science'],
+];
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -19,12 +40,14 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="footer">
+      <footer className="footer footer--seo">
         <div className="wrap">
-          <div className="footer__grid">
+          <div className="footer__top">
             <div className="footer__brand">
-              <img src="/assets/img/logo-white.png" alt={t("Remevia — powered by nature")} width="429" height="310" />
-              <p>{t("Science-backed botanical solutions for antibiotic-free poultry and livestock.")}</p>
+              <Link href="/" aria-label={t("Remevia home")}>
+                <img src="/assets/img/logo-footer.png" alt="Remevia" width="369" height="256" />
+              </Link>
+              <p>{t("Remevia makes plant-based feed and water additives that replace antibiotics in poultry and livestock farming. Every formula is made in Kerala, India from standardised botanical actives, with no antibiotic residues.")}</p>
               <div className="social">
                 <a href="#" aria-label={t("Remevia on LinkedIn")}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -53,50 +76,69 @@ export default function Footer() {
               </div>
             </div>
 
-            <div>
+            <nav className="footer__col" aria-label={t("Products")}>
               <h4>{t("Products")}</h4>
               <ul>
-                <li><Link href="/products/tltreat">TLTREAT</Link></li>
-                <li><Link href="/products/curtect-crd">CURTECT-CRD</Link></li>
-                <li><Link href="/products/eksit-crd">EKSIT-CRD</Link></li>
-                <li><Link href="/products/tlegg">TLEGG</Link></li>
-                <li><Link href="/products/tlrepeal">TLREPEAL</Link></li>
-                <li><Link href="/products/tl-healer">TL HEALER</Link></li>
+                {PRODUCT_LINKS.map(([name, href, cat]) => (
+                  <li key={name}><Link href={href}><b>{name}</b><small>{t(cat)}</small></Link></li>
+                ))}
               </ul>
-            </div>
+            </nav>
 
-            <div>
+            <nav className="footer__col" aria-label={t("Solutions")}>
+              <h4>{t("Solutions")}</h4>
+              <ul>
+                {SOLUTION_LINKS.map(([label, href]) => (
+                  <li key={label}><Link href={href}>{t(label)}</Link></li>
+                ))}
+              </ul>
+            </nav>
+
+            <nav className="footer__col" aria-label={t("Company")}>
               <h4>{t("Company")}</h4>
               <ul>
-                <li><Link href="/science">{t("Science & quality")}</Link></li>
                 <li><Link href="/about">{t("About us")}</Link></li>
+                <li><Link href="/science">{t("Science & quality")}</Link></li>
+                <li><Link href="/science#quality">{t("Quality control")}</Link></li>
+                <li><Link href="/products">{t("All products")}</Link></li>
                 <li><Link href="/products#dosing">{t("Dosing guide")}</Link></li>
+                <li><Link href="/#programme">{t("Flock Programme Builder")}</Link></li>
                 <li><Link href="/contact?type=distributor">{t("Distributors")}</Link></li>
                 <li><Link href="/contact">{t("Contact")}</Link></li>
               </ul>
-            </div>
+            </nav>
 
-            <div>
+            <div className="footer__col footer__contact">
               <h4>{t("Reach us")}</h4>
+              <address>
+                <span><Icon name="pin" size={18} /><span>Remevia Pvt. Ltd.<br />Edakulam P.O, Irinjalakuda, Pin 680 688,<br />Thrissur Dist, Kerala, India</span></span>
+                <a href="tel:+917994764845"><Icon name="phone" size={18} />+91 79947 64845</a>
+                <a href="https://wa.me/917994764845"><Icon name="chat" size={18} />{t("WhatsApp us")}</a>
+                <a href="mailto:care@remevia.in"><Icon name="mail" size={18} />care@remevia.in</a>
+              </address>
+            </div>
+          </div>
+
+          <div className="footer__band">
+            <div className="footer__markets">
+              <h4>{t("Markets we serve")}</h4>
               <ul>
-                <li>Edakulam P.O, Irinjalakuda, Pin 680 688,<br />Thrissur Dist, Kerala, India</li>
-                <li><a href="tel:+917994764845">+91 79947 64845</a></li>
-                <li><a href="mailto:info@remevia.in">info@remevia.in</a></li>
+                {['India', 'Middle East', 'South Asia', 'Southeast Asia'].map((m) => <li key={m}><Icon name="globe" size={15} />{t(m)}</li>)}
               </ul>
-              <p style={{ marginTop: '22px', color: '#fff', fontWeight: 600 }}>
-                {t("Field results in your inbox")}
-              </p>
+            </div>
+            <div className="footer__newsbox">
+              <h4>{t("Field results in your inbox")}</h4>
               <form className="footer__news" onSubmit={handleNewsletter} noValidate>
                 <label className="sr-only" htmlFor="news-email">{t("Email address")}</label>
-                <input 
-                  id="news-email" 
-                  type="email" 
+                <input
+                  id="news-email"
+                  type="email"
                   value={newsEmail}
                   onChange={(e) => setNewsEmail(e.target.value)}
-                  placeholder={subscribed ? t("Subscribed. Thank you!") : t("Work email")} 
-                  autoComplete="email" 
+                  placeholder={subscribed ? t("Subscribed. Thank you!") : t("Work email")}
+                  autoComplete="email"
                 />
-                <button className="btn btn--sm btn--grad" type="submit">
+                <button className="btn btn--sm footer__subscribe" type="submit">
                   {subscribed ? t("Subscribed") : t("Subscribe")}
                 </button>
               </form>
@@ -105,6 +147,7 @@ export default function Footer() {
 
           <div className="footer__bottom">
             <span>{t("© {year} Remevia Pvt. Ltd. All rights reserved.", { year: new Date().getFullYear() })}</span>
+            <span className="footer__made"><Icon name="sprout" size={15} />{t("Made in God's Own Country, Kerala, India")}</span>
             <nav aria-label={t("Legal")}>
               <a href="#">{t("Privacy policy")}</a>
               <a href="#">{t("Terms of use")}</a>

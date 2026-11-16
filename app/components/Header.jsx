@@ -11,6 +11,14 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [prodDropdownOpen, setProdDropdownOpen] = useState(false);
+  // After a product is picked, keep the menu shut (hover and focus would otherwise hold it open)
+  // until the pointer leaves the Products item.
+  const [menuSuppressed, setMenuSuppressed] = useState(false);
+  const pickFromMenu = () => {
+    setProdDropdownOpen(false);
+    setMenuSuppressed(true);
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  };
   const pathname = usePathname();
   const dropdownRef = useRef(null);
 
@@ -48,7 +56,7 @@ export default function Header() {
       <header className={`header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="wrap">
           <Link className="brand" href="/" aria-label={t("Remevia home")}>
-            <img src="/assets/img/logo.png" alt={t("Remevia — powered by nature")} width="429" height="310" />
+            <img src="/assets/img/logo-header.png" alt="Remevia" width="345" height="240" />
           </Link>
 
           <nav className={`nav ${menuOpen ? 'is-open' : ''}`} id="site-nav" aria-label={t("Main")}>
@@ -56,12 +64,16 @@ export default function Header() {
               {t("Home")}
             </Link>
 
-            <div className={`has-menu ${prodDropdownOpen ? 'is-open' : ''}`} ref={dropdownRef}>
+            <div
+              className={`has-menu ${prodDropdownOpen ? 'is-open' : ''} ${menuSuppressed ? 'is-suppressed' : ''}`}
+              ref={dropdownRef}
+              onMouseLeave={() => setMenuSuppressed(false)}
+            >
               <div style={{ display: 'inline-flex', alignItems: 'center' }}>
                 <Link 
                   href="/products" 
                   aria-current={pathname.startsWith('/products') ? 'page' : undefined}
-                  onClick={() => setProdDropdownOpen(false)}
+                  onClick={pickFromMenu}
                 >
                   {t("Products")}
                 </Link>
@@ -73,6 +85,7 @@ export default function Header() {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
+                    setMenuSuppressed(false);
                     setProdDropdownOpen(!prodDropdownOpen);
                   }}
                   style={{
@@ -92,31 +105,31 @@ export default function Header() {
               </div>
               
               <div className="menu" id="menu-products">
-                <Link href="/products/tltreat" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/tltreat" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#B5692A' }}></span>
                   <span><b>TLTREAT</b><small>{t("Natural AGP replacer")}</small></span>
                 </Link>
-                <Link href="/products/curtect-crd" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/curtect-crd" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#1B7EC0' }}></span>
                   <span><b>CURTECT-CRD</b><small>{t("Respiratory support & post-vaccination")}</small></span>
                 </Link>
-                <Link href="/products/eksit-crd" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/eksit-crd" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#7B2CBF' }}></span>
                   <span><b>EKSIT-CRD</b><small>{t("Anti-Mycoplasma CRD control")}</small></span>
                 </Link>
-                <Link href="/products/tlegg" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/tlegg" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#7DBE3F' }}></span>
                   <span><b>TLEGG</b><small>{t("Egg yolk colour enhancer")}</small></span>
                 </Link>
-                <Link href="/products/tlrepeal" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/tlrepeal" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#D7262E' }}></span>
                   <span><b>TLREPEAL</b><small>{t("Avian red mite solution")}</small></span>
                 </Link>
-                <Link href="/products/tl-healer" onClick={() => setProdDropdownOpen(false)}>
+                <Link href="/products/tl-healer" onClick={pickFromMenu}>
                   <span className="menu__swatch" style={{ background: '#EE8A1C' }}></span>
                   <span><b>TL HEALER</b><small>{t("Wounds & tick bites")}</small></span>
                 </Link>
-                <Link className="menu__all" href="/products" onClick={() => setProdDropdownOpen(false)}>{t("View all products and dosing guide")}</Link>
+                <Link className="menu__all" href="/products" onClick={pickFromMenu}>{t("View all products and dosing guide")}</Link>
               </div>
             </div>
 

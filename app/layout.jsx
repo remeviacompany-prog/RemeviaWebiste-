@@ -3,6 +3,8 @@ import { LanguageProvider } from './context/LanguageContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import EmailPopup from './components/EmailPopup';
+import CtaSection from './components/CtaSection';
+import DatasheetRequest from './components/DatasheetRequest';
 import { LANGUAGES, LANG_KEY } from './i18n/languages';
 
 // Runs before first paint: restores the saved language's direction and hides the
@@ -22,11 +24,32 @@ export const metadata = {
   }
 };
 
+const ORGANIZATION = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Remevia Pvt. Ltd.',
+  url: 'https://remevia.in',
+  logo: 'https://remevia.in/assets/img/logo.png',
+  description: 'Plant-based feed and water additives that replace antibiotics in poultry and livestock farming. Made in Kerala, India.',
+  email: 'care@remevia.in',
+  telephone: '+91 79947 64845',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Edakulam P.O',
+    addressLocality: 'Irinjalakuda',
+    addressRegion: 'Kerala',
+    postalCode: '680688',
+    addressCountry: 'IN',
+  },
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'sales', telephone: '+91 79947 64845', email: 'care@remevia.in' }],
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: restoreLanguage }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION) }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
@@ -40,8 +63,10 @@ export default function RootLayout({ children }) {
           <main id="main">
             {children}
           </main>
+          <CtaSection />
           <Footer />
           <EmailPopup />
+          <DatasheetRequest />
         </LanguageProvider>
       </body>
     </html>

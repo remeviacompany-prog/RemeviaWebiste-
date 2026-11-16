@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import PageHero from '../components/PageHero';
+import { DatasheetButton, ViewDetailsButton } from '../components/DatasheetRequest';
 import { rich, useLanguage } from '../context/LanguageContext';
 
 const PRODUCTS = [
@@ -17,7 +18,7 @@ const PRODUCTS = [
     img: '/assets/img/tltreat.webp',
     href: '/products/tltreat',
     ticksCol1: [
-      '2 kg of TLTREAT delivers up to 20 kg additional meat',
+      '1 kg of TLTREAT delivers up to 15 kg additional meat',
       'Helps prevent coccidiosis with regular use'
     ],
     ticksCol2: [
@@ -152,27 +153,8 @@ const PRODUCTS = [
   }
 ];
 
-const FILTERS = [
-  { id: 'all', label: 'All products' },
-  { id: 'broilers', label: 'Broilers' },
-  { id: 'layers', label: 'Layers' },
-  { id: 'breeders', label: 'Breeders' },
-  { id: 'livestock', label: 'Livestock' },
-  { id: 'gut', label: 'Gut & growth' },
-  { id: 'resp', label: 'Respiratory & CRD' },
-  { id: 'egg', label: 'Egg quality' },
-  { id: 'pest', label: 'Red mites' },
-  { id: 'skin', label: 'Wounds & skin' }
-];
-
 export default function ProductsPage() {
   const { t } = useLanguage();
-  const [filter, setFilter] = useState('all');
-
-  const filtered = PRODUCTS.filter((p) => {
-    if (filter === 'all') return true;
-    return p.tags.includes(filter);
-  });
 
   return (
     <div style={{ background: '#FAFBFB', minHeight: '100vh', paddingBottom: '60px' }}>
@@ -193,33 +175,20 @@ export default function ProductsPage() {
             { label: t("Withdrawal"), value: t("0 days"), highlight: true },
           ],
         }}
-      >
-        <div className="filters" role="group" aria-label={t("Filter products")}>
-          {FILTERS.map((f) => (
-            <button key={f.id} type="button" className="filter" aria-pressed={filter === f.id} onClick={() => setFilter(f.id)}>
-              {t(f.label)}
-            </button>
-          ))}
-        </div>
-      </PageHero>
+      />
 
       {/* Product List */}
-      <section style={{ padding: '36px 0 56px' }}>
+      <section style={{ padding: '40px 0 64px' }}>
         <div className="wrap">
-          <p style={{ fontSize: '15px', color: 'var(--muted)', marginBottom: '24px' }} aria-live="polite">
-            {t("Showing {shown} of {total} products", { shown: filtered.length, total: PRODUCTS.length })}
-          </p>
-
-          {filtered.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              {filtered.map((p) => (
-                <article key={p.id} className={`prow ${p.cls}`} style={{
-                  borderRadius: '24px',
-                  overflow: 'hidden',
-                  background: '#FFFFFF',
-                  border: '1px solid #E2E8F0',
-                  boxShadow: '0 4px 20px -8px rgba(15,27,61,.06)'
-                }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+            {PRODUCTS.map((p) => (
+              <article key={p.id} className={`prow ${p.cls}`} style={{
+                borderRadius: '24px',
+                overflow: 'hidden',
+                background: '#FFFFFF',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 4px 20px -8px rgba(15,27,61,.06)'
+              }}>
                   {/* Left Colored Band */}
                   <div className="prow__band" style={{ background: p.color, display: 'grid', placeItems: 'center' }}>
                     <span style={{
@@ -335,9 +304,10 @@ export default function ProductsPage() {
 
                     {/* Action Buttons */}
                     <div className="btn-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '8px' }}>
-                      <Link 
+                      <ViewDetailsButton 
                         className="btn" 
                         href={p.href}
+                        product={p.name}
                         style={{
                           background: 'var(--leaf-d)',
                           color: '#FFFFFF',
@@ -346,13 +316,14 @@ export default function ProductsPage() {
                           fontWeight: 600,
                           fontSize: '15px',
                           textDecoration: 'none',
-                          border: 'none'
+                          border: 'none',
+                          cursor: 'pointer'
                         }}
-                      >{t("View details")}</Link>
+                      >{t("View details")}</ViewDetailsButton>
 
-                      <Link 
-                        className="btn" 
-                        href={`/contact?type=quote&product=${p.name}`}
+                      <DatasheetButton
+                        className="btn"
+                        product={p.name}
                         style={{
                           background: '#FFFFFF',
                           color: 'var(--ink)',
@@ -364,23 +335,19 @@ export default function ProductsPage() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '8px',
-                          textDecoration: 'none'
+                          textDecoration: 'none',
+                          cursor: 'pointer',
+                          font: 'inherit'
                         }}
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '16px', height: '16px' }}>
                           <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                        </svg>{t("Datasheet (PDF)")}</Link>
+                        </svg>{t("Datasheet (PDF)")}</DatasheetButton>
                     </div>
                   </div>
                 </article>
               ))}
-            </div>
-          ) : (
-            <div className="empty is-on" style={{ background: '#FFFFFF', borderRadius: '18px', padding: '56px', border: '1px solid #E2E8F0', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '22px', color: 'var(--ink)', margin: '0 0 8px' }}>{t("No products match this filter")}</h3>
-              <p style={{ color: 'var(--slate)', margin: 0 }}>{t("Choose \"All products\" or tell us your challenge and we will recommend one.")}</p>
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
@@ -434,7 +401,7 @@ export default function ProductsPage() {
                     <Link href="/products/tltreat" style={{ textDecoration: 'none', color: 'var(--ink)', fontWeight: 700 }}>TLTREAT</Link>
                   </td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Broilers")}</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("1–2 kg / 1,000 kg feed")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("1 kg / 1,000 kg feed")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Day 1 to day 40")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("50 kg laminated bag")}</td>
                 </tr>
@@ -444,7 +411,7 @@ export default function ProductsPage() {
                   </td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Layers")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("2 kg / 1,000 kg feed")}</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Week 60 to week 110")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Week 60 to week 100")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("50 kg laminated bag")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
@@ -453,7 +420,7 @@ export default function ProductsPage() {
                   </td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Prevention")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("200 ml / 1,000 L water")}</td>
-                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Twice a week, 12-hour cycle")}</td>
+                  <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("Twice a day for 7–14 days")}</td>
                   <td style={{ padding: '16px 20px', color: 'var(--slate)' }}>{t("5 kg, 20 kg bottles")}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #F1F5F9' }}>
@@ -518,71 +485,6 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Call To Action Banner (Matching Page 3 of PDF) */}
-      <section style={{ padding: '16px 0 32px' }}>
-        <div className="wrap">
-          <div style={{
-            background: '#0E1A38',
-            borderRadius: '24px',
-            padding: 'clamp(32px, 5vw, 48px)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '24px',
-            color: '#FFFFFF',
-            boxShadow: '0 12px 36px -12px rgba(14,26,56,.35)'
-          }}>
-            <div style={{ maxWidth: '640px' }}>
-              <h2 style={{
-                color: '#FFFFFF',
-                fontSize: 'clamp(24px, 2.8vw, 34px)',
-                fontWeight: 700,
-                letterSpacing: '-.02em',
-                margin: '0 0 10px'
-              }}>{t("Not sure which product fits your flock?")}</h2>
-              <p style={{
-                color: '#C9D3EA',
-                fontSize: '16px',
-                lineHeight: 1.55,
-                margin: 0
-              }}>{t("Share your challenge and flock size. Our technical team will recommend a programme within one working day.")}</p>
-            </div>
-
-            <div className="btn-row" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center' }}>
-              <Link
-                href="/contact"
-                style={{
-                  background: '#FFFFFF',
-                  color: 'var(--ink)',
-                  borderRadius: '999px',
-                  padding: '13px 26px',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  textDecoration: 'none',
-                  border: 'none',
-                  transition: 'opacity .15s'
-                }}
-              >{t("Talk to an expert")}</Link>
-
-              <Link
-                href="/contact?type=trial"
-                style={{
-                  background: 'var(--leaf-d)',
-                  color: '#FFFFFF',
-                  borderRadius: '999px',
-                  padding: '13px 26px',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  textDecoration: 'none',
-                  border: 'none',
-                  transition: 'opacity .15s'
-                }}
-              >{t("Request a trial")}</Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

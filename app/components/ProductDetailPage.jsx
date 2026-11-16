@@ -1,22 +1,85 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import DoseCalculator from './DoseCalculator';
-import CtaSection from './CtaSection';
 import { FormulaFacts } from './PageHero';
+import { Icon, iconFor } from './icons';
+import { DatasheetButton, ViewDetailsButton } from './DatasheetRequest';
 import { PRODUCTS_DATA } from '../data/products';
 import { useLanguage } from '../context/LanguageContext';
 
+/** Section heading used by every block below the hero: section number, title, optional intro. */
+function Head({ num, title, lede, aside, row = false }) {
+  return (
+    <div className={`pd-head ${row ? 'pd-head--row' : ''}`}>
+      <div>
+        <span className="pd-num" aria-hidden="true">{num}</span>
+        <h2>{title}</h2>
+        {lede && <p className="lede">{lede}</p>}
+      </div>
+      {aside}
+    </div>
+  );
+}
+
+// "Bicyclic monoterpene — bronchodilator…" → ["Bicyclic monoterpene", "bronchodilator…"], with no dash shown.
+const splitNote = (note = '') => {
+  const m = note.match(/^(.+?)\s*(?:—|–|:)\s+(.+)$/);
+  return m ? [m[1], m[2]] : ['', note];
+};
+
 export default function ProductDetailPage({ product: source }) {
   const { t, tx } = useLanguage();
+  const root = useRef(null);
+
+  // Cards fade up as they scroll into view. Only switched on once this runs, so nothing
+  // is ever hidden without JavaScript, and skipped for people who prefer less motion.
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return undefined;
+    const items = el.querySelectorAll('.pd-card, .flow li, .pd-compo > div, .pd-stats > div, .rcard');
+    el.classList.add('pd--reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add('is-in'); io.unobserve(entry.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach((item, i) => { item.style.setProperty('--i', i % 6); io.observe(item); });
+    return () => io.disconnect();
+  }, [source]);
+
+  // Highlight the tab of the section being read.
+  useEffect(() => {
+    const el = root.current;
+    if (!el || !('IntersectionObserver' in window)) return undefined;
+    const links = [...el.querySelectorAll('.pd-tabs a')];
+    const targets = links.map((a) => el.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((a) => {
+          const on = a.getAttribute('href') === `#${entry.target.id}`;
+          a.classList.toggle('is-active', on);
+          // On narrow screens the tab row scrolls sideways: keep the active tab in view.
+          if (on && a.parentElement.scrollWidth > a.parentElement.clientWidth) {
+            a.parentElement.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' });
+          }
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    targets.forEach((target) => io.observe(target));
+    return () => io.disconnect();
+  }, [source]);
   if (!source) return null;
   const product = tx(source);
+  const liquid = source.packagingType === 'liquid';
 
   return (
-    <>
-      {/* Product Hero */}
+    <div className={`pd ${product.cls}`} ref={root}>
+      {/* Product hero */}
       <section className={`dhero ${product.cls}`}>
+        <img className="hero-leaf" src="/assets/img/hero-leaf.webp" alt="" aria-hidden="true" width="1672" height="941" />
         <div className="wrap dhero__grid">
           <div className="dhero__copy">
             <nav className="crumbs hero-in" style={{ '--d': '0s' }} aria-label={t("Breadcrumb")}>
@@ -35,10 +98,8 @@ export default function ProductDetailPage({ product: source }) {
             <p className="lede hero-in" style={{ '--d': '.24s' }}>{product.lede}</p>
             <div className="btn-row hero-in" style={{ '--d': '.3s' }}>
               <Link className="btn btn--marigold" href={`/contact?type=trial&product=${product.name}`}>{t("Request a free trial")}</Link>
-              <Link className="btn btn--ghost-light" href={`/contact?type=quote&product=${product.name}`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                </svg>{t("Datasheet & price")}</Link>
+              <DatasheetButton className="btn btn--ghost-light" product={product.name}>
+                <Icon name="download" size={20} />{t("Datasheet & price")}</DatasheetButton>
             </div>
           </div>
 
@@ -61,9 +122,7 @@ export default function ProductDetailPage({ product: source }) {
           <ul className="dhero__points hero-in" style={{ '--d': '.36s' }}>
             {product.keypoints.map((kp, idx) => (
               <li key={idx}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12.5l4.2 4.2L19 7"/>
-                </svg>
+                <Icon name="check" size={20} strokeWidth={2} />
                 <span>{kp}</span>
               </li>
             ))}
@@ -71,8 +130,8 @@ export default function ProductDetailPage({ product: source }) {
         </div>
       </section>
 
-      {/* Subnav */}
-      <nav className={`subnav ${product.cls}`} aria-label={t("On this page")}>
+      {/* On-this-page tabs */}
+      <nav className={`subnav pd-tabs ${product.cls}`} aria-label={t("On this page")}>
         <div className="wrap">
           <a href="#benefits">{t("Benefits")}</a>
           <a href="#how">{t("How it works")}</a>
@@ -84,291 +143,209 @@ export default function ProductDetailPage({ product: source }) {
         </div>
       </nav>
 
-      {/* Benefits */}
-      <section className={`section ${product.cls}`} id="benefits">
-        <div className="wrap two-col">
-          <div className="head" style={{ margin: 0 }}>
-            <h2>{product.whyChooseTitle}</h2>
-            <p className="lede">{product.whyChooseLede}</p>
-            <ul className="ticks">
+      {/* 1. Benefits */}
+      <section className="pd-sec" id="benefits">
+        <div className="wrap pd-benefits">
+          <div className="pd-benefits__intro">
+            <Head num="01" title={product.whyChooseTitle} lede={product.whyChooseLede} />
+            <ul className="pd-ticks">
               {product.whyTicks.map((tick, idx) => (
-                <li key={idx}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12.5l4.2 4.2L19 7"/>
-                  </svg>
-                  <span>{tick}</span>
-                </li>
+                <li key={idx}><Icon name="check" /><span>{tick}</span></li>
               ))}
             </ul>
           </div>
-
-          <div className="benefits">
+          <div className="pd-row pd-cards">
             {product.benefits.map((b, idx) => (
-              <div key={idx} className="benefit">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 3l8 3.5V12c0 4.6-3.4 8-8 9-4.6-1-8-4.4-8-9V6.5z"/>
-                  <path d="M8.5 12l2.5 2.5 4.5-5"/>
-                </svg>
+              <article key={idx} className="pd-card">
+                <i className="pd-icon"><Icon name={iconFor(source.benefits[idx].title)} /></i>
                 <h3>{b.title}</h3>
                 <p>{b.desc}</p>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How it Works */}
-      <section className={`section section--mist ${product.cls}`} id="how">
+      {/* 2. How it works */}
+      <section className="pd-sec pd-sec--tint" id="how">
         <div className="wrap">
-          <div className="head">
-            <h2>{t("How it works")}</h2>
-            <p className="lede">{product.howLede}</p>
-          </div>
-          <div className="mechs">
+          <Head num="02" title={t("How it works")} lede={product.howLede} />
+          <ol className="flow" style={{ '--n': product.mechanisms.length }}>
             {product.mechanisms.map((m, idx) => (
-              <div key={idx} className="mech">
-                <i>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 19c0-8.5 6.2-14 15-14-.6 9-6.2 15-14 15"/><path d="M5 19l8-8"/>
-                  </svg>
-                </i>
-                <span>{m}</span>
-              </div>
+              <li key={idx}>
+                <i className="flow__icon"><Icon name={iconFor(source.mechanisms[idx])} /></i>
+                <div className="flow__card">
+                  <span className="flow__num" aria-hidden="true">{String(idx + 1).padStart(2, '0')}</span>
+                  <p>{m}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* Composition */}
-      <section className={`section ${product.cls}`} id="composition">
+      {/* 3. Composition */}
+      <section className="pd-sec" id="composition">
         <div className="wrap">
-          <div className="head head--row">
-            <h2>{t("Composition")}</h2>
-            <p className="note">{t("Natural actives from plants and spices. Exact formula available to registered partners.")}</p>
-          </div>
-          <div className="compo">
+          <Head
+            row
+            num="03"
+            title={t("Composition")}
+            aside={<p className="pd-note">{t("Natural actives from plants and spices. Exact formula available to registered partners.")}</p>}
+          />
+          <div className="pd-row pd-compo">
             {product.composition.map((c, idx) => (
               <div key={idx}>
                 <b>{c.name}</b>
-                <small>{c.note}</small>
+                {splitNote(c.note)[0] && <span className="pd-compo__kind">{splitNote(c.note)[0]}</span>}
+                <small>{splitNote(c.note)[1]}</small>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Dosage & Packaging */}
-      <section className={`section section--mist ${product.cls}`} id="dosage">
-        <div className="wrap dose">
-          <div className="dose__main" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <h2>{t("Dosage & packing")}</h2>
-            <div className="table-wrap">
-              <table style={{ minWidth: '560px' }}>
-                <thead>
-                  <tr>
-                    <th>{t("Use")}</th>
-                    <th>{t("Rate")}</th>
-                    <th>{t("Programme")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {product.dosageTable.map((row, idx) => (
-                    <tr key={idx}>
-                      <td><b>{row.use}</b></td>
-                      <td>{row.rate}</td>
-                      <td>{row.prog}</td>
+      {/* 4. Dosage & packing */}
+      <section className="pd-sec pd-sec--tint" id="dosage">
+        <div className="wrap">
+          <Head num="04" title={t("Dosage & packing")} />
+          <div className="pd-dose">
+            <div className="pd-dose__main">
+              <div className="pd-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{t("Use")}</th>
+                      <th>{t("Rate")}</th>
+                      <th>{t("Programme")}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <dl className="specs" style={{ background: '#fff' }}>
-              {product.specs.map((s, idx) => (
-                <div key={idx}>
-                  <dt>{s.dt}</dt>
-                  <dd>{s.dd}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <div className="packnote" style={{
-              background: product.packagingType === 'liquid' ? '#EFF6FF' : '#F7FEE7',
-              border: `1.5px solid ${product.packagingType === 'liquid' ? '#BFDBFE' : '#D9F99D'}`,
-              borderRadius: '12px',
-              padding: '16px 20px',
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: '12px'
-            }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ width: '20px', height: '20px', color: product.packagingType === 'liquid' ? '#2563EB' : '#4D7C0F', flexShrink: 0, marginTop: '2px' }}>
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="16" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12.01" y2="8" />
-              </svg>
-              <div style={{ fontSize: '14px', lineHeight: 1.5, color: 'var(--ink)' }}>
-                {product.packagingType === 'liquid' ? (
-                  <>
-                    <b>{t("Liquid Product Packaging Note:")}</b>{' '}{t("All Remevia liquid formulations (EKSIT, CURTECT-CRD, TLREPEAL, TL HEALER) are supplied in standardized, export-grade 5 kg and 20 kg HMHDPE cans/bottles with specialized, tamper-evident product-specific labeling.")}</>
-                ) : (
-                  <>
-                    <b>{t("Powder Product Packaging Note:")}</b>{' '}{t("Remevia powder premixes (TLTREAT, TLEGG) are packaged in durable 50 kg PP woven outer laminated bags with inner HMHDPE liners to prevent moisture absorption and ensure high free-flow mixing.")}</>
-                )}
+                  </thead>
+                  <tbody>
+                    {product.dosageTable.map((row, idx) => (
+                      <tr key={idx}>
+                        <td><b>{row.use}</b></td>
+                        <td>{row.rate}</td>
+                        <td>{row.prog}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+
+              <dl className="pd-specs">
+                {product.specs.map((s, idx) => (
+                  <div key={idx}>
+                    <dt>{s.dt}</dt>
+                    <dd>{s.dd}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="pd-pack">
+                <Icon name={liquid ? 'bottle' : 'package'} />
+                <span>
+                  {liquid ? (
+                    <><b>{t("Liquid Product Packaging Note:")}</b>{' '}{t("All Remevia liquid formulations (EKSIT, CURTECT-CRD, TLREPEAL, TL HEALER) are supplied in standardized, export-grade 5 kg and 20 kg HMHDPE cans/bottles with specialized, tamper-evident product-specific labeling.")}</>
+                  ) : (
+                    <><b>{t("Powder Product Packaging Note:")}</b>{' '}{t("Remevia powder premixes (TLTREAT, TLEGG) are packaged in durable 50 kg PP woven outer laminated bags with inner HMHDPE liners to prevent moisture absorption and ensure high free-flow mixing.")}</>
+                  )}
+                </span>
+              </p>
+              <p className="pd-note">{t("Rates from Remevia product literature. Consult your nutritionist or veterinarian for your flock.")}</p>
             </div>
 
-            <p className="note">{t("Rates from Remevia product literature. Consult your nutritionist or veterinarian for your flock.")}</p>
+            {product.rates ? (
+              <DoseCalculator rates={source.rates} productName={source.name} />
+            ) : (
+              <div className="calc">
+                <h3>{t("How to apply")}</h3>
+                <ol className="pd-steps">
+                  <li><b>{t("Clean the area")}</b><span>{t("Remove dirt and debris from the wound if possible.")}</span></li>
+                  <li><b>{t("Spray or apply")}</b><span>{t("Cover the wound, tick bite or injury with TL HEALER.")}</span></li>
+                  <li><b>{t("Repeat")}</b><span>{t("Reapply as needed until the skin has healed.")}</span></li>
+                </ol>
+              </div>
+            )}
           </div>
-
-          {product.rates ? (
-            <DoseCalculator rates={source.rates} productName={source.name} />
-          ) : (
-            <div className="calc">
-              <h3>{t("How to apply")}</h3>
-              <ol className="process" style={{ gridTemplateColumns: '1fr' }}>
-                <li><span className="process__node"></span><h3>{t("Clean the area")}</h3><p>{t("Remove dirt and debris from the wound if possible.")}</p></li>
-                <li><span className="process__node"></span><h3>{t("Spray or apply")}</h3><p>{t("Cover the wound, tick bite or injury with TL HEALER.")}</p></li>
-                <li><span className="process__node"></span><h3>{t("Repeat")}</h3><p>{t("Reapply as needed until the skin has healed.")}</p></li>
-              </ol>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* Results Section */}
-      <section className={`section ${product.cls}`} id="results">
-        <div className="wrap results">
-          <div className="head" style={{ margin: 0 }}>
-            <h2>{product.resultsTitle}</h2>
-            <p className="lede">{product.resultsLede}</p>
-            <Link className="btn btn--ghost" href={`/contact?type=quote&product=${product.name}`} style={{ alignSelf: 'flex-start' }}>{t("Request the full trial report")}</Link>
+      {/* 5. Results */}
+      <section className="pd-sec" id="results">
+        <div className="wrap pd-results">
+          <div>
+            <Head num="05" title={product.resultsTitle} lede={product.resultsLede} />
+            <Link className="btn btn--grad pd-results__btn" href={`/contact?type=quote&product=${product.name}`}>{t("Request the full trial report")}</Link>
           </div>
 
-          {product.resultsStudy ? (
-            <div style={{
-              background: '#FFFFFF',
-              border: '1.5px solid var(--c)',
-              borderRadius: '20px',
-              padding: '28px',
-              boxShadow: '0 8px 30px -10px rgba(15,27,61,.12)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
-                <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--c)' }}>{t("LIVE-CULTURE VERIFIED TRIAL")}</span>
-                <span style={{ fontSize: '13px', background: 'var(--mist)', padding: '4px 12px', borderRadius: '999px', color: 'var(--slate)' }}>
-                  {t("Method: {method}", { method: product.resultsStudy.method })}
-                </span>
-              </div>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-                <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '14px', padding: '18px' }}>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#DC2626', textTransform: 'uppercase', letterSpacing: '.05em', display: 'block', marginBottom: '6px' }}>{t("Standard Market Antibiotic")}</span>
-                  <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#7F1D1D' }}>
-                    {product.resultsStudy.standardResult}
-                  </p>
+          <div className="pd-evidence">
+            {product.resultsStudy ? (
+              <>
+                <div className="pd-evidence__top">
+                  <span className="pd-label">{t("LIVE-CULTURE VERIFIED TRIAL")}</span>
+                  <span className="pd-chip">{t("Method: {method}", { method: product.resultsStudy.method })}</span>
                 </div>
-
-                <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '14px', padding: '18px' }}>
-                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '.05em', display: 'block', marginBottom: '6px' }}>{t("EKSIT-CRD Botanical Synergy")}</span>
-                  <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: '#14532D' }}>
-                    {product.resultsStudy.eksitResult}
-                  </p>
+                <div className="pd-compare">
+                  <div className="pd-compare__bad">
+                    <span>{t("Standard Market Antibiotic")}</span>
+                    <p>{product.resultsStudy.standardResult}</p>
+                  </div>
+                  <div className="pd-compare__good">
+                    <span>{t("EKSIT-CRD Botanical Synergy")}</span>
+                    <p>{product.resultsStudy.eksitResult}</p>
+                  </div>
                 </div>
-              </div>
+                <p className="pd-evidence__foot">
+                  <b>{t("Target Subject:")}</b>{' '}{product.resultsStudy.subject}{' · '}
+                  <b>{t("Conclusion:")}</b>{' '}{product.resultsStudy.verdict}
+                </p>
+              </>
+            ) : (
+              <span className="pd-label">{t("AUDITED COMMERCIAL FIELD METRICS")}</span>
+            )}
 
-              <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: 'var(--ink)' }}>{t("Target Subject:")}{' '}<span style={{ fontWeight: 400, color: 'var(--slate)' }}>{product.resultsStudy.subject}</span> <i aria-hidden="true" style={{ fontStyle: 'normal' }}>·</i>{' '}{t("Conclusion:")}{' '}<span style={{ fontWeight: 400, color: 'var(--slate)' }}>{product.resultsStudy.verdict}</span>
-              </p>
-
-              {product.resultsStats && (
-                <div className="stats" style={{ marginTop: '8px', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))' }}>
-                  {product.resultsStats.map((st, sidx) => (
-                    <div key={sidx} className="stat" style={{ padding: '14px', background: '#FAFBFB', border: '1px solid #EAEFF2' }}>
-                      <b style={{ color: 'var(--c)', fontSize: '24px' }}>{st.val}</b>
-                      <span style={{ fontSize: '13px' }}>{st.label}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ) : product.resultsStats ? (
-            <div style={{
-              background: '#FFFFFF',
-              border: '1px solid #E2E8F0',
-              borderRadius: '20px',
-              padding: '28px',
-              boxShadow: '0 8px 30px -10px rgba(15,27,61,.08)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px'
-            }}>
-              <span style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--c)' }}>{t("AUDITED COMMERCIAL FIELD METRICS")}</span>
-              <div className="stats" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' }}>
+            {product.resultsStats && (
+              <div className="pd-stats">
                 {product.resultsStats.map((st, sidx) => (
-                  <div key={sidx} className="stat" style={{ padding: '16px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                    <b style={{ color: 'var(--c)', fontSize: '28px' }}>{st.val}</b>
-                    <span style={{ fontSize: '14px', marginTop: '4px' }}>{st.label}</span>
+                  <div key={sidx}>
+                    <b>{st.val}</b>
+                    <span>{st.label}</span>
                   </div>
                 ))}
               </div>
-              <p style={{ margin: 0, fontSize: '14px', color: 'var(--slate)', lineHeight: 1.5 }}>{t("Full trial records, flock sheets, and comparative necropsy photos are available to veterinarians and commercial integrators upon request.")}</p>
-            </div>
-          ) : (
-            <div className="placeholder">{t("[Controlled trial charts, flock records, and comparative field reports available upon verification.]")}</div>
-          )}
+            )}
+
+            {!product.resultsStudy && (
+              <p className="pd-evidence__foot">{t("Full trial records, flock sheets, and comparative necropsy photos are available to veterinarians and commercial integrators upon request.")}</p>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* Downloads & FAQ */}
-      <section className={`section section--mist ${product.cls}`}>
-        <div className="wrap two-col">
-          <div id="downloads" className="downloads">
-            <h2 style={{ marginBottom: '8px' }}>{t("Downloads")}</h2>
-            <Link className="dl" href={`/contact?type=quote&product=${product.name}`}>
-              <i>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>
-                </svg>
-              </i>
-              <span><b>{t("Product brochure")}</b><small>{t("PDF · English")}</small></span>
-              <span className="dl__go">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                </svg>
-              </span>
-            </Link>
-            <Link className="dl" href={`/contact?type=quote&product=${product.name}`}>
-              <i>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>
-                </svg>
-              </i>
-              <span><b>{t("Technical datasheet")}</b><small>{t("PDF · on request")}</small></span>
-              <span className="dl__go">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                </svg>
-              </span>
-            </Link>
-            <Link className="dl" href={`/contact?type=quote&product=${product.name}`}>
-              <i>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 3l8 3.5V12c0 4.6-3.4 8-8 9-4.6-1-8-4.4-8-9V6.5z"/>
-                  <path d="M8.5 12l2.5 2.5 4.5-5"/>
-                </svg>
-              </i>
-              <span><b>{t("Safety data sheet & COA")}</b><small>{t("For registered buyers")}</small></span>
-              <span className="dl__go">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>
-                </svg>
-              </span>
-            </Link>
+      {/* 6. Downloads & FAQ */}
+      <section className="pd-sec pd-sec--tint">
+        <div className="wrap pd-split">
+          <div id="downloads">
+            <Head num="06" title={t("Downloads")} />
+            <div className="downloads">
+              {[
+                ['Product brochure', 'PDF · English', 'Product brochure'],
+                ['MSDS (Material Safety Data Sheet)', 'PDF · on request', 'MSDS'],
+                ['COA (Certificate of Analysis)', 'For registered buyers', 'COA'],
+              ].map(([name, sub, doc], idx) => (
+                <DatasheetButton key={name} className="dl" product={product.name} doc={doc}>
+                  <i><Icon name={idx === 2 ? 'certificate' : 'file'} size={22} /></i>
+                  <span><b>{t(name)}</b><small>{t(sub)}</small></span>
+                  <span className="dl__go">
+                    <Icon name="download" size={20} />
+                  </span>
+                </DatasheetButton>
+              ))}
+            </div>
           </div>
 
-          <div id="faq" className="faq">
-            <h2 style={{ marginBottom: '8px' }}>{t("Questions about {name}", { name: product.name })}</h2>
+          <div id="faq" className="faq pd-faq">
+            <Head num="07" title={t("Questions about {name}", { name: product.name })} />
             {product.faqs.map((f, idx) => (
               <details key={idx} open={idx === 0}>
                 <summary>{f.q}</summary>
@@ -379,37 +356,36 @@ export default function ProductDetailPage({ product: source }) {
         </div>
       </section>
 
-      {/* Related Products */}
-      <section className="section">
+      {/* 7. Often used with */}
+      <section className="pd-sec">
         <div className="wrap">
-          <div className="head head--row">
-            <h2>{t("Often used with {name}", { name: product.name })}</h2>
-            <Link className="link-arrow" href="/products">{t("All products")}</Link>
-          </div>
-          <div className="grid grid--3">
+          <Head
+            row
+            num="08"
+            title={t("Often used with {name}", { name: product.name })}
+            aside={<Link className="link-arrow" href="/products">{t("All products")}</Link>}
+          />
+          <div className="rcards">
             {product.related.map((relKey) => {
               const rel = PRODUCTS_DATA[relKey];
               if (!rel) return null;
               return (
-                <Link key={rel.slug} className={`pcard ${rel.cls}`} href={`/products/${rel.slug}`}>
-                  <div className="pcard__media">
-                    <span className="pcard__band" aria-hidden="true"><span>{rel.name}</span></span>
-                    <img src={rel.img} alt={rel.name} loading="lazy" width="400" height="400" />
-                  </div>
-                  <div className="pcard__body">
-                    <span className="pcard__cat">{t(rel.cat)}</span>
-                    <h3>{rel.name}</h3>
-                    <p>{t(rel.tagline)}</p>
-                  </div>
-                </Link>
+                <ViewDetailsButton key={rel.slug} className={`rcard ${rel.cls}`} href={`/products/${rel.slug}`} product={rel.name}>
+                  <span className="rcard__media">
+                    <img src={rel.img} alt="" loading="lazy" width="400" height="400" />
+                  </span>
+                  <span className="rcard__body">
+                    <small className="rcard__cat">{t(rel.cat).split('·')[0].trim()}</small>
+                    <b className="rcard__name">{rel.name}</b>
+                    <span className="rcard__text">{t(rel.tagline)}</span>
+                    <span className="rcard__more">{t("View details")}<Icon name="arrow" size={18} strokeWidth={2.2} /></span>
+                  </span>
+                </ViewDetailsButton>
               );
             })}
           </div>
         </div>
       </section>
-
-      {/* Trial CTA */}
-      <CtaSection defaultProduct={product.name} />
-    </>
+    </div>
   );
 }
