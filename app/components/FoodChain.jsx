@@ -36,8 +36,7 @@ export default function FoodChain() {
         </article>
 
         <div className="triad__panel triad__panel--brand">
-          <img className="triad__logo" src="/assets/img/logo.png" alt="Remevia, powered by nature" width="429" height="310" />
-          <p className="triad__tag">{t("Bridging Evolutionary Biology & Veterinary Science.")}</p>
+          <video className="triad__video" src="/assets/video/remevia-flock.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
         </div>
 
         <article className="triad__panel triad__panel--modern">

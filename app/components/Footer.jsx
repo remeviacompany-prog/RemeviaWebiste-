@@ -53,17 +53,6 @@ const SOLUTION_LINKS = [
 
 export default function Footer() {
   const { t } = useLanguage();
-  const [newsEmail, setNewsEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleNewsletter = (e) => {
-    e.preventDefault();
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsEmail)) {
-      setSubscribed(true);
-      setNewsEmail('');
-    }
-  };
-
   return (
     <>
       <footer className="footer footer--seo">
@@ -105,8 +94,8 @@ export default function Footer() {
             <nav className="footer__col footer__col--blue" aria-label={t("Products")}>
               <h4>{t("Products")}</h4>
               <ul>
-                {PRODUCT_LINKS.map(([name, href, cat]) => (
-                  <li key={name}><Link href={href}><b>{name}</b><small>{t(cat)}</small></Link></li>
+                {PRODUCT_LINKS.map(([name, href]) => (
+                  <li key={name}><Link href={href}>{name}</Link></li>
                 ))}
               </ul>
             </nav>
@@ -139,7 +128,7 @@ export default function Footer() {
               <address>
                 <span className="footer__line">
                   <Icon name="pin" size={18} />
-                  <span>Remevia Pvt. Ltd.<br />Padiyur P.O, Pin - 680688,<br />Thrissur Dist., Kerala, India</span>
+                  <span>Padiyur P.O, Thrissur, Kerala 680688, India</span>
                   <CopyButton text={ADDRESS} label={t("Copy address")} />
                 </span>
                 <span className="footer__line">
@@ -162,32 +151,6 @@ export default function Footer() {
                 </span>
               </address>
               <p className="footer__cin">CIN: U15499KL2007PTC021494</p>
-            </div>
-          </div>
-
-          <div className="footer__band">
-            <div className="footer__markets">
-              <h4>{t("Markets we serve")}</h4>
-              <ul>
-                {['India', 'Middle East', 'South Asia', 'Southeast Asia'].map((m) => <li key={m}><Icon name="globe" size={15} />{t(m)}</li>)}
-              </ul>
-            </div>
-            <div className="footer__newsbox">
-              <h4>{t("Field results in your inbox")}</h4>
-              <form className="footer__news" onSubmit={handleNewsletter} noValidate>
-                <label className="sr-only" htmlFor="news-email">{t("Email address")}</label>
-                <input
-                  id="news-email"
-                  type="email"
-                  value={newsEmail}
-                  onChange={(e) => setNewsEmail(e.target.value)}
-                  placeholder={subscribed ? t("Subscribed. Thank you!") : t("Work email")}
-                  autoComplete="email"
-                />
-                <button className="btn btn--sm footer__subscribe" type="submit">
-                  {subscribed ? t("Subscribed") : t("Subscribe")}
-                </button>
-              </form>
             </div>
           </div>
 

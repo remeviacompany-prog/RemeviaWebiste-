@@ -9522,3 +9522,148 @@ html[dir="rtl"] .hero-leaf {
   opacity: .85;
 }
 .builder__claim small bdi { font-size: 13px; }
+
+/* Triad: shorter panels, with the flock video filling the middle one */
+.triad { min-height: 0; }
+.triad__panel { gap: 12px; padding: clamp(28px, 3vw, 44px) clamp(20px, 3vw, 44px); }
+.triad__portrait { width: clamp(84px, 7vw, 104px); }
+.triad blockquote { gap: 8px; }
+.triad blockquote p { font-size: clamp(22px, 2vw, 30px); }
+.triad__note { font-size: 14.5px; line-height: 1.5; }
+.triad__panel--brand { padding: 0; background: #0f3d2a; }
+.triad__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) {
+  .triad__panel--brand { min-height: 420px; }
+}
+
+/* Header: solid white so page content never shows through it */
+.header, .header.is-scrolled { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* Smaller language picker */
+.header .lang svg { inset-inline-start: 10px; width: 15px; height: 15px; }
+.header .lang select { min-height: 36px; padding: 0 28px 0 31px; font-size: 13.5px; background-position: right 11px center; }
+[dir="rtl"] .header .lang select { padding: 0 31px 0 28px; background-position: left 11px center; }
+/* Free-trial button: white text on a deeper green for contrast */
+.header .header__tools .btn,
+.header .nav__cta { color: #fff; background: linear-gradient(135deg, #2FA341, #1E8A35); }
+.header .header__tools .btn:hover,
+.header .nav__cta:hover { color: #fff; background: linear-gradient(135deg, #279137, #17752B); }
+
+/* Footer: every column uses the same type size and spacing */
+.footer--seo .footer__col ul { display: grid; gap: 12px; font-size: 14.5px; line-height: 1.5; }
+.footer--seo .footer__col a { display: inline-block; font-weight: 500; }
+.footer--seo .footer__col h4 { min-height: 20px; margin-bottom: 18px; }
+.footer--seo .footer__contact address { gap: 12px; font-size: 14.5px; line-height: 1.5; }
+.footer--seo .footer__line { align-items: center; }
+.footer--seo .footer__line:first-child { align-items: start; }
+.footer--seo .footer__line:first-child .copy { margin-top: 0; }
+.footer--seo .copy { margin-top: 0; }
+.footer--seo .footer__bottom { margin-top: 44px; }
+
+/* Food chain band: shorter */
+.chainflow__grid { padding-block: clamp(36px, 4vw, 56px); }
+.chainflow h2 { font-size: clamp(28px, 2.8vw, 40px); }
+
+/* Footer: smaller type, every link and contact detail on a single line */
+@media (min-width: 1240px) {
+  .footer--seo .footer__top { grid-template-columns: minmax(200px, 1fr) repeat(4, auto); gap: 40px; justify-content: space-between; }
+  .footer--seo .footer__col ul li,
+  .footer--seo .footer__col a,
+  .footer--seo .footer__contact address > *,
+  .footer--seo .footer__cin { white-space: nowrap; }
+}
+.footer--seo .footer__brand p { font-size: 13.5px; line-height: 1.6; }
+.footer--seo .footer__col h4 { font-size: 13px; margin-bottom: 16px; }
+.footer--seo .footer__col ul { gap: 10px; font-size: 13.5px; line-height: 1.4; }
+.footer--seo .footer__contact address { gap: 10px; font-size: 13.5px; line-height: 1.4; }
+.footer--seo .footer__line,
+.footer--seo .footer__line:first-child { align-items: center; grid-template-columns: 16px minmax(0, 1fr) auto; }
+.footer--seo .footer__contact svg { width: 16px; height: 16px; margin-top: 0; }
+.footer--seo .copy { width: 26px; height: 26px; }
+.footer--seo .copy svg { width: 13px; height: 13px; }
+.footer--seo .footer__cin { font-size: 12px; }
+.footer--seo .footer__bottom { font-size: 13px; }
+
+/* ===== Header layout: logo left, navigation centred, language + trial right ===== */
+@media (min-width: 1081px) {
+  .header .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; }
+  .header .brand { justify-self: start; }
+  .header .nav { margin: 0; justify-self: center; }
+  .header .header__tools { justify-self: end; margin: 0; }
+  .header .nav a, .header .nav button.nav__drop { padding: 10px 12px; font-size: 15px; }
+}
+.header .header__tools { gap: 10px; }
+.header .header__tools .btn { white-space: nowrap; }
+/* Two-letter language picker, e.g. "EN ▾" */
+.header .lang select { width: auto; min-width: 0; max-width: none; padding: 0 26px 0 30px; font-weight: 600; letter-spacing: .04em; }
+[dir="rtl"] .header .lang select { padding: 0 30px 0 26px; }
+
+/* Tablet and phone: burger sits at the far right, beside the language picker */
+@media (max-width: 1080px) {
+  .header .header__tools { margin-inline-start: auto; }
+  .header .burger { width: 40px; height: 40px; border-radius: 10px; }
+}
+@media (max-width: 560px) {
+  .header .wrap { gap: 12px; }
+  .header .lang select { padding-inline-end: 24px; max-width: none; }
+}
+
+/* ===== Buttons: always one line; filled buttons use white text ===== */
+.btn { white-space: nowrap; }
+.btn:not(.btn--ghost-light):not(.btn--light):not(.cta__btn),
+.btn:not(.btn--ghost-light):not(.btn--light):not(.cta__btn):hover { color: #fff !important; white-space: nowrap !important; }
+/* The white pill on the green CTA band keeps dark text */
+.cta__btn { color: #0B3D24 !important; white-space: nowrap; }
+@media (max-width: 480px) {
+  .btn { font-size: 14px; padding-inline: 18px; }
+}
+
+/* ===== R&D process cards (Science page): more compact ===== */
+.section--dark .process > li { padding: 18px 18px 18px; border-radius: 16px; border-top-width: 4px; }
+.section--dark .process > li .process__node { width: 44px; height: 44px; font-size: 16px; }
+.section--dark .process > li h3 { font-size: clamp(18px, 1.5vw, 21px); margin: 10px 0 6px; line-height: 1.2; }
+.section--dark .process > li p { font-size: 14px; line-height: 1.5; margin: 0; }
+.section--dark .process { gap: 16px; }
+
+/* ===== Shorter sections everywhere ===== */
+main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
+.bhero { min-height: 0; }
+.bhero__stage { min-height: min(560px, 70vh); }
+.bhero__copy { padding-block: clamp(36px, 4.5vw, 64px); }
+
+/* Challenge finder: datasheet button fits on one line */
+.finder .btn { white-space: nowrap !important; font-size: 14.5px; padding-inline: 20px; max-width: 100%; }
+
+/* Phones and tablets: Hippocrates first, then the video, then Fleming */
+@media (max-width: 900px) {
+  .triad__panel--brand { order: 0; }
+}
+
+/* Video panel at a true 9:16 (portrait) ratio */
+@media (min-width: 901px) {
+  .triad { --triad-h: clamp(480px, 38vw, 580px); grid-template-columns: minmax(0, 1fr) calc(var(--triad-h) * 9 / 16) minmax(0, 1fr); grid-template-rows: var(--triad-h); }
+  .triad__panel--brand { height: var(--triad-h); }
+}
+@media (max-width: 900px) {
+  .triad__panel--brand { min-height: 0; aspect-ratio: 9 / 16; width: 100%; max-width: 480px; justify-self: center; background: #0f3d2a; }
+}
+
+/* About story: stat badges sit inside the leaf picture */
+.story__badge { padding: 10px 16px; gap: 10px; border-radius: 16px; }
+.story__badge b { font-size: 28px; }
+.story__badge span { font-size: 13.5px; }
+.story__badge--a { top: 18px; inset-inline-start: 18px; }
+.story__badge--b { bottom: 18px; inset-inline-end: 18px; }
+
+/* About story: the three chips on one line */
+@media (min-width: 1200px) {
+  .story__grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); }
+  .story__points { flex-wrap: nowrap; gap: 8px; }
+  .story__points li { white-space: nowrap; padding: 8px 12px; font-size: 13px; gap: 6px; }
+  .story__points li svg { width: 16px; height: 16px; }
+}
+
+/* About impact: heading on one line on wider screens */
+@media (min-width: 901px) {
+  .impact .head { max-width: none; }
+  .impact .head h2 { white-space: nowrap; font-size: clamp(28px, 2.9vw, 42px); }
+}

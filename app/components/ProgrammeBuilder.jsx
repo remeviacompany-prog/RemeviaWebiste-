@@ -199,13 +199,14 @@ export default function ProgrammeBuilder() {
           <form className="builder__inputs" onSubmit={(e) => e.preventDefault()}>
             <fieldset>
               <legend>{t("1. Your flock")}</legend>
-              <div className="builder__tabs">
-                {Object.entries(FLOCKS).map(([key, value]) => (
-                  <button key={key} type="button" aria-pressed={flockKey === key} onClick={() => changeFlock(key)}>
-                    {t(value.label)}
-                  </button>
-                ))}
-              </div>
+              <label className="field">
+                {t("Flock type")}
+                <select className="builder__select" value={flockKey} onChange={(e) => changeFlock(e.target.value)}>
+                  {Object.entries(FLOCKS).map(([key, value]) => (
+                    <option key={key} value={key}>{t(value.label)}</option>
+                  ))}
+                </select>
+              </label>
               <label className="field">
                 {t(flock.countLabel || "Number of birds")}
                 <input type="number" min="1" step="1000" inputMode="numeric" value={birds} onChange={(e) => setBirds(e.target.value)} />

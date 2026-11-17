@@ -154,9 +154,9 @@ export default function Header() {
                 <path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/>
               </svg>
               <span className="sr-only">{t("Language")}</span>
-              <select value={lang} onChange={(e) => setLang(e.target.value)}>
+              <select value={lang} onChange={(e) => setLang(e.target.value)} title={LANGUAGES.find((l) => l.code === lang)?.label}>
                 {LANGUAGES.map((l) => (
-                  <option key={l.code} value={l.code}>{l.label}</option>
+                  <option key={l.code} value={l.code} aria-label={l.label}>{l.code.toUpperCase()}</option>
                 ))}
               </select>
             </label>
