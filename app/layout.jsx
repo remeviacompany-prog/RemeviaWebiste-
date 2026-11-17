@@ -33,10 +33,11 @@ const ORGANIZATION = {
   description: 'Plant-based feed and water additives that replace antibiotics in poultry and livestock farming. Made in Kerala, India.',
   email: 'care@remevia.in',
   telephone: '+91 79947 64845',
+  identifier: 'CIN U15499KL2007PTC021494',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Edakulam P.O',
-    addressLocality: 'Irinjalakuda',
+    streetAddress: 'Padiyur P.O',
+    addressLocality: 'Thrissur',
     addressRegion: 'Kerala',
     postalCode: '680688',
     addressCountry: 'IN',
@@ -53,7 +54,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link 
-          href="https://fonts.googleapis.com/css2?family=Saira:wght@500;600;700&family=Figtree:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+Thai:wght@400;600;700&family=Noto+Sans:wght@400;600;700&display=swap" 
+          href="https://fonts.googleapis.com/css2?family=Saira:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Noto+Sans+Thai:wght@400;600;700&family=Noto+Sans:wght@400;600;700&display=swap" 
           rel="stylesheet" 
         />
       </head>

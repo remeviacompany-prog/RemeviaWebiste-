@@ -5,6 +5,32 @@ import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { Icon } from './icons';
 
+const ADDRESS = 'Remevia Pvt. Ltd., Padiyur P.O, Pin - 680688, Thrissur Dist., Kerala, India';
+
+// Copies a contact detail with one tap, so visitors don't have to select text on a phone.
+function CopyButton({ text, label }) {
+  const [done, setDone] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand('copy');
+      area.remove();
+    }
+    setDone(true);
+    setTimeout(() => setDone(false), 1600);
+  };
+  return (
+    <button type="button" className={`copy ${done ? 'is-done' : ''}`} onClick={copy} aria-label={label} title={label}>
+      <Icon name={done ? 'check' : 'copy'} size={15} />
+    </button>
+  );
+}
+
 const PRODUCT_LINKS = [
   ['TLTREAT', '/products/tltreat', 'Gut health & growth'],
   ['CURTECT-CRD', '/products/curtect-crd', 'Respiratory support'],
@@ -45,7 +71,7 @@ export default function Footer() {
           <div className="footer__top">
             <div className="footer__brand">
               <Link href="/" aria-label={t("Remevia home")}>
-                <img src="/assets/img/logo-footer.png" alt="Remevia" width="369" height="256" />
+                <img src="/assets/img/logo.png" alt="Remevia, powered by nature" width="429" height="310" />
               </Link>
               <p>{t("Remevia makes plant-based feed and water additives that replace antibiotics in poultry and livestock farming. Every formula is made in Kerala, India from standardised botanical actives, with no antibiotic residues.")}</p>
               <div className="social">
@@ -76,7 +102,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <nav className="footer__col" aria-label={t("Products")}>
+            <nav className="footer__col footer__col--blue" aria-label={t("Products")}>
               <h4>{t("Products")}</h4>
               <ul>
                 {PRODUCT_LINKS.map(([name, href, cat]) => (
@@ -85,7 +111,7 @@ export default function Footer() {
               </ul>
             </nav>
 
-            <nav className="footer__col" aria-label={t("Solutions")}>
+            <nav className="footer__col footer__col--teal" aria-label={t("Solutions")}>
               <h4>{t("Solutions")}</h4>
               <ul>
                 {SOLUTION_LINKS.map(([label, href]) => (
@@ -94,7 +120,7 @@ export default function Footer() {
               </ul>
             </nav>
 
-            <nav className="footer__col" aria-label={t("Company")}>
+            <nav className="footer__col footer__col--green" aria-label={t("Company")}>
               <h4>{t("Company")}</h4>
               <ul>
                 <li><Link href="/about">{t("About us")}</Link></li>
@@ -108,14 +134,34 @@ export default function Footer() {
               </ul>
             </nav>
 
-            <div className="footer__col footer__contact">
+            <div className="footer__col footer__col--navy footer__contact">
               <h4>{t("Reach us")}</h4>
               <address>
-                <span><Icon name="pin" size={18} /><span>Remevia Pvt. Ltd.<br />Edakulam P.O, Irinjalakuda, Pin 680 688,<br />Thrissur Dist, Kerala, India</span></span>
-                <a href="tel:+917994764845"><Icon name="phone" size={18} />+91 79947 64845</a>
-                <a href="https://wa.me/917994764845"><Icon name="chat" size={18} />{t("WhatsApp us")}</a>
-                <a href="mailto:care@remevia.in"><Icon name="mail" size={18} />care@remevia.in</a>
+                <span className="footer__line">
+                  <Icon name="pin" size={18} />
+                  <span>Remevia Pvt. Ltd.<br />Padiyur P.O, Pin - 680688,<br />Thrissur Dist., Kerala, India</span>
+                  <CopyButton text={ADDRESS} label={t("Copy address")} />
+                </span>
+                <span className="footer__line">
+                  <Icon name="phone" size={18} />
+                  <a href="tel:+917994764845">+91 799 476 4845</a>
+                  <CopyButton text="+91 799 476 4845" label={t("Copy phone number")} />
+                </span>
+                <span className="footer__line">
+                  <Icon name="mail" size={18} />
+                  <a href="mailto:care@remevia.in">care@remevia.in</a>
+                  <CopyButton text="care@remevia.in" label={t("Copy email address")} />
+                </span>
+                <span className="footer__line">
+                  <Icon name="chat" size={18} />
+                  <a href="https://wa.me/917994764845">{t("WhatsApp us")}</a>
+                </span>
+                <span className="footer__line">
+                  <Icon name="globe" size={18} />
+                  <a href="https://www.remevia.in">www.remevia.in</a>
+                </span>
               </address>
+              <p className="footer__cin">CIN: U15499KL2007PTC021494</p>
             </div>
           </div>
 

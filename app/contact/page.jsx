@@ -94,12 +94,12 @@ function ContactForm() {
         scene="contact"
         crumb={t("Contact")}
         title={t("Let's grow healthier flocks together")}
-        lede={t("Request a field trial, get a quote, or join our distributor network. We reply within one working day.")}
+        lede={t("Request a field trial, get a quote, or join our distributor network. We reply within 48 hours or 2 working days.")}
         facts={{
           title: t("What Happens Next"),
           sub: t("From your first message to your first trial"),
           rows: [
-            { label: t("1. We reply"), value: t("Within one working day") },
+            { label: t("1. We reply"), value: t("Within 48 hours or 2 working days") },
             { label: t("2. We review"), value: t("Your flock and goals") },
             { label: t("3. We recommend"), value: t("A programme for your farm") },
             { label: t("4. You trial"), value: t("With our technical support"), highlight: true },
@@ -225,7 +225,10 @@ function ContactForm() {
                 value={formData.flock}
                 onChange={(e) => setFormData({ ...formData, flock: e.target.value })}
               >
-                <option value="Under 10,000 birds">{t("Under 10,000 birds")}</option>
+                <option value="Up to 1,000 birds">{t("Up to 1,000 birds")}</option>
+                <option>1,000 – 2,000</option>
+                <option>2,000 – 5,000</option>
+                <option>5,000 – 10,000</option>
                 <option>10,000 – 50,000</option>
                 <option>50,000 – 200,000</option>
                 <option value="Over 200,000">{t("Over 200,000")}</option>
@@ -279,7 +282,7 @@ function ContactForm() {
             )}
 
             {isSent && (
-              <p className="form__ok" role="status">{t("Thank you. Your enquiry was sent and our team will reply within one working day.")}</p>
+              <p className="form__ok" role="status">{t("Thank you. Your enquiry was sent and our team will reply within 48 hours or 2 working days.")}</p>
             )}
           </form>
 
@@ -292,8 +295,8 @@ function ContactForm() {
                 </svg>
                 <span>
                   Remevia Pvt. Ltd.<br />
-                  Edakulam P.O, Irinjalakuda, Pin 680 688<br />
-                  Thrissur Dist, Kerala, India
+                  Padiyur P.O, Pin - 680688,<br />
+                  Thrissur Dist., Kerala, India
                 </span>
               </div>
               <div className="info__row">
@@ -323,10 +326,10 @@ function ContactForm() {
 
             <div className="map">
               <iframe
-                title={t("Map of Remevia office in Irinjalakuda, Kerala")}
+                title={t("Map of Remevia office in Padiyur, Thrissur, Kerala")}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Edakulam,+Irinjalakuda,+Kerala+680688&output=embed"
+                src="https://www.google.com/maps?q=Padiyur,+Thrissur,+Kerala+680688&output=embed"
                 style={{ border: 0, width: '100%', height: '280px' }}
               ></iframe>
             </div>

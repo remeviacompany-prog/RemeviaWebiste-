@@ -56,7 +56,7 @@ export default function Header() {
       <header className={`header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="wrap">
           <Link className="brand" href="/" aria-label={t("Remevia home")}>
-            <img src="/assets/img/logo-header.png" alt="Remevia" width="345" height="240" />
+            <img src="/assets/img/logo.png" alt="Remevia, powered by nature" width="429" height="310" />
           </Link>
 
           <nav className={`nav ${menuOpen ? 'is-open' : ''}`} id="site-nav" aria-label={t("Main")}>

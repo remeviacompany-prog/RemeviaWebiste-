@@ -29,12 +29,11 @@ export default function SciencePage() {
         }}
       />
 
-      {/* Quote */}
+      {/* Nature's defence */}
       <section className="section">
         <div className="wrap quote">
           <span className="quote__mark" aria-hidden="true"><Icon name="sprout" size={34} strokeWidth={1.7} /></span>
-          <blockquote>{t("“Let food be thy medicine.”")}</blockquote>
-          <cite>{t("Commonly attributed to Hippocrates")}</cite>
+          <h2 className="quote__title">{t("Nature already makes the molecules")}</h2>
           <p>{t("Every living thing has natural enemies, and nature has already made the molecules to fight them. Plants use essential oils and oleoresins to protect themselves from bacteria, fungi and pests. We don't reinvent these molecules. We find them, purify them and put them to work.")}</p>
         </div>
       </section>
@@ -162,17 +161,17 @@ export default function SciencePage() {
             <li>
               <span className="process__node"></span>
               <h3>{t("Extract")}</h3>
-              <p>{t("Recover pure essential oils and oleoresins without damaging the active molecules.")}</p>
+              <p>{t("Isolate individual active molecules from each plant extract.")}</p>
             </li>
             <li>
               <span className="process__node"></span>
               <h3>{t("Formulate for synergy")}</h3>
-              <p>{t("Combine compounds that hit a problem from several angles, lowering the chance of resistance.")}</p>
+              <p>{t("Combine molecules that hit a problem from several angles, lowering the chance of resistance.")}</p>
             </li>
             <li>
               <span className="process__node"></span>
               <h3>{t("Validate")}</h3>
-              <p>{t("In-vitro lab work and in-vivo flock trials back every claim with data.")}</p>
+              <p>{t("In-vivo, in-vitro and field flock trials back every claim with data.")}</p>
             </li>
           </ol>
         </div>
@@ -187,7 +186,7 @@ export default function SciencePage() {
           </div>
           <div className="compare duel" style={{ marginBottom: '24px' }}>
             <div className="duel__card duel__card--single">
-              <h3>{t("Single active")}</h3>
+              <div className="duel__top"><h3>{t("Single active")}</h3><span className="duel__chip duel__chip--bad">{t("1 mode of action")}</span></div>
               <svg viewBox="0 0 320 160" role="img" aria-label={t("One compound acting on one target")}>
                 <path d="M84 80h118" stroke="#94A3BF" strokeWidth="3" strokeDasharray="6 6" className="duel__line"/>
                 <circle cx="60" cy="80" r="22" fill="#94A3BF" className="duel__src"/>
@@ -199,7 +198,7 @@ export default function SciencePage() {
               </svg>
             </div>
             <div className="duel__card duel__card--blend">
-              <h3>{t("Remevia synergy blend")}</h3>
+              <div className="duel__top"><h3>{t("Remevia synergy blend")}</h3><span className="duel__chip duel__chip--good">{t("Multi-target")}</span></div>
               <svg viewBox="0 0 320 160" role="img" aria-label={t("Several compounds acting on several targets")}>
                 <path d="M66 40C140 40 160 70 206 77" stroke="#2C49A6" strokeWidth="3" fill="none" className="duel__flow"/>
                 <path d="M66 80H206" stroke="#1A97A4" strokeWidth="3" fill="none" className="duel__flow"/>
@@ -228,6 +227,17 @@ export default function SciencePage() {
                 <span>{t("Decongestant")}</span>
                 <span>{t("Anti-inflammatory")}</span>
                 <span>{t("Antimicrobial & immune support")}</span>
+              </div>
+            </div>
+            <div className="syn t-eksit">
+              <div className="syn__head"><h3>EKSIT-CRD</h3><span>{t("6 modes against Mycoplasma")}</span></div>
+              <div className="syn__body">
+                <span>{t("Breaks Mycoplasma cell membranes")}</span>
+                <span>{t("Blocks bacterial attachment")}</span>
+                <span>{t("Bronchodilator")}</span>
+                <span>{t("Mucolytic & expectorant")}</span>
+                <span>{t("Anti-inflammatory")}</span>
+                <span>{t("Antioxidant protection")}</span>
               </div>
             </div>
             <div className="syn t-repeal">

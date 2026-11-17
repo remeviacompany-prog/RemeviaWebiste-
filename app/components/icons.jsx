@@ -2,7 +2,7 @@ import React from 'react';
 import {
   ArrowRight, Award, Bandage, Bird, Bug, CircleCheck, Clock, Coins, Crosshair, Download, Droplets, Egg, Eye,
   FileCheck2, FileText, FlaskConical, Germ, HeartPlus, HeartPulse, House, Layers, Leaf, Package, RefreshCw, Scale,
-  ShieldCheck, ShieldPlus, SprayCan, Sprout, Star, Globe, MapPin, Phone, Mail, MessageCircle, FlaskRound, Microscope, Handshake, Users, Syringe, ThermometerSnowflake, Timer, TrendingUp, Trophy, Wind,
+  ShieldCheck, ShieldPlus, SprayCan, Sprout, Star, Globe, MapPin, Phone, Mail, MessageCircle, FlaskRound, Microscope, Handshake, Users, Copy, Syringe, ThermometerSnowflake, Timer, TrendingUp, Trophy, Wind,
 } from 'lucide-react';
 
 // Product-page icons come from Lucide (lucide.dev, ISC licence). Lucide has no lungs or
@@ -27,7 +27,7 @@ const ICONS = {
   bandage: Bandage, house: House, layers: Layers, cycle: RefreshCw, bird: Bird, target: Crosshair, scale: Scale,
   package: Package, bottle: FlaskConical, check: CircleCheck, medal: Award, time: Clock, arrow: ArrowRight,
   download: Download, file: FileText, certificate: FileCheck2, sprout: Sprout, globe: Globe, pin: MapPin,
-  phone: Phone, mail: Mail, chat: MessageCircle, lab: Microscope, flask: FlaskRound, handshake: Handshake, users: Users,
+  phone: Phone, mail: Mail, chat: MessageCircle, lab: Microscope, flask: FlaskRound, handshake: Handshake, users: Users, copy: Copy,
 };
 
 export function Icon({ name, size = 24, strokeWidth = 1.8, ...props }) {

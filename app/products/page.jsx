@@ -95,7 +95,7 @@ const PRODUCTS = [
     ],
     ticksCol2: [
       'Natural pigments, no synthetic colourants',
-      'Simple 1 kg per tonne inclusion'
+      '1 kg per tonne inclusion'
     ],
     specs: [
       { label: 'FORMAT', val: 'Feed powder' },

@@ -103,7 +103,7 @@ export default function CtaSection() {
             <span className="popup__tick" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.2 4.2L19 7" /></svg>
             </span>
-            <h2 id="enquiry-title">{t("Thank you. Your enquiry was sent and our team will reply within one working day.")}</h2>
+            <h2 id="enquiry-title">{t("Thank you. Your enquiry was sent and our team will reply within 48 hours or 2 working days.")}</h2>
             <button type="button" className="btn btn--grad" onClick={close}>{t("Continue to the website")}</button>
           </div>
         ) : (
@@ -131,7 +131,10 @@ export default function CtaSection() {
             <label className="field full">{t("Flock size")}
               <select name="flock" value={form.flock} onChange={set('flock')}>
                 <option value="">{t("Choose one")}</option>
-                <option value="Under 10,000 birds">{t("Under 10,000 birds")}</option>
+                <option value="Up to 1,000 birds">{t("Up to 1,000 birds")}</option>
+                <option>1,000 – 2,000</option>
+                <option>2,000 – 5,000</option>
+                <option>5,000 – 10,000</option>
                 <option>10,000 – 50,000</option>
                 <option>50,000 – 200,000</option>
                 <option value="Over 200,000">{t("Over 200,000")}</option>

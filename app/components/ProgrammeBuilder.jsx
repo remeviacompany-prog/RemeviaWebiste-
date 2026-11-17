@@ -10,14 +10,14 @@ const FEED_BAG_KG = 50;
 
 // Dosing days on the label's schedule. Days are 1-based.
 const courseDays = (length) => Array.from({ length }, (_, i) => i + 1);
+// 2 days ON / 2 days OFF from day 16: days 16-17, 20-21, 24-25, 28-29 and 32-33, so 10 dosing days.
 const eksitDays = () => {
   const out = [];
-  for (let day = 16; day <= 36; day += 4) {
-    out.push(day);
-    if (day + 1 <= 36) out.push(day + 1);
-  }
+  for (let day = 16; day <= 33; day += 4) out.push(day, day + 1);
   return out;
 };
+// CURTECT-CRD runs continuously from day 8 to day 14.
+const rangeDays = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
 const alternateWeeks = (days, startWeek) => {
   const out = [];
   for (let day = 1; day <= days; day += 1) {
@@ -35,7 +35,7 @@ const FLOCKS = {
     window: 'One 40-day cycle',
     feed: 90,
     water: 0.2,
-    products: ['tltreat', 'curtect', 'eksit', 'healer'],
+    products: ['tltreat', 'curtect', 'eksit'],
     defaults: ['tltreat', 'curtect', 'eksit'],
   },
   layer: {
@@ -46,8 +46,23 @@ const FLOCKS = {
     window: 'A 12-week window',
     feed: 115,
     water: 0.25,
-    products: ['tlegg', 'tltreat', 'curtect', 'repeal', 'healer'],
+    products: ['tlegg', 'tltreat', 'curtect', 'repeal'],
     defaults: ['tlegg', 'repeal'],
+  },
+  // TL HEALER is a topical wound spray, so it is planned here for cattle, goats and other large animals.
+  large: {
+    label: 'Large animals',
+    unit: 'animals',
+    countLabel: 'Number of animals',
+    days: 30,
+    axis: 'Day',
+    tick: 10,
+    window: 'A 30-day window',
+    feed: 0,
+    water: 0,
+    noFeed: true,
+    products: ['healer'],
+    defaults: ['healer'],
   },
 };
 
@@ -59,18 +74,21 @@ const PLANS = {
   },
   curtect: {
     name: 'CURTECT-CRD', cls: 't-curtect', goal: 'Respiratory support',
-    // A course of up to 14 days from day 1, dosed twice a day, so it treats the full day's water.
-    schedule: (flock, days) => ({ days: courseDays(Math.min(14, days)), note: 'Twice a day for 7–14 days', waterShare: 1 }),
-    rate: () => ({ kind: 'water', ml: 200 }),
+    schedule: (flock, days) => (flock === 'broiler'
+      ? { days: rangeDays(8, 14), note: 'Continuously from 8th day to 14th day' }
+      : { days: courseDays(Math.min(14, days)), note: 'Twice a day for 7–14 days', waterShare: 1 }),
+    // Broilers: the same per-bird daily dose as EKSIT-CRD (0.0533 ml per bird per day).
+    rate: (flock) => (flock === 'broiler' ? { kind: 'bird', mlPerDay: 0.0533 } : { kind: 'water', ml: 200 }),
   },
   eksit: {
     name: 'EKSIT-CRD', cls: 't-eksit', goal: 'CRD & Mycoplasma',
-    schedule: () => ({ days: eksitDays(), note: 'From 16th day up to 36th day: 2-days ON / 2-days OFF cycle', waterShare: 1 }),
-    rate: () => ({ kind: 'water', ml: 200 }),
+    schedule: () => ({ days: eksitDays(), note: 'From 16th day up to 36th day: 2-days ON / 2-days OFF cycle' }),
+    // 0.533 ml per bird over the 10 dosing days, so 5.3 L for 10,000 birds.
+    rate: () => ({ kind: 'bird', mlPerDay: 0.0533 }),
   },
   tlegg: {
     name: 'TLEGG', cls: 't-egg', goal: 'Egg quality',
-    schedule: () => ({ continuous: true, note: 'Continuous inclusion in layer mash or pellets' }),
+    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 18th to 95th week for golden egg-yolk colour' }),
     rate: () => ({ kind: 'feed', min: 1, max: 1 }),
   },
   repeal: {
@@ -141,6 +159,9 @@ export default function ProgrammeBuilder() {
       } else if (rate.kind === 'water') {
         const litres = (schedule.days.length * schedule.waterShare * dailyWater * rate.ml) / 1000 / 1000;
         quantity = { text: `${amount(litres)} L` };
+      } else if (rate.kind === 'bird') {
+        const litres = (schedule.days.length * birdCount * rate.mlPerDay) / 1000;
+        quantity = { text: `${amount(litres)} L` };
       }
 
       return { key, ...def, schedule, quantity };
@@ -186,7 +207,7 @@ export default function ProgrammeBuilder() {
                 ))}
               </div>
               <label className="field">
-                {t("Number of birds")}
+                {t(flock.countLabel || "Number of birds")}
                 <input type="number" min="1" step="1000" inputMode="numeric" value={birds} onChange={(e) => setBirds(e.target.value)} />
               </label>
             </fieldset>
@@ -209,7 +230,7 @@ export default function ProgrammeBuilder() {
               </div>
             </fieldset>
 
-            <details className="builder__assume">
+            {!flock.noFeed && <details className="builder__assume">
               <summary>{t("Adjust feed and water figures")}</summary>
               <p>{t("Starting figures are typical averages for planning. Replace them with your own farm's numbers.")}</p>
               <div className="builder__pair">
@@ -222,13 +243,13 @@ export default function ProgrammeBuilder() {
                   <input type="number" min="0.01" step="0.01" inputMode="decimal" value={water} onChange={(e) => setWater(e.target.value)} />
                 </label>
               </div>
-            </details>
+            </details>}
           </form>
 
           <div className="builder__output" aria-live="polite">
             <div className="builder__summary">
               <h3>{t("Your programme")}</h3>
-              <span>{t(flock.window)} · {number(clampNumber(birds, 0))} {t("birds")} · {amount(plan.feedTonnes)} {t("tonnes of feed")}</span>
+              <span>{t(flock.window)} · {number(clampNumber(birds, 0))} {t(flock.unit || "birds")}{!flock.noFeed && <> · {amount(plan.feedTonnes)} {t("tonnes of feed")}</>}</span>
             </div>
 
             {plan.rows.length === 0 ? (
@@ -279,8 +300,9 @@ export default function ProgrammeBuilder() {
 
                 {plan.extraMeat > 0 && (
                   <p className="builder__claim">
-                    <bdi>+{number(plan.extraMeat)} kg</bdi>{' '}
+                    <bdi>+15 kg</bdi>{' '}
                     {t("potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne")}
+                    <small>{t("For this flock:")} <bdi>+{number(plan.extraMeat)} kg</bdi></small>
                   </p>
                 )}
               </>

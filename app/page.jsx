@@ -24,7 +24,7 @@ const AUDIENCES = [
 ];
 
 const ACTIVES = [
-  'Curcumin', 'Ginger extract', 'Eucalyptus oil', 'Menthol', 'Rosemary oil', 'Oregano Essential Oil',
+  'Curcumin', 'Ginger extract', 'Menthol', 'Rosemary oil', 'Oregano Essential Oil',
   'Cinnamon Essential Oil', 'Extract of Marigold (Tagetes erecta)', 'Basil oil', 'Neem oil', 'Cedarwood oil', 'D-Limonene',
 ];
 

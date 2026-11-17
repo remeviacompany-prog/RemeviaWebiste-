@@ -556,7 +556,7 @@ export const PRODUCTS_DATA = {
       'Turns egg yolk into an appealing, uniform golden orange-yellow colour',
       'Maintains deep yolk colour even when maize in the poultry diet is reduced or replaced',
       'Rich in lipophilic antioxidants; bolsters human eye health and protects the cornea',
-      'Simple 1 kg per 1,000 kg feed inclusion for continuous layer feeding',
+      '1 kg per 1,000 kg feed inclusion for continuous layer feeding',
       'High thermal stability during feed milling, mash mixing, and pelleting',
       '100% natural botanical pigments with zero synthetic chemical dye residues'
     ],
