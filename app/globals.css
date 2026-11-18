@@ -9674,7 +9674,7 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 .builder__subs dt { flex: none; padding: 1px 8px; border-radius: 999px; background: var(--c); color: #fff; font: 700 11px var(--display); letter-spacing: .04em; text-transform: uppercase; }
 .builder__subs dd { margin: 0; color: var(--slate); }
 
-/* ---------- Science: synergy duel v4 (aligned, dynamic, high-fidelity) ---------- */
+/* ---------- Science: synergy duel v5 (perfect alignment, synchronized 3.5s motion) ---------- */
 .sduel {
   margin-bottom: 32px;
   display: grid;
@@ -9714,7 +9714,7 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   height: auto;
   max-height: 230px;
   display: block;
-  margin: 8px 0;
+  margin: 10px 0 6px 0;
   overflow: visible;
 }
 
@@ -9732,20 +9732,13 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   box-shadow: 0 24px 50px -16px rgba(220, 38, 38, 0.25);
 }
 
-.sduel .duel__card--single h3 {
-  color: #0F172A !important;
-  font-size: 19px;
-  font-weight: 700;
-  margin: 0 0 2px 0;
-}
-
 /* --- Card 2: Remevia synergy blend --- */
 .sduel .duel__card--blend {
   background: radial-gradient(320px 220px at 100% 0%, rgba(187, 247, 208, 0.65), transparent 70%),
               linear-gradient(155deg, #FFFFFF 0%, #F0FDF4 45%, #DCFCE7 100%) !important;
   border: 1px solid #86EFAC !important;
   box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
-  animation: synBlendCardGlow 5s ease-out infinite;
+  animation: synBlendCardGlow 3.5s ease-out infinite;
 }
 
 .sduel .duel__card--blend:hover {
@@ -9754,34 +9747,30 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   box-shadow: 0 24px 54px -16px rgba(22, 163, 74, 0.32);
 }
 
-.sduel .duel__card--blend h3 {
-  color: #0F172A !important;
-  font-size: 19px;
-  font-weight: 700;
-  margin: 0 0 2px 0;
-}
-
 @keyframes synBlendCardGlow {
   0%, 30%, 100% {
     box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
   }
-  42%, 75% {
+  38%, 70% {
     box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.55), 0 24px 54px -16px rgba(34, 197, 94, 0.35);
   }
 }
 
-/* --- Headers & Chips --- */
-.duel__head-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+/* --- Card Headers --- */
+.duel__top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-bottom: 6px !important;
 }
 
-.duel__subtext {
-  font-size: 13px !important;
-  color: #64748B !important;
+.duel__title {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
   margin: 0 !important;
-  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .duel__chip {
@@ -9836,38 +9825,45 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   50% { opacity: 0.6; transform: scale(0.85); filter: drop-shadow(0 0 1px #22C55E); }
 }
 
-/* --- Semantic Aligned Footers --- */
+/* --- Clean, Centered Footers --- */
 .duel__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-top: 14px;
-  margin-top: 4px;
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding-top: 14px !important;
+  margin-top: 4px !important;
+  border-top: 1px solid rgba(15, 23, 42, 0.06) !important;
+  width: 100%;
 }
 
-.duel__status-pill {
+.duel__footer-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
+  padding: 6px 18px;
+  border-radius: 999px;
   font-size: 13.5px;
   font-weight: 600;
   line-height: 1.3;
+  text-align: center;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.04);
 }
 
-.duel__status-pill--bad {
-  color: #7F1D1D;
+.duel__footer-pill--bad {
+  background: #FFF1F2;
+  color: #991B1B;
+  border: 1px solid #FECDD3;
 }
 
-.duel__status-pill--good {
+.duel__footer-pill--good {
+  background: #F0FDF4;
   color: #14532D;
+  border: 1px solid #BBF7D0;
 }
 
-.duel__status-icon {
-  width: 20px;
-  height: 20px;
+.duel__footer-icon {
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -9877,96 +9873,76 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   flex-shrink: 0;
 }
 
-.duel__status-pill--bad .duel__status-icon {
+.duel__footer-pill--bad .duel__footer-icon {
   background: #FEE2E2;
   color: #DC2626;
   border: 1px solid #FCA5A5;
 }
 
-.duel__status-pill--good .duel__status-icon {
+.duel__footer-pill--good .duel__footer-icon {
   background: #DCFCE7;
   color: #16A34A;
   border: 1px solid #86EFAC;
 }
 
-.duel__metric-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
-}
-
-.duel__metric-tag--bad {
-  background: rgba(239, 68, 68, 0.12);
-  color: #991B1B;
-}
-
-.duel__metric-tag--good {
-  background: rgba(34, 197, 94, 0.18);
-  color: #14532D;
-}
-
 /* ========================================================
-   ANIMATIONS: CARD 1 (Single Synthetic Active - 5s cycle)
+   ANIMATIONS: CARD 1 (Single Synthetic Active - 3.5s cycle)
    ======================================================== */
 .syn-capsule-runner {
   transform-origin: 0 0;
-  animation: synCapsuleCycle 5s cubic-bezier(0.25, 1, 0.35, 1) infinite;
+  animation: synCapsuleCycle 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 @keyframes synCapsuleCycle {
   0% {
-    transform: translate(52px, 105px) scale(0.7);
+    transform: translate(56px, 105px) scale(0.85);
     opacity: 0;
   }
-  4% {
+  6% {
     opacity: 1;
-    transform: translate(52px, 105px) scale(1);
+    transform: translate(56px, 105px) scale(1);
   }
-  24% {
+  34% {
     transform: translate(232px, 105px) scale(1);
     opacity: 1;
   }
-  26% {
+  36% {
     transform: translate(234px, 105px) scale(1.08);
     opacity: 1;
   }
-  28% {
-    transform: translate(210px, 120px) rotate(-28deg);
+  40% {
+    transform: translate(208px, 122px) rotate(-26deg);
     opacity: 0.95;
   }
-  42% {
-    transform: translate(145px, 178px) rotate(-48deg);
-    opacity: 0.4;
+  62% {
+    transform: translate(140px, 178px) rotate(-48deg);
+    opacity: 0.55;
   }
-  46%, 100% {
-    transform: translate(145px, 178px) rotate(-48deg);
+  70%, 100% {
+    transform: translate(140px, 178px) rotate(-48deg);
     opacity: 0;
   }
 }
 
 .syn-shield-group {
   transform-origin: 235px 105px;
-  animation: synShieldImpact 5s ease-in-out infinite;
+  animation: synShieldImpact 3.5s ease-in-out infinite;
 }
 
 @keyframes synShieldImpact {
-  0%, 23% {
+  0%, 32% {
     transform: scale(1);
     filter: drop-shadow(0 0 0 rgba(220, 38, 38, 0));
   }
-  25% {
+  35% {
     transform: scale(1.14);
     filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.9));
   }
-  29% {
+  40% {
     transform: scale(1.02);
     filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5));
   }
-  36% {
+  48% {
     transform: scale(1);
     filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.25));
   }
@@ -9980,65 +9956,65 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .syn-impact-burst {
   transform-origin: 235px 105px;
-  animation: synImpactBurst 5s ease-out infinite;
+  animation: synImpactBurst 3.5s ease-out infinite;
 }
 
 @keyframes synImpactBurst {
-  0%, 24% {
+  0%, 33% {
     opacity: 0;
     transform: scale(0.2);
   }
-  25% {
+  35% {
     opacity: 1;
     transform: scale(1);
   }
-  30% {
+  42% {
     opacity: 0.8;
     transform: scale(1.7);
   }
-  36%, 100% {
+  50%, 100% {
     opacity: 0;
     transform: scale(2.4);
   }
 }
 
 .syn-ricochet-line {
-  animation: synRicochetFlash 5s ease-out infinite;
+  animation: synRicochetFlash 3.5s ease-out infinite;
 }
 
 @keyframes synRicochetFlash {
-  0%, 25% { opacity: 0; }
-  28%, 50% { opacity: 1; }
-  58%, 100% { opacity: 0.35; }
+  0%, 34% { opacity: 0; }
+  37%, 62% { opacity: 1; }
+  70%, 100% { opacity: 0.35; }
 }
 
 .syn-bacteria-mother {
   transform-origin: 315px 110px;
-  animation: synMotherPulse 5s ease-in-out infinite;
+  animation: synMotherPulse 3.5s ease-in-out infinite;
 }
 
 @keyframes synMotherPulse {
-  0%, 28% { transform: scale(1); }
-  34% { transform: scale(1.07); }
-  42% { transform: scale(1.12, 0.93); }
-  52%, 92% { transform: scale(1); }
+  0%, 36% { transform: scale(1); }
+  44% { transform: scale(1.08); }
+  54% { transform: scale(1.12, 0.93); }
+  66%, 92% { transform: scale(1); }
   100% { transform: scale(1); }
 }
 
 .syn-bacteria-daughter {
   transform-origin: 315px 110px;
-  animation: synDaughterGrow 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: synDaughterGrow 3.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 @keyframes synDaughterGrow {
-  0%, 34% {
+  0%, 42% {
     opacity: 0;
-    transform: translate(-32px, 26px) scale(0.2);
+    transform: translate(-30px, 24px) scale(0.2);
   }
-  38% {
+  48% {
     opacity: 0.7;
   }
-  50%, 88% {
+  60%, 88% {
     opacity: 1;
     transform: translate(0, 0) scale(1);
   }
@@ -10049,70 +10025,71 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 .syn-mutation-halo {
-  animation: synMutationGlow 5s ease-in-out infinite;
+  animation: synMutationGlow 3.5s ease-in-out infinite;
 }
 
 @keyframes synMutationGlow {
-  0%, 42% {
+  0%, 50% {
     opacity: 0;
     transform: scale(0.8);
   }
-  50% {
+  60% {
     opacity: 1;
     transform: scale(1.15);
   }
-  60%, 86% {
-    opacity: 0.75;
+  72%, 88% {
+    opacity: 0.8;
     transform: scale(1);
   }
-  94%, 100% {
+  96%, 100% {
     opacity: 0;
     transform: scale(0.8);
   }
 }
 
 /* ========================================================
-   ANIMATIONS: CARD 2 (Remevia Synergy Blend - 5s cycle)
+   ANIMATIONS: CARD 2 (Remevia Synergy Blend - 3.5s cycle)
    ======================================================== */
-.syn-drop-item {
-  animation: synDropFloat 4s ease-in-out infinite alternate;
+.syn-drop-bob {
+  transform-origin: 0 0;
+  animation: synDropBob 3.5s ease-in-out infinite alternate;
 }
 
-.syn-drop-item--a { animation-delay: 0s; }
-.syn-drop-item--b { animation-delay: 0.35s; }
-.syn-drop-item--c { animation-delay: 0.7s; }
+.syn-drop-bob--a { animation-delay: 0s; }
+.syn-drop-bob--b { animation-delay: 0.3s; }
+.syn-drop-bob--c { animation-delay: 0.6s; }
 
-@keyframes synDropFloat {
-  0% { transform-origin: 52px center; transform: translateY(-3px) scale(0.97); }
-  100% { transform-origin: 52px center; transform: translateY(3px) scale(1.03); }
+@keyframes synDropBob {
+  0% { transform: translateY(-3px) scale(0.97); }
+  100% { transform: translateY(3px) scale(1.03); }
 }
 
 .syn-stream-core {
-  stroke-dasharray: 14 26;
-  animation: synStreamFlow 1.6s linear infinite;
+  stroke-dasharray: 12 24;
+  animation: synStreamFlow 1.2s linear infinite;
 }
 
 @keyframes synStreamFlow {
-  from { stroke-dashoffset: 80; }
+  from { stroke-dashoffset: 72; }
   to { stroke-dashoffset: 0; }
 }
 
 .syn-target-reticle {
   transform-origin: 325px 105px;
-  animation: synReticleCycle 5s ease-in-out infinite;
+  animation: synReticleCycle 3.5s ease-in-out infinite;
 }
 
 @keyframes synReticleCycle {
-  0%, 20% {
+  0%, 28% {
     stroke: #DC2626;
     stroke-dasharray: 40 10;
     transform: rotate(0deg) scale(1);
   }
-  26% {
+  34% {
     stroke: #F59E0B;
-    transform: rotate(45deg) scale(1.1);
+    transform: rotate(45deg) scale(1.12);
   }
-  34%, 88% {
+  44%, 88% {
     stroke: #16A34A;
     stroke-dasharray: 25 25;
     transform: rotate(90deg) scale(0.95);
@@ -10126,23 +10103,23 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .syn-target-core {
   transform-origin: 325px 105px;
-  animation: synCoreCycle 5s ease-in-out infinite;
+  animation: synCoreCycle 3.5s ease-in-out infinite;
 }
 
 @keyframes synCoreCycle {
-  0%, 24% {
+  0%, 30% {
     fill: #DC2626;
     transform: scale(1);
   }
-  26% {
-    fill: #EF4444;
-    transform: scale(1.18);
-  }
   34% {
+    fill: #EF4444;
+    transform: scale(1.2);
+  }
+  44% {
     fill: #22C55E;
     transform: scale(0.85);
   }
-  46%, 88% {
+  54%, 88% {
     fill: #16A34A;
     transform: scale(0.7);
     opacity: 0.85;
@@ -10155,19 +10132,19 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 .syn-target-cracks {
-  animation: synCracksCycle 5s ease-out infinite;
+  animation: synCracksCycle 3.5s ease-out infinite;
   stroke-dasharray: 100;
 }
 
 @keyframes synCracksCycle {
-  0%, 24% {
+  0%, 30% {
     opacity: 0;
     stroke-dashoffset: 100;
   }
-  26% {
+  34% {
     opacity: 1;
   }
-  34%, 88% {
+  44%, 88% {
     opacity: 0.9;
     stroke-dashoffset: 0;
   }
@@ -10179,18 +10156,18 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .syn-shards-group {
   transform-origin: 325px 105px;
-  animation: synShardsCycle 5s ease-out infinite;
+  animation: synShardsCycle 3.5s ease-out infinite;
 }
 
 @keyframes synShardsCycle {
-  0%, 26% {
+  0%, 32% {
     opacity: 0;
     transform: translate(0, 0) scale(0.3);
   }
-  30% {
+  36% {
     opacity: 1;
   }
-  60% {
+  64% {
     opacity: 0.9;
     transform: translate(16px, -4px) scale(1);
   }
@@ -10205,15 +10182,15 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 .syn-bubble-drifter {
-  animation: synBubbleCycle 5s ease-out infinite;
+  animation: synBubbleCycle 3.5s ease-out infinite;
 }
 
 @keyframes synBubbleCycle {
-  0%, 28% {
+  0%, 34% {
     opacity: 0;
     transform: translate(0, 0) scale(0.4);
   }
-  34% {
+  40% {
     opacity: 1;
   }
   70% {
@@ -10294,6 +10271,6 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   }
   .syn-capsule-runner {
     opacity: 1 !important;
-    transform: translate(210px, 120px) rotate(-28deg) !important;
+    transform: translate(208px, 122px) rotate(-26deg) !important;
   }
 }

@@ -55,10 +55,7 @@ export default function SynergyDuel() {
            ======================================================== */}
         <div className="duel__card duel__card--single">
           <div className="duel__top">
-            <div className="duel__head-info">
-              <h3>{t("Single synthetic active")}</h3>
-              <p className="duel__subtext">{t("One compound acting on one target")}</p>
-            </div>
+            <h3 className="duel__title">{t("Single synthetic active")}</h3>
             <span className="duel__chip duel__chip--bad">
               <span className="duel__chip-dot"></span>
               {t("1 mode of action")}
@@ -98,8 +95,8 @@ export default function SynergyDuel() {
             <BioChamber rimColor="#FECDD3" agarFill="url(#sd-agar-left)" gridColor="#DC2626" />
 
             {/* Attack & Deflection trajectories */}
-            <line x1="52" y1="105" x2="235" y2="105" stroke="#CBD5E1" strokeWidth="2" strokeDasharray="5 5" />
-            <path d="M 235 105 L 145 178" stroke="#94A3B8" strokeWidth="2" strokeDasharray="5 5" markerEnd="url(#sd-ricochet-arrow)" className="syn-ricochet-line" />
+            <line x1="56" y1="105" x2="235" y2="105" stroke="#CBD5E1" strokeWidth="2.5" strokeDasharray="6 6" />
+            <path d="M 235 105 L 140 178" stroke="#94A3B8" strokeWidth="2.5" strokeDasharray="6 6" markerEnd="url(#sd-ricochet-arrow)" className="syn-ricochet-line" />
 
             {/* Surviving & Mutating Bacterial Colony */}
             <g className="syn-bacteria-group">
@@ -128,7 +125,7 @@ export default function SynergyDuel() {
             <g className="syn-shield-group">
               <path d="M 235 72 L 260 82 V 104 C 260 124, 248 136, 235 144 C 222 136, 210 124, 210 104 V 82 Z" fill="url(#sd-shield-grad)" stroke="#991B1B" strokeWidth="2.5" strokeLinejoin="round" />
               <path d="M 235 76 L 255 84 V 102 C 255 119, 245 130, 235 137 C 225 130, 215 119, 215 102 V 84 Z" fill="url(#sd-shield-mesh)" />
-              <path d="M 222 84 L 235 77" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" />
+              <path d="M 222 84 L 235 77" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
             </g>
 
             {/* Impact flash burst */}
@@ -139,24 +136,23 @@ export default function SynergyDuel() {
 
             {/* Traveling Synthetic Compound / Capsule */}
             <g className="syn-capsule-runner">
-              {/* Propulsion wake */}
-              <line x1="-36" y1="-4" x2="-20" y2="-4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
-              <line x1="-42" y1="0" x2="-22" y2="0" stroke="#CBD5E1" strokeWidth="2" strokeLinecap="round" />
-              <line x1="-34" y1="4" x2="-20" y2="4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Propulsion wake lines */}
+              <line x1="-34" y1="-4" x2="-18" y2="-4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="-40" y1="0" x2="-20" y2="0" stroke="#CBD5E1" strokeWidth="2" strokeLinecap="round" />
+              <line x1="-34" y1="4" x2="-18" y2="4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
               {/* Capsule body */}
               <rect x="-18" y="-9" width="36" height="18" rx="9" fill="url(#sd-pill-grad)" stroke="#94A3B8" strokeWidth="1.5" />
               <line x1="0" y1="-9" x2="0" y2="9" stroke="#94A3B8" strokeWidth="1.5" />
-              <rect x="-13" y="-6" width="10" height="3" rx="1.5" fill="#FFFFFF" opacity="0.5" />
+              <rect x="-13" y="-6" width="10" height="3" rx="1.5" fill="#FFFFFF" opacity="0.6" />
             </g>
           </svg>
 
-          {/* Semantic, aligned footer */}
-          <div className="duel__footer duel__footer--single">
-            <div className="duel__status-pill duel__status-pill--bad">
-              <span className="duel__status-icon">✕</span>
-              <span className="duel__status-text">{t("1 target · Rapid mutation & resistance")}</span>
+          {/* Clean, centered footer status */}
+          <div className="duel__footer">
+            <div className="duel__footer-pill duel__footer-pill--bad">
+              <span className="duel__footer-icon">✕</span>
+              <span>{t("1 target · Rapid mutation & resistance")}</span>
             </div>
-            <span className="duel__metric-tag duel__metric-tag--bad">{t("1 mode of action")}</span>
           </div>
         </div>
 
@@ -165,10 +161,7 @@ export default function SynergyDuel() {
            ======================================================== */}
         <div className="duel__card duel__card--blend">
           <div className="duel__top">
-            <div className="duel__head-info">
-              <h3>{t("Remevia synergy blend")}</h3>
-              <p className="duel__subtext">{t("Several compounds acting on several targets")}</p>
-            </div>
+            <h3 className="duel__title">{t("Remevia synergy blend")}</h3>
             <span className="duel__chip duel__chip--good">
               <span className="duel__chip-dot"></span>
               {t("Multi-target")}
@@ -182,20 +175,20 @@ export default function SynergyDuel() {
                 <stop offset="100%" stopColor="#DCFCE7" />
               </radialGradient>
               <filter id="sd-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feGaussianBlur stdDeviation="4.5" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
               <linearGradient id="sd-stream-a" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#3B82F6" />
+                <stop offset="0%" stopColor="#60A5FA" />
                 <stop offset="100%" stopColor="#1D4ED8" />
               </linearGradient>
               <linearGradient id="sd-stream-b" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#10B981" />
-                <stop offset="100%" stopColor="#047857" />
+                <stop offset="0%" stopColor="#38BDF8" />
+                <stop offset="100%" stopColor="#0284C7" />
               </linearGradient>
               <linearGradient id="sd-stream-c" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#06B6D4" />
-                <stop offset="100%" stopColor="#0E7490" />
+                <stop offset="0%" stopColor="#4ADE80" />
+                <stop offset="100%" stopColor="#15803D" />
               </linearGradient>
               <radialGradient id="sd-drop-a" cx="35%" cy="35%" r="70%">
                 <stop offset="0%" stopColor="#93C5FD" />
@@ -203,23 +196,23 @@ export default function SynergyDuel() {
                 <stop offset="100%" stopColor="#1D4ED8" />
               </radialGradient>
               <radialGradient id="sd-drop-b" cx="35%" cy="35%" r="70%">
-                <stop offset="0%" stopColor="#6EE7B7" />
-                <stop offset="50%" stopColor="#10B981" />
-                <stop offset="100%" stopColor="#047857" />
+                <stop offset="0%" stopColor="#7DD3FC" />
+                <stop offset="50%" stopColor="#0284C7" />
+                <stop offset="100%" stopColor="#0369A1" />
               </radialGradient>
               <radialGradient id="sd-drop-c" cx="35%" cy="35%" r="70%">
-                <stop offset="0%" stopColor="#67E8F9" />
-                <stop offset="50%" stopColor="#06B6D4" />
-                <stop offset="100%" stopColor="#0E7490" />
+                <stop offset="0%" stopColor="#86EFAC" />
+                <stop offset="50%" stopColor="#22C55E" />
+                <stop offset="100%" stopColor="#15803D" />
               </radialGradient>
-              <marker id="sd-tip-a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+              <marker id="sd-tip-a" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
                 <path d="M 0 1 L 9 5 L 0 9 Z" fill="#1D4ED8" />
               </marker>
-              <marker id="sd-tip-b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
-                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#047857" />
+              <marker id="sd-tip-b" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#0284C7" />
               </marker>
-              <marker id="sd-tip-c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
-                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#0E7490" />
+              <marker id="sd-tip-c" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#15803D" />
               </marker>
             </defs>
 
@@ -228,13 +221,13 @@ export default function SynergyDuel() {
 
             {/* Three Tri-Vector Synergy Streams */}
             {[
-              { id: 'a', d: 'M 66 48 C 150 48, 220 72, 285 88', grad: 'url(#sd-stream-a)', tip: 'url(#sd-tip-a)', glow: '#60A5FA' },
-              { id: 'b', d: 'M 66 105 C 150 105, 220 105, 280 105', grad: 'url(#sd-stream-b)', tip: 'url(#sd-tip-b)', glow: '#34D399' },
-              { id: 'c', d: 'M 66 162 C 150 162, 220 138, 285 122', grad: 'url(#sd-stream-c)', tip: 'url(#sd-tip-c)', glow: '#38BDF8' },
+              { id: 'a', d: 'M 72 52 C 160 52, 230 76, 288 94', grad: 'url(#sd-stream-a)', tip: 'url(#sd-tip-a)', glow: '#3B82F6' },
+              { id: 'b', d: 'M 72 105 C 150 105, 220 105, 282 105', grad: 'url(#sd-stream-b)', tip: 'url(#sd-tip-b)', glow: '#0284C7' },
+              { id: 'c', d: 'M 72 158 C 160 158, 230 134, 288 116', grad: 'url(#sd-stream-c)', tip: 'url(#sd-tip-c)', glow: '#22C55E' },
             ].map(({ id, d, grad, tip, glow }) => (
               <g key={id} className={`syn-stream-group syn-stream-group--${id}`}>
                 {/* Luminous glow underlayer */}
-                <path d={d} stroke={glow} strokeWidth="10" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity="0.3" />
+                <path d={d} stroke={glow} strokeWidth="10" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity="0.32" />
                 {/* Core gradient stream */}
                 <path d={d} stroke={grad} strokeWidth="3.5" strokeLinecap="round" fill="none" markerEnd={tip} />
                 {/* Continuous flowing laser dash */}
@@ -242,10 +235,8 @@ export default function SynergyDuel() {
                 {/* Traveling photon bead */}
                 <circle r="4.5" fill="#FFFFFF" stroke={glow} strokeWidth="2" filter="url(#sd-glow)">
                   <animateMotion
-                    dur="5s"
+                    dur="3.5s"
                     repeatCount="indefinite"
-                    keyPoints="0;0.12;0.36;0.42;1"
-                    keyTimes="0;0.06;0.24;0.32;1"
                     path={d}
                   />
                 </circle>
@@ -293,31 +284,32 @@ export default function SynergyDuel() {
               ))}
             </g>
 
-            {/* Three Botanical Droplets (aligned vertically on x=52) */}
+            {/* Three Botanical Droplets (separated position and float to prevent disappearance) */}
             {[
-              { id: 'a', y: 48, fill: 'url(#sd-drop-a)', glow: '#3B82F6' },
-              { id: 'b', y: 105, fill: 'url(#sd-drop-b)', glow: '#10B981' },
-              { id: 'c', y: 162, fill: 'url(#sd-drop-c)', glow: '#06B6D4' },
+              { id: 'a', y: 52, fill: 'url(#sd-drop-a)', glow: '#3B82F6' },
+              { id: 'b', y: 105, fill: 'url(#sd-drop-b)', glow: '#0284C7' },
+              { id: 'c', y: 158, fill: 'url(#sd-drop-c)', glow: '#22C55E' },
             ].map(({ id, y, fill, glow }) => (
-              <g key={id} transform={`translate(52, ${y})`} className={`syn-drop-item syn-drop-item--${id}`}>
-                {/* Droplet ambient glow */}
-                <path d="M 0 -17 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -17 Z" fill={glow} filter="url(#sd-glow)" opacity="0.45" />
-                {/* 3D Liquid Drop */}
-                <path d="M 0 -17 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -17 Z" fill={fill} />
-                {/* Specular curved gloss reflection */}
-                <path d="M -6 4 C -6 0 -3 -6 0 -11" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.75" fill="none" />
-                <circle cx="3" cy="11" r="2" fill="#FFFFFF" opacity="0.5" />
+              <g key={id} transform={`translate(56, ${y})`}>
+                <g className={`syn-drop-bob syn-drop-bob--${id}`}>
+                  {/* Droplet ambient glow */}
+                  <path d="M 0 -18 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -18 Z" fill={glow} filter="url(#sd-glow)" opacity="0.4" />
+                  {/* 3D Liquid Drop */}
+                  <path d="M 0 -18 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -18 Z" fill={fill} />
+                  {/* Specular curved gloss reflection */}
+                  <path d="M -6 4 C -6 0 -3 -6 0 -11" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" fill="none" />
+                  <circle cx="3" cy="11" r="2" fill="#FFFFFF" opacity="0.55" />
+                </g>
               </g>
             ))}
           </svg>
 
-          {/* Semantic, aligned footer */}
-          <div className="duel__footer duel__footer--blend">
-            <div className="duel__status-pill duel__status-pill--good">
-              <span className="duel__status-icon">✓</span>
-              <span className="duel__status-text">{t("Multiple targets · Hard to resist")}</span>
+          {/* Clean, centered footer status */}
+          <div className="duel__footer">
+            <div className="duel__footer-pill duel__footer-pill--good">
+              <span className="duel__footer-icon">✓</span>
+              <span>{t("Multiple targets · Hard to resist")}</span>
             </div>
-            <span className="duel__metric-tag duel__metric-tag--good">{t("Multi-target")}</span>
           </div>
         </div>
       </div>
