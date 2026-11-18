@@ -96,7 +96,7 @@ const PLANS = {
   },
   tlegg: {
     name: 'TLEGG', cls: 't-egg', goal: 'Egg quality',
-    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 14th week to achieve the desired golden egg-yolk colour' }),
+    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 14th week. Laying starts around week 18 and the hen builds the yolk about 30 days before her first egg, so yolks are golden from the very first egg' }),
     rate: () => ({ kind: 'feed', min: 1, max: 1 }),
   },
   repeal: {

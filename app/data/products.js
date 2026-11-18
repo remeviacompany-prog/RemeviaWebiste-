@@ -615,7 +615,7 @@ export const PRODUCTS_DATA = {
       { name: 'Natural grain carrier', note: 'Free-flowing plant carrier ensuring uniform micro-distribution in feed' }
     ],
     dosageTable: [
-      { use: 'Commercial Layers (Standard Feed)', rate: '1 kg per 1,000 kg feed', prog: 'Continuous inclusion in layer mash or pellets' },
+      { use: 'Commercial Layers (Standard Feed)', rate: '1 kg per 1,000 kg feed', prog: 'From 14th week, continuously in layer mash or pellets, so yolks are golden from the first egg' },
       { use: 'Alternative Grain Diets (Wheat / Rice)', rate: '1.2 to 1.5 kg per 1,000 kg feed', prog: 'Continuous inclusion when yellow maize is reduced' },
       { use: 'Breeding Hens', rate: '1 kg per 1,000 kg feed', prog: 'Continuous feeding to support embryonic antioxidant reserves' }
     ],

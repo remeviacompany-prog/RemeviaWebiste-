@@ -1008,7 +1008,7 @@ a:hover {
 }
 
 .finder__opt[aria-selected="true"] small {
-  color: #C9D3EA;
+  color: var(--slate);
 }
 
 .finder__bullet {
@@ -3230,13 +3230,6 @@ html:is([lang="ar"], [lang="th"], [lang="hi"]) :is(h1, h2, h3, h4, blockquote, .
   background: var(--ci);
 }
 
-.finder__opt[aria-selected="true"] small {
-  color: rgba(255, 255, 255, .88);
-}
-
-.finder__opt[aria-selected="true"] .finder__bullet {
-  background: #fff !important;
-}
 
 .finder__result {
   background: radial-gradient(circle at 25% 40%, #fff 10%, color-mix(in srgb, var(--c) 20%, #fff) 100%);
@@ -10329,4 +10322,12 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
     opacity: 1 !important;
     transform: translate(208px, 122px) rotate(-26deg) !important;
   }
+}
+
+/* Challenge finder: no sideways shift on phones (selected card stays inside the gutter) */
+@media (max-width: 720px) {
+  .finder__opt:hover,
+  .finder__opt[aria-selected="true"],
+  [dir="rtl"] .finder__opt:hover,
+  [dir="rtl"] .finder__opt[aria-selected="true"] { transform: none; }
 }
