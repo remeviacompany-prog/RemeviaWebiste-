@@ -3,31 +3,42 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
-// Two petri dishes on a 6-second loop, drawn after George's reference:
-// left, synthetic capsules ricochet off a shield while the microbe divides;
-// right, three botanical drops hit the microbe together and it breaks apart.
-// Timings live in globals.css under "Science: synergy duel v3".
-const BUBBLES = [
-  [340, 70, 7], [358, 92, 5], [372, 60, 4], [352, 46, 6], [380, 84, 3],
-  [330, 50, 3], [366, 112, 4], [388, 66, 5], [344, 30, 4], [320, 36, 3],
-];
+// Shards and dissolving bubbles for Remevia's multi-target breakdown
 const SHARDS = [
-  'M340 104l14-4 1 12-11 2z', 'M342 126l15 3-8 11-8-5z', 'M334 86l10-11 6 11-9 3z', 'M338 146l12 6-9 8-6-7z', 'M346 112l9 1-3 7z',
+  'M 346 92 L 358 86 L 360 98 Z',
+  'M 352 108 L 368 112 L 362 122 Z',
+  'M 340 78 L 352 70 L 356 82 Z',
+  'M 348 126 L 362 134 L 354 142 Z',
+  'M 364 96 L 376 94 L 372 104 Z',
+  'M 360 80 L 370 74 L 374 86 Z',
 ];
-// Dish dressing shared by both panels: shadow, glass rim, agar and specks.
-function PetriDish({ rim, agar, tint }) {
+
+const BUBBLES = [
+  [348, 68, 4], [364, 88, 3.5], [378, 62, 3], [358, 44, 4.5], [384, 82, 2.5],
+  [342, 118, 3], [372, 110, 3.5], [392, 68, 4], [354, 28, 3], [330, 38, 2.5],
+];
+
+// Precision Bio-Chamber shared by both panels (harmonized center at cx=325, cy=105)
+function BioChamber({ rimColor, agarFill, gridColor }) {
   return (
-    <g className="sd-dish">
-      <ellipse cx="300" cy="216" rx="82" ry="9" fill="#0B1B3A" opacity=".08" />
-      <circle cx="300" cy="124" r="94" fill="#FFF" opacity=".6" />
-      <circle cx="300" cy="124" r="94" fill="none" stroke={rim} strokeWidth="3" />
-      <circle cx="300" cy="124" r="88" fill="none" stroke="#FFF" strokeWidth="2" opacity=".8" />
-      <circle cx="300" cy="124" r="84" fill={agar} stroke={rim} strokeWidth="1" opacity=".95" />
-      {[[258, 160], [336, 172], [350, 150], [262, 92], [318, 186], [248, 132]].map(([x, y]) => (
-        <circle key={`${x}${y}`} cx={x} cy={y} r="1.6" fill={tint} opacity=".35" />
-      ))}
-      <path d="M232 76a86 86 0 0 1 44-30" stroke="#FFF" strokeWidth="6" strokeLinecap="round" opacity=".95" fill="none" />
-      <path d="M364 178a86 86 0 0 1-22 20" stroke="#FFF" strokeWidth="4" strokeLinecap="round" opacity=".7" fill="none" />
+    <g className="sd-chamber">
+      {/* Outer ambient shadow */}
+      <ellipse cx="325" cy="186" rx="68" ry="7" fill="#0B1B3A" opacity="0.05" />
+      {/* Glass dish base and rim */}
+      <circle cx="325" cy="105" r="78" fill="#FFFFFF" opacity="0.75" />
+      <circle cx="325" cy="105" r="78" fill="none" stroke={rimColor} strokeWidth="2.5" />
+      <circle cx="325" cy="105" r="74" fill={agarFill} stroke={rimColor} strokeWidth="1" opacity="0.9" />
+      {/* Fine scientific radar coordinate grid */}
+      <circle cx="325" cy="105" r="54" fill="none" stroke={gridColor} strokeWidth="1" strokeDasharray="3 3" opacity="0.25" />
+      <circle cx="325" cy="105" r="28" fill="none" stroke={gridColor} strokeWidth="1" opacity="0.15" />
+      {/* Reticle tick marks */}
+      <line x1="325" y1="29" x2="325" y2="35" stroke={gridColor} strokeWidth="1.5" opacity="0.4" />
+      <line x1="325" y1="175" x2="325" y2="181" stroke={gridColor} strokeWidth="1.5" opacity="0.4" />
+      <line x1="249" y1="105" x2="255" y2="105" stroke={gridColor} strokeWidth="1.5" opacity="0.4" />
+      <line x1="395" y1="105" x2="401" y2="105" stroke={gridColor} strokeWidth="1.5" opacity="0.4" />
+      {/* Precision glass reflection arcs */}
+      <path d="M 268 64 A 70 70 0 0 1 352 42" stroke="#FFFFFF" strokeWidth="3.5" strokeLinecap="round" opacity="0.85" fill="none" />
+      <path d="M 378 142 A 70 70 0 0 1 360 160" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" fill="none" />
     </g>
   );
 }
@@ -39,147 +50,287 @@ export default function SynergyDuel() {
   return (
     <div className="sduel">
       <div className="compare duel sduel__grid" key={run}>
-        {/* ---------- Single synthetic active ---------- */}
+        {/* ========================================================
+            CARD 1: Single synthetic active (Resistance & Mutation)
+           ======================================================== */}
         <div className="duel__card duel__card--single">
           <div className="duel__top">
-            <h3>{t("Single synthetic active")}</h3>
-            <span className="duel__chip duel__chip--bad">{t("1 mode of action")}</span>
+            <div className="duel__head-info">
+              <h3>{t("Single synthetic active")}</h3>
+              <p className="duel__subtext">{t("One compound acting on one target")}</p>
+            </div>
+            <span className="duel__chip duel__chip--bad">
+              <span className="duel__chip-dot"></span>
+              {t("1 mode of action")}
+            </span>
           </div>
-          <svg viewBox="0 0 400 240" role="img" aria-label={t("One compound acting on one target")}>
+
+          <svg viewBox="0 0 460 210" role="img" aria-label={t("One compound acting on one target")}>
             <defs>
-              <linearGradient id="sd-pill" x1="0" x2="1">
-                <stop offset="0" stopColor="#64748B" />
-                <stop offset=".5" stopColor="#64748B" />
-                <stop offset=".5" stopColor="#A3B1C6" />
-                <stop offset="1" stopColor="#A3B1C6" />
+              <linearGradient id="sd-pill-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#94A3B8" />
+                <stop offset="50%" stopColor="#CBD5E1" />
+                <stop offset="50%" stopColor="#F87171" />
+                <stop offset="100%" stopColor="#DC2626" />
               </linearGradient>
-              <linearGradient id="sd-shield" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#FCA5A5" />
-                <stop offset="1" stopColor="#DC2626" />
+              <linearGradient id="sd-shield-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="#F87171" />
+                <stop offset="60%" stopColor="#DC2626" />
+                <stop offset="100%" stopColor="#991B1B" />
               </linearGradient>
-              <pattern id="sd-brick" width="8" height="6" patternUnits="userSpaceOnUse">
-                <path d="M0 .5H8M0 3.5H8M4 .5V3.5M0 3.5V6.5M8 3.5V6.5" stroke="#FECACA" strokeWidth=".8" opacity=".7" />
+              <pattern id="sd-shield-mesh" width="8" height="8" patternUnits="userSpaceOnUse">
+                <path d="M 0 4 L 4 0 L 8 4 L 4 8 Z" fill="none" stroke="#FECACA" strokeWidth="0.8" opacity="0.6" />
               </pattern>
-              <marker id="sd-tip-grey" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                <path d="M0 0L10 5L0 10z" fill="#A3B1C6" />
+              <marker id="sd-ricochet-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#94A3B8" />
+              </marker>
+              <radialGradient id="sd-agar-left" cx="40%" cy="40%" r="65%">
+                <stop offset="0%" stopColor="#FFF5F5" />
+                <stop offset="100%" stopColor="#FEE2E2" />
+              </radialGradient>
+              <filter id="sd-glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
+            {/* Scientific observation chamber */}
+            <BioChamber rimColor="#FECDD3" agarFill="url(#sd-agar-left)" gridColor="#DC2626" />
+
+            {/* Attack & Deflection trajectories */}
+            <line x1="52" y1="105" x2="235" y2="105" stroke="#CBD5E1" strokeWidth="2" strokeDasharray="5 5" />
+            <path d="M 235 105 L 145 178" stroke="#94A3B8" strokeWidth="2" strokeDasharray="5 5" markerEnd="url(#sd-ricochet-arrow)" className="syn-ricochet-line" />
+
+            {/* Surviving & Mutating Bacterial Colony */}
+            <g className="syn-bacteria-group">
+              {/* Mutating daughter cell */}
+              <g className="syn-bacteria-daughter">
+                <circle cx="360" cy="74" r="22" fill="#FCA5A5" stroke="#DC2626" strokeWidth="3.5" />
+                <circle cx="362" cy="73" r="8" fill="#B91C1C" />
+                {/* Mutation alert ring */}
+                <circle cx="360" cy="74" r="28" fill="none" stroke="#EF4444" strokeWidth="1.5" strokeDasharray="3 3" className="syn-mutation-halo" />
+              </g>
+
+              {/* Mother cell */}
+              <g className="syn-bacteria-mother">
+                <circle cx="315" cy="110" r="32" fill="#FECACA" stroke="#DC2626" strokeWidth="4" />
+                <circle cx="318" cy="110" r="11" fill="#B91C1C" />
+                {/* Surface antigens */}
+                {[
+                  [286, 100], [290, 126], [315, 144], [342, 128], [340, 94], [312, 76]
+                ].map(([x, y], i) => (
+                  <circle key={i} cx={x} cy={y} r="2.5" fill="#DC2626" opacity="0.6" />
+                ))}
+              </g>
+            </g>
+
+            {/* Defensive barrier shield */}
+            <g className="syn-shield-group">
+              <path d="M 235 72 L 260 82 V 104 C 260 124, 248 136, 235 144 C 222 136, 210 124, 210 104 V 82 Z" fill="url(#sd-shield-grad)" stroke="#991B1B" strokeWidth="2.5" strokeLinejoin="round" />
+              <path d="M 235 76 L 255 84 V 102 C 255 119, 245 130, 235 137 C 225 130, 215 119, 215 102 V 84 Z" fill="url(#sd-shield-mesh)" />
+              <path d="M 222 84 L 235 77" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" opacity="0.75" />
+            </g>
+
+            {/* Impact flash burst */}
+            <g className="syn-impact-burst">
+              <circle cx="235" cy="105" r="18" fill="none" stroke="#EF4444" strokeWidth="3" opacity="0.9" filter="url(#sd-glow-red)" />
+              <path d="M 235 90 L 237 101 L 248 105 L 237 109 L 235 120 L 233 109 L 222 105 L 233 101 Z" fill="#F87171" opacity="0.9" />
+            </g>
+
+            {/* Traveling Synthetic Compound / Capsule */}
+            <g className="syn-capsule-runner">
+              {/* Propulsion wake */}
+              <line x1="-36" y1="-4" x2="-20" y2="-4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+              <line x1="-42" y1="0" x2="-22" y2="0" stroke="#CBD5E1" strokeWidth="2" strokeLinecap="round" />
+              <line x1="-34" y1="4" x2="-20" y2="4" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+              {/* Capsule body */}
+              <rect x="-18" y="-9" width="36" height="18" rx="9" fill="url(#sd-pill-grad)" stroke="#94A3B8" strokeWidth="1.5" />
+              <line x1="0" y1="-9" x2="0" y2="9" stroke="#94A3B8" strokeWidth="1.5" />
+              <rect x="-13" y="-6" width="10" height="3" rx="1.5" fill="#FFFFFF" opacity="0.5" />
+            </g>
+          </svg>
+
+          {/* Semantic, aligned footer */}
+          <div className="duel__footer duel__footer--single">
+            <div className="duel__status-pill duel__status-pill--bad">
+              <span className="duel__status-icon">✕</span>
+              <span className="duel__status-text">{t("1 target · Rapid mutation & resistance")}</span>
+            </div>
+            <span className="duel__metric-tag duel__metric-tag--bad">{t("1 mode of action")}</span>
+          </div>
+        </div>
+
+        {/* ========================================================
+            CARD 2: Remevia synergy blend (Multi-Target Lysis)
+           ======================================================== */}
+        <div className="duel__card duel__card--blend">
+          <div className="duel__top">
+            <div className="duel__head-info">
+              <h3>{t("Remevia synergy blend")}</h3>
+              <p className="duel__subtext">{t("Several compounds acting on several targets")}</p>
+            </div>
+            <span className="duel__chip duel__chip--good">
+              <span className="duel__chip-dot"></span>
+              {t("Multi-target")}
+            </span>
+          </div>
+
+          <svg viewBox="0 0 460 210" role="img" aria-label={t("Several compounds acting on several targets")}>
+            <defs>
+              <radialGradient id="sd-agar-right" cx="40%" cy="40%" r="65%">
+                <stop offset="0%" stopColor="#F0FDF4" />
+                <stop offset="100%" stopColor="#DCFCE7" />
+              </radialGradient>
+              <filter id="sd-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+              <linearGradient id="sd-stream-a" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#3B82F6" />
+                <stop offset="100%" stopColor="#1D4ED8" />
+              </linearGradient>
+              <linearGradient id="sd-stream-b" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#047857" />
+              </linearGradient>
+              <linearGradient id="sd-stream-c" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#06B6D4" />
+                <stop offset="100%" stopColor="#0E7490" />
+              </linearGradient>
+              <radialGradient id="sd-drop-a" cx="35%" cy="35%" r="70%">
+                <stop offset="0%" stopColor="#93C5FD" />
+                <stop offset="50%" stopColor="#3B82F6" />
+                <stop offset="100%" stopColor="#1D4ED8" />
+              </radialGradient>
+              <radialGradient id="sd-drop-b" cx="35%" cy="35%" r="70%">
+                <stop offset="0%" stopColor="#6EE7B7" />
+                <stop offset="50%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#047857" />
+              </radialGradient>
+              <radialGradient id="sd-drop-c" cx="35%" cy="35%" r="70%">
+                <stop offset="0%" stopColor="#67E8F9" />
+                <stop offset="50%" stopColor="#06B6D4" />
+                <stop offset="100%" stopColor="#0E7490" />
+              </radialGradient>
+              <marker id="sd-tip-a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#1D4ED8" />
+              </marker>
+              <marker id="sd-tip-b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#047857" />
+              </marker>
+              <marker id="sd-tip-c" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#0E7490" />
               </marker>
             </defs>
 
-            <PetriDish rim="#F3C9C2" agar="#FFF3F0" tint="#DC2626" />
+            {/* Scientific observation chamber */}
+            <BioChamber rimColor="#A7F3D0" agarFill="url(#sd-agar-right)" gridColor="#16A34A" />
 
-            {/* trajectories */}
-            <path d="M96 128H214" stroke="#A3B1C6" strokeWidth="3" strokeDasharray="7 7" fill="none" className="duel__line" />
-            <path d="M150 34L212 108" stroke="#C3CCDA" strokeWidth="3" strokeDasharray="7 7" fill="none" />
-            <path d="M214 134L168 196" stroke="#C3CCDA" strokeWidth="3" strokeDasharray="7 7" fill="none" markerEnd="url(#sd-tip-grey)" className="sd-ricochet" />
-
-            {/* the microbe divides */}
-            <g className="sd-daughter">
-              <circle cx="336" cy="84" r="36" fill="#FCA5A5" stroke="#DC2626" strokeWidth="6" />
-              <circle cx="342" cy="80" r="13" fill="#DC2626" />
-            </g>
-            <g className="sd-mother">
-              <circle cx="292" cy="134" r="40" fill="#FCA5A5" stroke="#DC2626" strokeWidth="6" />
-              <circle cx="296" cy="136" r="14" fill="#DC2626" />
-            </g>
-
-            {/* resistance shield */}
-            <g className="sd-shield">
-              <path d="M240 92l27 10v24c0 20-12 31-27 39-15-8-27-19-27-39v-24z" fill="url(#sd-shield)" stroke="#B91C1C" strokeWidth="3" strokeLinejoin="round" />
-              <path d="M240 98l21 8v20c0 16-9 25-21 32-12-7-21-16-21-32v-20z" fill="url(#sd-brick)" />
-              <path d="M226 104l14-5" stroke="#FFF" strokeWidth="3" strokeLinecap="round" opacity=".8" />
-            </g>
-
-            {/* capsules with speed lines */}
-            <g className="sd-pill sd-pill--a">
-              <path d="M-52 -6H-32M-58 0H-32M-50 6H-32" stroke="#C3CCDA" strokeWidth="2" strokeLinecap="round" />
-              <rect x="-26" y="-12" width="52" height="24" rx="12" fill="url(#sd-pill)" />
-              <rect x="-20" y="-8" width="16" height="4" rx="2" fill="#FFF" opacity=".35" />
-            </g>
-            <g className="sd-pill sd-pill--b">
-              <path d="M-48 -5H-30M-54 0H-30M-46 5H-30" stroke="#C3CCDA" strokeWidth="2" strokeLinecap="round" />
-              <rect x="-22" y="-10" width="44" height="20" rx="10" fill="url(#sd-pill)" />
-            </g>
-
-            <text x="200" y="232" textAnchor="middle" fontSize="15" fontFamily="Figtree" fill="#1F2A44" className="sd-caption">{t("1 target · Rapid mutation & resistance")}</text>
-          </svg>
-        </div>
-
-        {/* ---------- Remevia synergy blend ---------- */}
-        <div className="duel__card duel__card--blend">
-          <div className="duel__top">
-            <h3>{t("Remevia synergy blend")}</h3>
-            <span className="duel__chip duel__chip--good">{t("Multi-target")}</span>
-          </div>
-          <svg viewBox="0 0 400 240" role="img" aria-label={t("Several compounds acting on several targets")}>
-            <defs>
-              <filter id="sd-glow" filterUnits="userSpaceOnUse" x="0" y="0" width="400" height="240">
-                <feGaussianBlur stdDeviation="5" />
-              </filter>
-              {[['a', '#1D4ED8', '#60A5FA'], ['b', '#0F766E', '#2DD4BF'], ['c', '#15803D', '#4ADE80']].map(([k, c1, c2]) => (
-                <React.Fragment key={k}>
-                  <linearGradient id={`sd-arrow-${k}`} x1="0" x2="1">
-                    <stop offset="0" stopColor={c2} stopOpacity=".25" />
-                    <stop offset="1" stopColor={c1} />
-                  </linearGradient>
-                  <radialGradient id={`sd-drop-${k}`} cx="35%" cy="55%" r="70%">
-                    <stop offset="0" stopColor={c2} />
-                    <stop offset="1" stopColor={c1} />
-                  </radialGradient>
-                  <marker id={`sd-tip-${k}`} viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto">
-                    <path d="M0 0L10 5L0 10z" fill={c1} />
-                  </marker>
-                </React.Fragment>
-              ))}
-            </defs>
-
-            <PetriDish rim="#B7E4C7" agar="#F0FBF4" tint="#16A34A" />
-
-            {/* glowing arrows */}
+            {/* Three Tri-Vector Synergy Streams */}
             {[
-              ['a', 'M80 62C150 30 230 44 262 92'],
-              ['b', 'M66 126C140 104 210 112 252 124'],
-              ['c', 'M86 192C170 214 236 196 264 158'],
-            ].map(([k, d], i) => (
-              <g key={k} className="sd-arrow" style={{ animationDelay: `${i * 0.15}s` }}>
-                <path d={d} stroke={`url(#sd-arrow-${k})`} strokeWidth="12" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity=".7" />
-                <path d={d} stroke={`url(#sd-arrow-${k})`} strokeWidth="6" strokeLinecap="round" fill="none" markerEnd={`url(#sd-tip-${k})`} pathLength="100" className="sd-arrow__line" style={{ animationDelay: `${i * 0.15}s` }} />
+              { id: 'a', d: 'M 66 48 C 150 48, 220 72, 285 88', grad: 'url(#sd-stream-a)', tip: 'url(#sd-tip-a)', glow: '#60A5FA' },
+              { id: 'b', d: 'M 66 105 C 150 105, 220 105, 280 105', grad: 'url(#sd-stream-b)', tip: 'url(#sd-tip-b)', glow: '#34D399' },
+              { id: 'c', d: 'M 66 162 C 150 162, 220 138, 285 122', grad: 'url(#sd-stream-c)', tip: 'url(#sd-tip-c)', glow: '#38BDF8' },
+            ].map(({ id, d, grad, tip, glow }) => (
+              <g key={id} className={`syn-stream-group syn-stream-group--${id}`}>
+                {/* Luminous glow underlayer */}
+                <path d={d} stroke={glow} strokeWidth="10" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity="0.3" />
+                {/* Core gradient stream */}
+                <path d={d} stroke={grad} strokeWidth="3.5" strokeLinecap="round" fill="none" markerEnd={tip} />
+                {/* Continuous flowing laser dash */}
+                <path d={d} stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" fill="none" className="syn-stream-core" />
+                {/* Traveling photon bead */}
+                <circle r="4.5" fill="#FFFFFF" stroke={glow} strokeWidth="2" filter="url(#sd-glow)">
+                  <animateMotion
+                    dur="5s"
+                    repeatCount="indefinite"
+                    keyPoints="0;0.12;0.36;0.42;1"
+                    keyTimes="0;0.06;0.24;0.32;1"
+                    path={d}
+                  />
+                </circle>
               </g>
             ))}
 
-            {[['a', '#BFDBFE'], ['b', '#99F6E4'], ['c', '#BBF7D0']].map(([k, fill], i) => (
-              <circle key={k} r="6" fill={fill} stroke="#FFF" strokeWidth="2" className={`sd-spark sd-spark--${k}`} style={{ animationDelay: `${i * 0.15}s` }} />
-            ))}
+            {/* Target Pathogen & Synergistic Breakdown */}
+            <g className="syn-pathogen-target">
+              {/* Outer Membrane / Target Reticle */}
+              <circle cx="325" cy="105" r="38" fill="none" strokeWidth="3.5" className="syn-target-reticle" />
 
-            {/* microbe that cracks and breaks apart */}
-            <g className="sd-microbe">
-              <circle cx="300" cy="124" r="42" strokeWidth="9" className="sd-microbe__ring" pathLength="100" />
-              <circle cx="298" cy="126" r="15" className="sd-microbe__core" />
-              <path d="M268 98l10 7-5 8M260 122l13 3M272 152l8-8 5 7M330 100l-9 8 4 6M334 146l-11-5" stroke="#14532D" strokeWidth="2.5" fill="none" strokeLinecap="round" className="sd-cracks" />
+              {/* Bacterial Cell Core (transitions red -> green) */}
+              <circle cx="325" cy="105" r="16" className="syn-target-core" />
+
+              {/* Fissure crack lines */}
+              <path
+                d="M 312 92 L 322 102 L 334 98 M 308 112 L 320 110 L 325 122 M 332 118 L 340 125"
+                stroke="#064E3B"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                fill="none"
+                className="syn-target-cracks"
+              />
+
+              {/* Dispersing Shards */}
+              <g className="syn-shards-group">
+                {SHARDS.map((d, i) => (
+                  <path key={i} d={d} fill={i % 2 === 0 ? '#22C55E' : '#10B981'} opacity="0.9" />
+                ))}
+              </g>
+
+              {/* Dissolving micro-bubbles */}
+              {BUBBLES.map(([cx, cy, r], i) => (
+                <circle
+                  key={i}
+                  cx={cx}
+                  cy={cy}
+                  r={r}
+                  fill={i % 3 === 0 ? '#86EFAC' : 'none'}
+                  stroke="#22C55E"
+                  strokeWidth="1.5"
+                  className="syn-bubble-drifter"
+                  style={{ animationDelay: `${(i % 4) * 0.12}s` }}
+                />
+              ))}
             </g>
-            {SHARDS.map((d, i) => (
-              <path key={d} d={d} fill="#22C55E" className="sd-shard" style={{ animationDelay: `${i * 0.05}s` }} />
-            ))}
-            {BUBBLES.map(([cx, cy, r], i) => (
-              <circle key={i} cx={cx} cy={cy} r={r} fill={i % 3 ? 'none' : '#86EFAC'} stroke="#4ADE80" strokeWidth="2"
-                className="sd-bubble" style={{ animationDelay: `${(i % 5) * 0.08}s` }} />
-            ))}
 
-            {/* botanical drops */}
-            {[['a', 64, 56], ['b', 46, 122], ['c', 72, 190]].map(([k, x, y], i) => (
-              <g key={k} transform={`translate(${x} ${y})`}>
-                <path d="M0-28C10-12 18-2 18 8A18 18 0 0 1-18 8C-18-2-10-12 0-28z" fill={`url(#sd-drop-${k})`} filter="url(#sd-glow)" opacity=".6" />
-                <path d="M0-28C10-12 18-2 18 8A18 18 0 0 1-18 8C-18-2-10-12 0-28z" fill={`url(#sd-drop-${k})`} className="sd-drop" style={{ animationDelay: `${i * 0.15}s` }} />
-                <path d="M-8 2c0-6 3-11 6-15" stroke="#FFF" strokeWidth="3" strokeLinecap="round" opacity=".6" fill="none" />
+            {/* Three Botanical Droplets (aligned vertically on x=52) */}
+            {[
+              { id: 'a', y: 48, fill: 'url(#sd-drop-a)', glow: '#3B82F6' },
+              { id: 'b', y: 105, fill: 'url(#sd-drop-b)', glow: '#10B981' },
+              { id: 'c', y: 162, fill: 'url(#sd-drop-c)', glow: '#06B6D4' },
+            ].map(({ id, y, fill, glow }) => (
+              <g key={id} transform={`translate(52, ${y})`} className={`syn-drop-item syn-drop-item--${id}`}>
+                {/* Droplet ambient glow */}
+                <path d="M 0 -17 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -17 Z" fill={glow} filter="url(#sd-glow)" opacity="0.45" />
+                {/* 3D Liquid Drop */}
+                <path d="M 0 -17 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -17 Z" fill={fill} />
+                {/* Specular curved gloss reflection */}
+                <path d="M -6 4 C -6 0 -3 -6 0 -11" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.75" fill="none" />
+                <circle cx="3" cy="11" r="2" fill="#FFFFFF" opacity="0.5" />
               </g>
             ))}
-
-            <text x="200" y="232" textAnchor="middle" fontSize="15" fontFamily="Figtree" fill="#1F2A44">{t("Multiple targets · Hard to resist")}</text>
           </svg>
+
+          {/* Semantic, aligned footer */}
+          <div className="duel__footer duel__footer--blend">
+            <div className="duel__status-pill duel__status-pill--good">
+              <span className="duel__status-icon">✓</span>
+              <span className="duel__status-text">{t("Multiple targets · Hard to resist")}</span>
+            </div>
+            <span className="duel__metric-tag duel__metric-tag--good">{t("Multi-target")}</span>
+          </div>
         </div>
       </div>
-      <button type="button" className="btn btn--ghost sduel__replay" onClick={() => setRun((n) => n + 1)}>
-        ↻ {t("Simulate microbial attack")}
-      </button>
+
+      {/* Interactive Simulation Trigger */}
+      <div className="sduel__controls">
+        <button type="button" className="sduel__replay-btn" onClick={() => setRun((n) => n + 1)}>
+          <svg className="sduel__replay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 12a8 8 0 0 1 14.93-4M20 12a8 8 0 0 1-14.93 4M20 4v4h-4M4 20v-4h4" />
+          </svg>
+          <span>{t("Simulate microbial attack")}</span>
+        </button>
+      </div>
     </div>
   );
 }

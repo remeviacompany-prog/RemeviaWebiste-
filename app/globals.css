@@ -9674,99 +9674,626 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 .builder__subs dt { flex: none; padding: 1px 8px; border-radius: 999px; background: var(--c); color: #fff; font: 700 11px var(--display); letter-spacing: .04em; text-transform: uppercase; }
 .builder__subs dd { margin: 0; color: var(--slate); }
 
-/* ---------- Science: synergy duel v3 (6 s loop, petri dishes) ---------- */
-.sduel { margin-bottom: 24px; display: grid; justify-items: center; gap: 16px; }
-.sduel__grid { width: 100%; margin: 0; }
-.sduel .duel__card svg { max-height: 280px; }
-.sduel__replay { font-weight: 700; }
-.sduel .duel__card--single { background: radial-gradient(320px 220px at 100% 0%, rgba(254,202,202,.55), transparent 70%), linear-gradient(150deg, #F8F9FC, #FDECEA) !important; border-color: #F3D3CD !important; }
-.sduel .duel__card--blend { color: var(--ink); border-color: #CDEBD8 !important; background: radial-gradient(320px 220px at 100% 0%, rgba(187,247,208,.6), transparent 70%), linear-gradient(150deg, #F3F8FB, #E8F7EE) !important; box-shadow: 0 30px 60px -40px rgba(21,128,61,.45); }
-.sduel .duel__card--blend h3 { color: var(--ink); }
-.sduel .duel__chip--good { background: #DCFCE7; color: #15803D; border: 1px solid #86EFAC; }
-.sduel .duel__card--blend text { fill: #1F2A44; }
+/* ---------- Science: synergy duel v4 (aligned, dynamic, high-fidelity) ---------- */
+.sduel {
+  margin-bottom: 32px;
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  width: 100%;
+}
 
-/* left: capsules ricochet, shield forms, microbe divides */
-.sd-pill { opacity: 0; offset-rotate: auto; }
-.sd-pill--a { offset-path: path('M70 128H214L168 196'); animation: sd-pill-a 6s ease-in infinite; }
-.sd-pill--b { offset-path: path('M150 34L212 108L190 40'); animation: sd-pill-b 6s ease-in infinite; }
-@keyframes sd-pill-a {
-  0% { offset-distance: 0%; opacity: 0; }
-  5% { offset-distance: 0%; opacity: 1; }
-  28% { offset-distance: 63.7%; opacity: 1; }
-  42% { offset-distance: 100%; opacity: .5; }
-  46%, 100% { offset-distance: 100%; opacity: 0; }
+.sduel__grid {
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
-@keyframes sd-pill-b {
-  0%, 34% { offset-distance: 0%; opacity: 0; }
-  38% { opacity: 1; }
-  52% { offset-distance: 57.4%; opacity: 1; }
-  64% { offset-distance: 100%; opacity: .4; }
-  68%, 100% { offset-distance: 100%; opacity: 0; }
-}
-.sd-shield { opacity: 0; animation: sd-shield 6s ease-out infinite; }
-@keyframes sd-shield {
-  0%, 22% { opacity: 0; transform: scale(.4); }
-  27% { opacity: 1; transform: scale(1.15); }
-  31% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(239,68,68,0)); }
-  33%, 54% { filter: drop-shadow(0 0 10px rgba(239,68,68,.9)); }
-  37%, 50%, 58% { filter: drop-shadow(0 0 4px rgba(239,68,68,.5)); }
-  92% { opacity: 1; transform: scale(1); }
-  98%, 100% { opacity: 0; transform: scale(1); }
-}
-.sd-ricochet { opacity: 0; animation: sd-ricochet 6s linear infinite; }
-@keyframes sd-ricochet { 0%, 27% { opacity: 0; } 32%, 92% { opacity: 1; } 98%, 100% { opacity: 0; } }
-.sd-mother { animation: sd-mother 6s ease-in-out infinite; }
-@keyframes sd-mother { 0%, 60% { transform: scale(1); } 66% { transform: scale(1.1, .92); } 74%, 100% { transform: scale(1); } }
-.sd-daughter { opacity: 0; animation: sd-daughter 6s ease-out infinite; }
-@keyframes sd-daughter {
-  0%, 62% { opacity: 0; transform: translate(-40px, 46px) scale(.4); }
-  66% { opacity: 1; }
-  78%, 92% { opacity: 1; transform: translate(0, 0) scale(1); }
-  98%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
-}
-.duel__card--single .sd-caption { animation: sd-caption 6s ease-in-out infinite; }
-@keyframes sd-caption { 0%, 62%, 100% { fill: #1F2A44; } 74%, 92% { fill: #B42318; } }
 
-/* right: botanical drops strike together, microbe cracks and dissolves */
-.sd-drop { animation: sd-drop 6s ease-in-out infinite; }
-@keyframes sd-drop { 0%, 100% { transform: scale(1); } 4% { transform: scale(.88); } 10% { transform: scale(1.08); } 16% { transform: scale(1); } }
-.sd-arrow { opacity: 0; animation: sd-arrow 6s ease-out infinite; }
-@keyframes sd-arrow { 0%, 6% { opacity: 0; } 12%, 88% { opacity: 1; } 96%, 100% { opacity: 0; } }
-.sd-arrow__line { stroke-dasharray: 100 100; animation: sd-draw 6s ease-out infinite; }
-@keyframes sd-draw { 0%, 6% { stroke-dashoffset: 100; } 28%, 100% { stroke-dashoffset: 0; } }
-.sd-microbe__ring { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; animation: sd-ring 6s ease-in-out infinite; }
-.sd-microbe__ring { stroke-dashoffset: 0; }
-@keyframes sd-ring {
-  0%, 28% { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
-  34% { fill: #DCFCE7; stroke: #22C55E; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
-  46%, 88% { fill: #DCFCE7; stroke: #16A34A; stroke-dasharray: 76 24; stroke-dashoffset: -12; }
-  96%, 100% { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
+@media (max-width: 820px) {
+  .sduel__grid {
+    grid-template-columns: 1fr;
+  }
 }
-.sd-spark { opacity: 0; offset-rotate: 0deg; filter: drop-shadow(0 0 6px rgba(255,255,255,.95)); }
-.sd-spark--a { offset-path: path('M80 62C150 30 230 44 262 92'); animation: sd-spark 6s ease-in infinite; }
-.sd-spark--b { offset-path: path('M66 126C140 104 210 112 252 124'); animation: sd-spark 6s ease-in infinite; }
-.sd-spark--c { offset-path: path('M86 192C170 214 236 196 264 158'); animation: sd-spark 6s ease-in infinite; }
-@keyframes sd-spark { 0%, 8% { offset-distance: 0%; opacity: 0; } 11% { opacity: 1; } 28% { offset-distance: 100%; opacity: 1; } 31%, 100% { offset-distance: 100%; opacity: 0; } }
-.sd-microbe__core { fill: #B91C1C; animation: sd-core 6s ease-in-out infinite; }
-@keyframes sd-core { 0%, 28% { fill: #B91C1C; transform: scale(1); } 36%, 88% { fill: #16A34A; transform: scale(.9); } 96%, 100% { fill: #B91C1C; transform: scale(1); } }
-.sd-microbe { animation: sd-microbe 6s ease-in-out infinite; }
-@keyframes sd-microbe { 0%, 27% { transform: scale(1); } 30% { transform: scale(1.08); } 33% { transform: scale(.96); } 36%, 100% { transform: scale(1); } }
-.sd-cracks { opacity: 0; stroke-dasharray: 120; stroke-dashoffset: 120; animation: sd-cracks 6s ease-out infinite; }
-@keyframes sd-cracks { 0%, 30% { opacity: 0; stroke-dashoffset: 120; } 32% { opacity: 1; } 42%, 88% { opacity: 1; stroke-dashoffset: 0; } 96%, 100% { opacity: 0; } }
-.sd-shard { opacity: 0; animation: sd-shard 6s ease-out infinite; }
-@keyframes sd-shard { 0%, 36% { opacity: 0; transform: translate(-6px, 0) rotate(0deg); } 40% { opacity: 1; } 72% { opacity: 1; transform: translate(16px, -4px) rotate(35deg); } 88%, 100% { opacity: 0; transform: translate(24px, -8px) rotate(55deg); } }
-.sd-bubble { opacity: 0; animation: sd-bubble 6s ease-out infinite; }
-@keyframes sd-bubble { 0%, 38% { opacity: 0; transform: translate(-22px, 26px) scale(.3); } 46% { opacity: 1; } 78% { opacity: .9; transform: translate(0, 0) scale(1); } 90%, 100% { opacity: 0; transform: translate(4px, -10px) scale(1.2); } }
-.sduel .duel__card--blend { animation: sd-glow-card 6s ease-out infinite; }
-@keyframes sd-glow-card { 0%, 34%, 100% { box-shadow: 0 30px 60px -40px rgba(21,128,61,.45); } 46% { box-shadow: 0 0 0 3px rgba(74,222,128,.55), 0 30px 70px -30px rgba(34,197,94,.6); } }
 
-/* Reduced motion: show the finished picture, like the reference still */
+.sduel .duel__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px !important;
+  padding: 24px 26px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s !important;
+  box-sizing: border-box;
+}
+
+.sduel .duel__card svg {
+  width: 100%;
+  height: auto;
+  max-height: 230px;
+  display: block;
+  margin: 8px 0;
+  overflow: visible;
+}
+
+/* --- Card 1: Single synthetic active --- */
+.sduel .duel__card--single {
+  background: radial-gradient(320px 220px at 100% 0%, rgba(254, 202, 202, 0.55), transparent 70%),
+              linear-gradient(155deg, #FFFFFF 0%, #FFF6F5 45%, #FEE2E2 100%) !important;
+  border: 1px solid #F8B4A6 !important;
+  box-shadow: 0 16px 40px -20px rgba(220, 38, 38, 0.15);
+}
+
+.sduel .duel__card--single:hover {
+  transform: translateY(-4px);
+  border-color: #F87171 !important;
+  box-shadow: 0 24px 50px -16px rgba(220, 38, 38, 0.25);
+}
+
+.sduel .duel__card--single h3 {
+  color: #0F172A !important;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+}
+
+/* --- Card 2: Remevia synergy blend --- */
+.sduel .duel__card--blend {
+  background: radial-gradient(320px 220px at 100% 0%, rgba(187, 247, 208, 0.65), transparent 70%),
+              linear-gradient(155deg, #FFFFFF 0%, #F0FDF4 45%, #DCFCE7 100%) !important;
+  border: 1px solid #86EFAC !important;
+  box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
+  animation: synBlendCardGlow 5s ease-out infinite;
+}
+
+.sduel .duel__card--blend:hover {
+  transform: translateY(-4px);
+  border-color: #22C55E !important;
+  box-shadow: 0 24px 54px -16px rgba(22, 163, 74, 0.32);
+}
+
+.sduel .duel__card--blend h3 {
+  color: #0F172A !important;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 2px 0;
+}
+
+@keyframes synBlendCardGlow {
+  0%, 30%, 100% {
+    box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
+  }
+  42%, 75% {
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.55), 0 24px 54px -16px rgba(34, 197, 94, 0.35);
+  }
+}
+
+/* --- Headers & Chips --- */
+.duel__head-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.duel__subtext {
+  font-size: 13px !important;
+  color: #64748B !important;
+  margin: 0 !important;
+  line-height: 1.35;
+}
+
+.duel__chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  font: 700 11px var(--display) !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  flex-shrink: 0;
+}
+
+.duel__chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.duel__chip--bad {
+  background: #FEE2E2 !important;
+  color: #991B1B !important;
+  border: 1px solid #FCA5A5 !important;
+}
+
+.duel__chip--bad .duel__chip-dot {
+  background: #EF4444;
+  animation: synDotAlert 2s infinite ease-in-out;
+}
+
+@keyframes synDotAlert {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+
+.duel__chip--good {
+  background: #DCFCE7 !important;
+  color: #14532D !important;
+  border: 1px solid #86EFAC !important;
+}
+
+.duel__chip--good .duel__chip-dot {
+  background: #22C55E;
+  animation: synDotGlow 2s infinite ease-in-out;
+}
+
+@keyframes synDotGlow {
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 4px #22C55E); }
+  50% { opacity: 0.6; transform: scale(0.85); filter: drop-shadow(0 0 1px #22C55E); }
+}
+
+/* --- Semantic Aligned Footers --- */
+.duel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.duel__status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.duel__status-pill--bad {
+  color: #7F1D1D;
+}
+
+.duel__status-pill--good {
+  color: #14532D;
+}
+
+.duel__status-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.duel__status-pill--bad .duel__status-icon {
+  background: #FEE2E2;
+  color: #DC2626;
+  border: 1px solid #FCA5A5;
+}
+
+.duel__status-pill--good .duel__status-icon {
+  background: #DCFCE7;
+  color: #16A34A;
+  border: 1px solid #86EFAC;
+}
+
+.duel__metric-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.duel__metric-tag--bad {
+  background: rgba(239, 68, 68, 0.12);
+  color: #991B1B;
+}
+
+.duel__metric-tag--good {
+  background: rgba(34, 197, 94, 0.18);
+  color: #14532D;
+}
+
+/* ========================================================
+   ANIMATIONS: CARD 1 (Single Synthetic Active - 5s cycle)
+   ======================================================== */
+.syn-capsule-runner {
+  transform-origin: 0 0;
+  animation: synCapsuleCycle 5s cubic-bezier(0.25, 1, 0.35, 1) infinite;
+}
+
+@keyframes synCapsuleCycle {
+  0% {
+    transform: translate(52px, 105px) scale(0.7);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+    transform: translate(52px, 105px) scale(1);
+  }
+  24% {
+    transform: translate(232px, 105px) scale(1);
+    opacity: 1;
+  }
+  26% {
+    transform: translate(234px, 105px) scale(1.08);
+    opacity: 1;
+  }
+  28% {
+    transform: translate(210px, 120px) rotate(-28deg);
+    opacity: 0.95;
+  }
+  42% {
+    transform: translate(145px, 178px) rotate(-48deg);
+    opacity: 0.4;
+  }
+  46%, 100% {
+    transform: translate(145px, 178px) rotate(-48deg);
+    opacity: 0;
+  }
+}
+
+.syn-shield-group {
+  transform-origin: 235px 105px;
+  animation: synShieldImpact 5s ease-in-out infinite;
+}
+
+@keyframes synShieldImpact {
+  0%, 23% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(220, 38, 38, 0));
+  }
+  25% {
+    transform: scale(1.14);
+    filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.9));
+  }
+  29% {
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5));
+  }
+  36% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.25));
+  }
+  92% {
+    opacity: 1;
+  }
+  97%, 100% {
+    opacity: 0.95;
+  }
+}
+
+.syn-impact-burst {
+  transform-origin: 235px 105px;
+  animation: synImpactBurst 5s ease-out infinite;
+}
+
+@keyframes synImpactBurst {
+  0%, 24% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1.7);
+  }
+  36%, 100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+.syn-ricochet-line {
+  animation: synRicochetFlash 5s ease-out infinite;
+}
+
+@keyframes synRicochetFlash {
+  0%, 25% { opacity: 0; }
+  28%, 50% { opacity: 1; }
+  58%, 100% { opacity: 0.35; }
+}
+
+.syn-bacteria-mother {
+  transform-origin: 315px 110px;
+  animation: synMotherPulse 5s ease-in-out infinite;
+}
+
+@keyframes synMotherPulse {
+  0%, 28% { transform: scale(1); }
+  34% { transform: scale(1.07); }
+  42% { transform: scale(1.12, 0.93); }
+  52%, 92% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+.syn-bacteria-daughter {
+  transform-origin: 315px 110px;
+  animation: synDaughterGrow 5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes synDaughterGrow {
+  0%, 34% {
+    opacity: 0;
+    transform: translate(-32px, 26px) scale(0.2);
+  }
+  38% {
+    opacity: 0.7;
+  }
+  50%, 88% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  96%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.85);
+  }
+}
+
+.syn-mutation-halo {
+  animation: synMutationGlow 5s ease-in-out infinite;
+}
+
+@keyframes synMutationGlow {
+  0%, 42% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  60%, 86% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* ========================================================
+   ANIMATIONS: CARD 2 (Remevia Synergy Blend - 5s cycle)
+   ======================================================== */
+.syn-drop-item {
+  animation: synDropFloat 4s ease-in-out infinite alternate;
+}
+
+.syn-drop-item--a { animation-delay: 0s; }
+.syn-drop-item--b { animation-delay: 0.35s; }
+.syn-drop-item--c { animation-delay: 0.7s; }
+
+@keyframes synDropFloat {
+  0% { transform-origin: 52px center; transform: translateY(-3px) scale(0.97); }
+  100% { transform-origin: 52px center; transform: translateY(3px) scale(1.03); }
+}
+
+.syn-stream-core {
+  stroke-dasharray: 14 26;
+  animation: synStreamFlow 1.6s linear infinite;
+}
+
+@keyframes synStreamFlow {
+  from { stroke-dashoffset: 80; }
+  to { stroke-dashoffset: 0; }
+}
+
+.syn-target-reticle {
+  transform-origin: 325px 105px;
+  animation: synReticleCycle 5s ease-in-out infinite;
+}
+
+@keyframes synReticleCycle {
+  0%, 20% {
+    stroke: #DC2626;
+    stroke-dasharray: 40 10;
+    transform: rotate(0deg) scale(1);
+  }
+  26% {
+    stroke: #F59E0B;
+    transform: rotate(45deg) scale(1.1);
+  }
+  34%, 88% {
+    stroke: #16A34A;
+    stroke-dasharray: 25 25;
+    transform: rotate(90deg) scale(0.95);
+  }
+  96%, 100% {
+    stroke: #DC2626;
+    stroke-dasharray: 40 10;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.syn-target-core {
+  transform-origin: 325px 105px;
+  animation: synCoreCycle 5s ease-in-out infinite;
+}
+
+@keyframes synCoreCycle {
+  0%, 24% {
+    fill: #DC2626;
+    transform: scale(1);
+  }
+  26% {
+    fill: #EF4444;
+    transform: scale(1.18);
+  }
+  34% {
+    fill: #22C55E;
+    transform: scale(0.85);
+  }
+  46%, 88% {
+    fill: #16A34A;
+    transform: scale(0.7);
+    opacity: 0.85;
+  }
+  96%, 100% {
+    fill: #DC2626;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.syn-target-cracks {
+  animation: synCracksCycle 5s ease-out infinite;
+  stroke-dasharray: 100;
+}
+
+@keyframes synCracksCycle {
+  0%, 24% {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+  26% {
+    opacity: 1;
+  }
+  34%, 88% {
+    opacity: 0.9;
+    stroke-dashoffset: 0;
+  }
+  94%, 100% {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+}
+
+.syn-shards-group {
+  transform-origin: 325px 105px;
+  animation: synShardsCycle 5s ease-out infinite;
+}
+
+@keyframes synShardsCycle {
+  0%, 26% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3);
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+    transform: translate(16px, -4px) scale(1);
+  }
+  86% {
+    opacity: 0.6;
+    transform: translate(28px, -8px) scale(1.1);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: translate(32px, -10px) scale(1.2);
+  }
+}
+
+.syn-bubble-drifter {
+  animation: synBubbleCycle 5s ease-out infinite;
+}
+
+@keyframes synBubbleCycle {
+  0%, 28% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.4);
+  }
+  34% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.85;
+    transform: translate(12px, -16px) scale(1);
+  }
+  88%, 100% {
+    opacity: 0;
+    transform: translate(20px, -28px) scale(1.2);
+  }
+}
+
+/* ========================================================
+   REPLAY SIMULATION BUTTON
+   ======================================================== */
+.sduel__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.sduel__replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #1E293B;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 14px -3px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sduel__replay-btn:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px -4px rgba(0, 0, 0, 0.12);
+  color: #0F172A;
+}
+
+.sduel__replay-btn:active {
+  transform: translateY(0);
+}
+
+.sduel__replay-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.4s ease;
+}
+
+.sduel__replay-btn:hover .sduel__replay-icon {
+  transform: rotate(180deg);
+}
+
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .sduel * { animation: none !important; }
-  .sd-shield, .sd-ricochet, .sd-daughter, .sd-arrow, .sd-cracks, .sd-shard, .sd-bubble { opacity: 1; }
-  .sd-arrow__line, .sd-cracks { stroke-dashoffset: 0; }
-  .sd-microbe__ring { fill: #DCFCE7; stroke: #16A34A; stroke-dasharray: 76 24; stroke-dashoffset: -12; }
-  .sd-microbe__core { fill: #16A34A; }
-  .sd-pill--a { opacity: 1; offset-distance: 30%; }
-  .sd-pill--b { opacity: 1; offset-distance: 25%; }
+  .sduel * {
+    animation: none !important;
+  }
+  .syn-shield-group,
+  .syn-bacteria-daughter,
+  .syn-target-cracks,
+  .syn-shards-group,
+  .syn-ricochet-line {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .syn-target-core {
+    fill: #16A34A !important;
+  }
+  .syn-capsule-runner {
+    opacity: 1 !important;
+    transform: translate(210px, 120px) rotate(-28deg) !important;
+  }
 }
