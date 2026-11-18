@@ -10405,3 +10405,57 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 .prow .btn-row > .btn:not([class*="btn--"]):hover,
 .impact__btn:hover { filter: brightness(1.06); }
+
+/* Product hero: category tag always on one line */
+.dhero__tag {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 600px) {
+  .dhero__tag {
+    font-size: clamp(10px, 2.85vw, 13px) !important;
+    padding-inline: 10px !important;
+    letter-spacing: -0.005em;
+  }
+}
+
+/* ===== Footer alignment ===== */
+@media (min-width: 1081px) {
+  .footer__top {
+    grid-template-columns: minmax(240px, 1fr) auto auto auto minmax(330px, 1.15fr) !important;
+    column-gap: clamp(28px, 3vw, 52px) !important;
+    align-items: start;
+  }
+  .footer__brand p { max-width: 34ch; }
+  .footer__bottom { padding-inline-end: 84px; }
+}
+.footer__col h4 { margin-top: 0; }
+.footer__col ul { margin: 0; padding: 0; list-style: none; }
+
+@media (max-width: 720px) {
+  /* Company links: two columns that line up with the Products / Solutions columns above */
+  .footer__col--green ul {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 20px !important;
+    row-gap: 6px !important;
+    columns: auto !important;
+  }
+  .footer__col--green li { margin: 0; }
+  .footer__col ul { display: grid; row-gap: 6px; }
+  /* Bottom bar: stacked, left-aligned, and clear of the floating WhatsApp button */
+  .footer__bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding-bottom: 88px !important;
+    text-align: start;
+  }
+  .footer__bottom nav { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+}
+@media (min-width: 721px) and (max-width: 1080px) {
+  .footer__contact { grid-column: span 2; }
+  .footer__bottom { flex-wrap: wrap; row-gap: 10px; padding-inline-end: 84px; }
+}
