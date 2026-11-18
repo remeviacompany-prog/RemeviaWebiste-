@@ -1202,7 +1202,7 @@ a:hover {
 
 @keyframes processTitlePop {
   0%, 25% {
-    color: #ffffff;
+    color: #2E9E48;
     transform: translateY(-2px);
   }
   30%, 100% {
@@ -10331,3 +10331,77 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   [dir="rtl"] .finder__opt:hover,
   [dir="rtl"] .finder__opt[aria-selected="true"] { transform: none; }
 }
+
+/* ===== 18 Nov (pm): mobile readability fixes ===== */
+/* Primary button on green bands: green gradient + white text (was white-on-white) */
+:is(.bhero, .section--dark, .programme, .phero, .dhero) .btn--marigold:not(.cta__btn),
+:is(.bhero, .section--dark, .programme, .phero, .dhero) .btn--marigold:not(.cta__btn):hover {
+  background: linear-gradient(135deg, #5BCB68 0%, #2E9E48 55%, #1F7A3A 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 28px -10px rgba(10, 60, 30, .7), inset 0 0 0 1.5px rgba(255, 255, 255, .55) !important;
+}
+:is(.bhero, .section--dark, .programme, .phero, .dhero) .btn--marigold:not(.cta__btn):hover { filter: brightness(1.06); }
+
+/* Home hero headline: first line always white on the dark green stage */
+.bhero h1,
+.bhero h1 > span:not(.bhero__accent) { color: #fff !important; }
+.bhero h1 > span:not(.bhero__accent) { -webkit-text-fill-color: #fff; }
+
+/* Mobile nav: product rows aligned left (swatch + name + subtitle) */
+@media (max-width: 1080px) {
+  .menu a:not(.menu__all) {
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 14px !important;
+    text-align: start !important;
+  }
+  .menu a:not(.menu__all) > span:last-child {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: start !important;
+    gap: 2px;
+    margin: 0 !important;
+    flex: 1 1 auto;
+  }
+  .menu a .menu__swatch { flex: 0 0 auto; }
+}
+
+/* Footer on phones: compact, link columns side by side */
+@media (max-width: 720px) {
+  .footer__top {
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 20px !important;
+    row-gap: 28px !important;
+  }
+  .footer__brand,
+  .footer__contact { grid-column: 1 / -1; }
+  .footer__brand img { max-width: 140px; height: auto; }
+  .footer__brand p { font-size: 14px; line-height: 1.55; }
+  .footer__col { min-width: 0; }
+  .footer__col h4,
+  .footer__col h3 { font-size: 12.5px !important; letter-spacing: .12em; margin-bottom: 10px; }
+  .footer__col a { font-size: 14px !important; line-height: 1.35; padding-block: 5px; display: block; overflow-wrap: anywhere; }
+}
+@media (max-width: 720px) {
+  .footer__col--green { grid-column: 1 / -1; }
+  .footer__col--green ul { columns: 2; column-gap: 20px; }
+  .footer__col--green li { break-inside: avoid; }
+}
+@media (max-width: 720px) {
+  .footer__col--green ul { display: block !important; columns: 2 !important; }
+  .footer__col--green li { margin-bottom: 4px; }
+  .footer__col a { padding-block: 3px; }
+  .footer__col ul { gap: 6px !important; }
+}
+
+/* Plain buttons that ended up white-on-white: green gradient with white text */
+.prow .btn-row > .btn:not([class*="btn--"]),
+.impact__btn {
+  background: linear-gradient(135deg, #5BCB68 0%, #2E9E48 55%, #1F7A3A 100%) !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow: 0 10px 24px -12px rgba(10, 60, 30, .65) !important;
+}
+.prow .btn-row > .btn:not([class*="btn--"]):hover,
+.impact__btn:hover { filter: brightness(1.06); }
