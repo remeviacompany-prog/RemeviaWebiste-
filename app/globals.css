@@ -9667,3 +9667,106 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   .impact .head { max-width: none; }
   .impact .head h2 { white-space: nowrap; font-size: clamp(28px, 2.9vw, 42px); }
 }
+
+/* ---------- Builder: layer / breeder sub-programmes ---------- */
+.builder__subs { margin: 6px 0 0; display: grid; gap: 4px; }
+.builder__subs > div { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13px; line-height: 1.35; }
+.builder__subs dt { flex: none; padding: 1px 8px; border-radius: 999px; background: var(--c); color: #fff; font: 700 11px var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.builder__subs dd { margin: 0; color: var(--slate); }
+
+/* ---------- Science: synergy duel v3 (6 s loop, petri dishes) ---------- */
+.sduel { margin-bottom: 24px; display: grid; justify-items: center; gap: 16px; }
+.sduel__grid { width: 100%; margin: 0; }
+.sduel .duel__card svg { max-height: 280px; }
+.sduel__replay { font-weight: 700; }
+.sduel .duel__card--single { background: radial-gradient(320px 220px at 100% 0%, rgba(254,202,202,.55), transparent 70%), linear-gradient(150deg, #F8F9FC, #FDECEA) !important; border-color: #F3D3CD !important; }
+.sduel .duel__card--blend { color: var(--ink); border-color: #CDEBD8 !important; background: radial-gradient(320px 220px at 100% 0%, rgba(187,247,208,.6), transparent 70%), linear-gradient(150deg, #F3F8FB, #E8F7EE) !important; box-shadow: 0 30px 60px -40px rgba(21,128,61,.45); }
+.sduel .duel__card--blend h3 { color: var(--ink); }
+.sduel .duel__chip--good { background: #DCFCE7; color: #15803D; border: 1px solid #86EFAC; }
+.sduel .duel__card--blend text { fill: #1F2A44; }
+
+/* left: capsules ricochet, shield forms, microbe divides */
+.sd-pill { opacity: 0; offset-rotate: auto; }
+.sd-pill--a { offset-path: path('M70 128H214L168 196'); animation: sd-pill-a 6s ease-in infinite; }
+.sd-pill--b { offset-path: path('M150 34L212 108L190 40'); animation: sd-pill-b 6s ease-in infinite; }
+@keyframes sd-pill-a {
+  0% { offset-distance: 0%; opacity: 0; }
+  5% { offset-distance: 0%; opacity: 1; }
+  28% { offset-distance: 63.7%; opacity: 1; }
+  42% { offset-distance: 100%; opacity: .5; }
+  46%, 100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes sd-pill-b {
+  0%, 34% { offset-distance: 0%; opacity: 0; }
+  38% { opacity: 1; }
+  52% { offset-distance: 57.4%; opacity: 1; }
+  64% { offset-distance: 100%; opacity: .4; }
+  68%, 100% { offset-distance: 100%; opacity: 0; }
+}
+.sd-shield { opacity: 0; animation: sd-shield 6s ease-out infinite; }
+@keyframes sd-shield {
+  0%, 22% { opacity: 0; transform: scale(.4); }
+  27% { opacity: 1; transform: scale(1.15); }
+  31% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(239,68,68,0)); }
+  33%, 54% { filter: drop-shadow(0 0 10px rgba(239,68,68,.9)); }
+  37%, 50%, 58% { filter: drop-shadow(0 0 4px rgba(239,68,68,.5)); }
+  92% { opacity: 1; transform: scale(1); }
+  98%, 100% { opacity: 0; transform: scale(1); }
+}
+.sd-ricochet { opacity: 0; animation: sd-ricochet 6s linear infinite; }
+@keyframes sd-ricochet { 0%, 27% { opacity: 0; } 32%, 92% { opacity: 1; } 98%, 100% { opacity: 0; } }
+.sd-mother { animation: sd-mother 6s ease-in-out infinite; }
+@keyframes sd-mother { 0%, 60% { transform: scale(1); } 66% { transform: scale(1.1, .92); } 74%, 100% { transform: scale(1); } }
+.sd-daughter { opacity: 0; animation: sd-daughter 6s ease-out infinite; }
+@keyframes sd-daughter {
+  0%, 62% { opacity: 0; transform: translate(-40px, 46px) scale(.4); }
+  66% { opacity: 1; }
+  78%, 92% { opacity: 1; transform: translate(0, 0) scale(1); }
+  98%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
+}
+.duel__card--single .sd-caption { animation: sd-caption 6s ease-in-out infinite; }
+@keyframes sd-caption { 0%, 62%, 100% { fill: #1F2A44; } 74%, 92% { fill: #B42318; } }
+
+/* right: botanical drops strike together, microbe cracks and dissolves */
+.sd-drop { animation: sd-drop 6s ease-in-out infinite; }
+@keyframes sd-drop { 0%, 100% { transform: scale(1); } 4% { transform: scale(.88); } 10% { transform: scale(1.08); } 16% { transform: scale(1); } }
+.sd-arrow { opacity: 0; animation: sd-arrow 6s ease-out infinite; }
+@keyframes sd-arrow { 0%, 6% { opacity: 0; } 12%, 88% { opacity: 1; } 96%, 100% { opacity: 0; } }
+.sd-arrow__line { stroke-dasharray: 100 100; animation: sd-draw 6s ease-out infinite; }
+@keyframes sd-draw { 0%, 6% { stroke-dashoffset: 100; } 28%, 100% { stroke-dashoffset: 0; } }
+.sd-microbe__ring { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; animation: sd-ring 6s ease-in-out infinite; }
+.sd-microbe__ring { stroke-dashoffset: 0; }
+@keyframes sd-ring {
+  0%, 28% { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
+  34% { fill: #DCFCE7; stroke: #22C55E; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
+  46%, 88% { fill: #DCFCE7; stroke: #16A34A; stroke-dasharray: 76 24; stroke-dashoffset: -12; }
+  96%, 100% { fill: #FEE2E2; stroke: #EF4444; stroke-dasharray: 100 0; stroke-dashoffset: 0; }
+}
+.sd-spark { opacity: 0; offset-rotate: 0deg; filter: drop-shadow(0 0 6px rgba(255,255,255,.95)); }
+.sd-spark--a { offset-path: path('M80 62C150 30 230 44 262 92'); animation: sd-spark 6s ease-in infinite; }
+.sd-spark--b { offset-path: path('M66 126C140 104 210 112 252 124'); animation: sd-spark 6s ease-in infinite; }
+.sd-spark--c { offset-path: path('M86 192C170 214 236 196 264 158'); animation: sd-spark 6s ease-in infinite; }
+@keyframes sd-spark { 0%, 8% { offset-distance: 0%; opacity: 0; } 11% { opacity: 1; } 28% { offset-distance: 100%; opacity: 1; } 31%, 100% { offset-distance: 100%; opacity: 0; } }
+.sd-microbe__core { fill: #B91C1C; animation: sd-core 6s ease-in-out infinite; }
+@keyframes sd-core { 0%, 28% { fill: #B91C1C; transform: scale(1); } 36%, 88% { fill: #16A34A; transform: scale(.9); } 96%, 100% { fill: #B91C1C; transform: scale(1); } }
+.sd-microbe { animation: sd-microbe 6s ease-in-out infinite; }
+@keyframes sd-microbe { 0%, 27% { transform: scale(1); } 30% { transform: scale(1.08); } 33% { transform: scale(.96); } 36%, 100% { transform: scale(1); } }
+.sd-cracks { opacity: 0; stroke-dasharray: 120; stroke-dashoffset: 120; animation: sd-cracks 6s ease-out infinite; }
+@keyframes sd-cracks { 0%, 30% { opacity: 0; stroke-dashoffset: 120; } 32% { opacity: 1; } 42%, 88% { opacity: 1; stroke-dashoffset: 0; } 96%, 100% { opacity: 0; } }
+.sd-shard { opacity: 0; animation: sd-shard 6s ease-out infinite; }
+@keyframes sd-shard { 0%, 36% { opacity: 0; transform: translate(-6px, 0) rotate(0deg); } 40% { opacity: 1; } 72% { opacity: 1; transform: translate(16px, -4px) rotate(35deg); } 88%, 100% { opacity: 0; transform: translate(24px, -8px) rotate(55deg); } }
+.sd-bubble { opacity: 0; animation: sd-bubble 6s ease-out infinite; }
+@keyframes sd-bubble { 0%, 38% { opacity: 0; transform: translate(-22px, 26px) scale(.3); } 46% { opacity: 1; } 78% { opacity: .9; transform: translate(0, 0) scale(1); } 90%, 100% { opacity: 0; transform: translate(4px, -10px) scale(1.2); } }
+.sduel .duel__card--blend { animation: sd-glow-card 6s ease-out infinite; }
+@keyframes sd-glow-card { 0%, 34%, 100% { box-shadow: 0 30px 60px -40px rgba(21,128,61,.45); } 46% { box-shadow: 0 0 0 3px rgba(74,222,128,.55), 0 30px 70px -30px rgba(34,197,94,.6); } }
+
+/* Reduced motion: show the finished picture, like the reference still */
+@media (prefers-reduced-motion: reduce) {
+  .sduel * { animation: none !important; }
+  .sd-shield, .sd-ricochet, .sd-daughter, .sd-arrow, .sd-cracks, .sd-shard, .sd-bubble { opacity: 1; }
+  .sd-arrow__line, .sd-cracks { stroke-dashoffset: 0; }
+  .sd-microbe__ring { fill: #DCFCE7; stroke: #16A34A; stroke-dasharray: 76 24; stroke-dashoffset: -12; }
+  .sd-microbe__core { fill: #16A34A; }
+  .sd-pill--a { opacity: 1; offset-distance: 30%; }
+  .sd-pill--b { opacity: 1; offset-distance: 25%; }
+}

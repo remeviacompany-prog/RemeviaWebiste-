@@ -14,7 +14,7 @@ const PRODUCTS = [
     tags: ['broilers', 'layers', 'gut'],
     name: 'TLTREAT',
     kicker: 'NATURAL AGP REPLACER · GUT HEALTH & GROWTH',
-    desc: 'The ultimate health enhancer for poultry. Spice extracts of ginger, turmeric and nutmeg stimulate immunity and replace antibiotic growth promoters.',
+    desc: 'The ultimate health enhancer for poultry. Spice extracts of ginger, turmeric, nutmeg and pepper stimulate immunity and replace antibiotic growth promoters.',
     img: '/assets/img/tltreat.webp',
     href: '/products/tltreat',
     ticksCol1: [

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PageHero from '../components/PageHero';
+import SynergyDuel from '../components/SynergyDuel';
 import { Icon } from '../components/icons';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -184,39 +185,7 @@ export default function SciencePage() {
             <h2>{t("One molecule can be beaten. A combination is much harder.")}</h2>
             <p className="lede">{t("Bacteria and pests adapt to a single mode of action. Blends that act on several targets at once give them far fewer ways out.")}</p>
           </div>
-          <div className="compare duel" style={{ marginBottom: '24px' }}>
-            <div className="duel__card duel__card--single">
-              <div className="duel__top"><h3>{t("Single active")}</h3><span className="duel__chip duel__chip--bad">{t("1 mode of action")}</span></div>
-              <svg viewBox="0 0 320 160" role="img" aria-label={t("One compound acting on one target")}>
-                <path d="M84 80h118" stroke="#94A3BF" strokeWidth="3" strokeDasharray="6 6" className="duel__line"/>
-                <circle cx="60" cy="80" r="22" fill="#94A3BF" className="duel__src"/>
-                <circle r="7" fill="#7C8AA5" className="duel__shot duel__shot--single"/>
-                <circle cx="240" cy="80" r="44" fill="none" stroke="#B3261E" strokeWidth="2.5" strokeDasharray="5 6" className="duel__shield"/>
-                <circle cx="240" cy="80" r="34" fill="#FDECEA" stroke="#B3261E" strokeWidth="3"/>
-                <circle cx="240" cy="80" r="9" fill="#B3261E" className="duel__core duel__core--alive"/>
-                <text x="240" y="150" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("1 target · easier to resist")}</text>
-              </svg>
-            </div>
-            <div className="duel__card duel__card--blend">
-              <div className="duel__top"><h3>{t("Remevia synergy blend")}</h3><span className="duel__chip duel__chip--good">{t("Multi-target")}</span></div>
-              <svg viewBox="0 0 320 160" role="img" aria-label={t("Several compounds acting on several targets")}>
-                <path d="M66 40C140 40 160 70 206 77" stroke="#2C49A6" strokeWidth="3" fill="none" className="duel__flow"/>
-                <path d="M66 80H206" stroke="#1A97A4" strokeWidth="3" fill="none" className="duel__flow"/>
-                <path d="M66 120C140 120 160 90 206 83" stroke="#3BB54A" strokeWidth="3" fill="none" className="duel__flow"/>
-                <circle cx="50" cy="40" r="14" fill="#2C49A6" className="duel__src"/>
-                <circle cx="50" cy="80" r="14" fill="#1A97A4" className="duel__src" style={{ animationDelay: '.2s' }}/>
-                <circle cx="50" cy="120" r="14" fill="#3BB54A" className="duel__src" style={{ animationDelay: '.4s' }}/>
-                <circle r="6" fill="#2C49A6" className="duel__shot duel__shot--a"/>
-                <circle r="6" fill="#1A97A4" className="duel__shot duel__shot--b"/>
-                <circle r="6" fill="#3BB54A" className="duel__shot duel__shot--c"/>
-                <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="2" className="duel__ripple"/>
-                <circle cx="240" cy="80" r="34" fill="none" stroke="#1E7A34" strokeWidth="2" className="duel__ripple" style={{ animationDelay: '.35s' }}/>
-                <circle cx="240" cy="80" r="34" fill="#E6F5EC" stroke="#1E7A34" strokeWidth="3"/>
-                <circle cx="240" cy="80" r="9" fill="#1E7A34" className="duel__core duel__core--beaten"/>
-                <text x="240" y="150" textAnchor="middle" fontSize="13" fill="#4A5873" fontFamily="Figtree">{t("Many targets · hard to resist")}</text>
-              </svg>
-            </div>
-          </div>
+          <SynergyDuel />
           <div className="synergy">
             <div className="syn t-curtect">
               <div className="syn__head"><h3>CURTECT-CRD</h3><span>{t("6 actions")}</span></div>

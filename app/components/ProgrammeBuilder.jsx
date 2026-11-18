@@ -69,7 +69,15 @@ const FLOCKS = {
 const PLANS = {
   tltreat: {
     name: 'TLTREAT', cls: 't-treat', goal: 'Gut health & growth',
-    schedule: (flock) => ({ continuous: true, note: flock === 'broiler' ? 'From Day 1 to 40th Day continuously in feed mash or pellets' : 'From 60th to 100th week to support extended laying cycle & egg quality' }),
+    schedule: (flock) => (flock === 'broiler'
+      ? { continuous: true, note: 'From Day 1 to 40th Day continuously in feed mash or pellets' }
+      : {
+        continuous: true,
+        subs: [
+          { label: 'Layers', note: '2 kg per tonne of feed from 60th week to extend the laying cycle & egg quality' },
+          { label: 'Breeders', note: 'From 40th week for better ovulation and more vibrant chicks with a higher weight ratio' },
+        ],
+      }),
     rate: (flock) => (flock === 'broiler' ? { kind: 'feed', min: 1, max: 1 } : { kind: 'feed', min: 2, max: 2 }),
   },
   curtect: {
@@ -88,7 +96,7 @@ const PLANS = {
   },
   tlegg: {
     name: 'TLEGG', cls: 't-egg', goal: 'Egg quality',
-    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 18th to 95th week for golden egg-yolk colour' }),
+    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 14th week to achieve the desired golden egg-yolk colour' }),
     rate: () => ({ kind: 'feed', min: 1, max: 1 }),
   },
   repeal: {
@@ -287,7 +295,17 @@ export default function ProgrammeBuilder() {
                     <li key={row.key} className={row.cls}>
                       <div>
                         <b>{row.name}</b>
-                        <small>{t(row.schedule.note)}</small>
+                        {row.schedule.note && <small>{t(row.schedule.note)}</small>}
+                        {row.schedule.subs && (
+                          <dl className="builder__subs">
+                            {row.schedule.subs.map((sub) => (
+                              <div key={sub.label}>
+                                <dt>{t(sub.label)}</dt>
+                                <dd>{t(sub.note)}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
                       </div>
                       <strong>
                         {row.quantity ? <bdi>{row.quantity.text}</bdi> : t("As needed")}

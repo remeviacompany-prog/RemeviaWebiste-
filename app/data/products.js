@@ -8,7 +8,7 @@ export const PRODUCTS_DATA = {
     tagline: 'The Ultimate Health Enhancer For Your Poultry.',
     packagingType: 'powder',
     packagingBadge: '50 kg PP Woven Laminated Bag',
-    lede: 'A scientific blend of potent spice extracts including curcumin, ginger extract, turmeric oil, and nutmeg extract. TLTREAT stimulates natural immunity, prevents coccidiosis, and replaces chemical antibiotic growth promoters (AGPs) across broilers and layers.',
+    lede: 'A scientific blend of potent spice extracts including curcumin, ginger extract, turmeric oil, nutmeg extract and pepper extract. TLTREAT stimulates natural immunity, prevents coccidiosis, and replaces chemical antibiotic growth promoters (AGPs) across broilers and layers.',
     img: '/assets/img/tltreat.webp',
     keypoints: [
       '1 kg of TLTREAT delivers 15 kg of additional meat',
@@ -22,14 +22,14 @@ export const PRODUCTS_DATA = {
       { label: 'Format', val: 'Feed powder' },
       { label: 'Species', val: 'Broilers, layers, breeders' },
       { label: 'Dose', val: '1 kg / 1,000 kg feed' },
-      { label: 'Field claim', val: '1 kg → 15 kg extra meat', highlight: true },
+      { label: 'Field claim', val: '15 kg extra meat', highlight: true },
       { label: 'Packing', val: '50 kg laminated bag' }
     ],
     whyChooseTitle: 'Why Leading Farms & Feed Mills Choose TLTREAT',
     whyChooseLede: 'With global regulatory bans on AGPs and consumers demanding antibiotic-free poultry, TLTREAT keeps flock performance up while completely removing chemical antibiotics from the feed.',
     whyTicks: [
       'Potent immune system stimulant that boosts cell-mediated and humoral bird immunity',
-      'Standardised natural spice extracts: Ginger, Turmeric, Nutmeg, and Turmeric oil',
+      'Standardised natural spice extracts: Ginger, Turmeric, Nutmeg, Pepper, and Turmeric oil',
       'Highly effective, zero-residue alternative to antibiotic growth promoters',
       'Extends laying persistence in commercial layers up to 100 weeks with strong shells',
       'Ideal for both high-efficiency broiler operations and commercial egg layers',
@@ -71,6 +71,7 @@ export const PRODUCTS_DATA = {
       { name: 'Ginger extract', note: 'Standardized gingerols — stimulates digestive enzymes & gut motility' },
       { name: 'Turmeric oil', note: 'Volatile aromatic terpenes — broad antibacterial & hepatoprotective' },
       { name: 'Nutmeg extract', note: 'Active myristicin & macelignan — soothes intestinal spasms' },
+      { name: 'Pepper extract', note: 'Piperine — improves nutrient absorption and boosts the bioavailability of the blend' },
       { name: 'Grain powder & carrier', note: 'Natural plant carrier ensuring homogenous micro-dispersion in feed' }
     ],
     dosageTable: [

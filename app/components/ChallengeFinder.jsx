@@ -11,7 +11,7 @@ const FINDER = {
     name: 'TLTREAT',
     img: '/assets/img/tltreat.webp',
     href: '/products/tltreat',
-    text: 'Spice extracts of ginger, turmeric and nutmeg stimulate immunity and replace antibiotic growth promoters. Use 1 kg per tonne of broiler feed from day 1 to 40.'
+    text: 'Spice extracts of ginger, turmeric, nutmeg and pepper stimulate immunity and replace antibiotic growth promoters. Use 1 kg per tonne of broiler feed from day 1 to 40.'
   },
   breath: {
     cls: 't-curtect',

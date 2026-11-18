@@ -156,7 +156,7 @@ export default function Header() {
               <span className="sr-only">{t("Language")}</span>
               <select value={lang} onChange={(e) => setLang(e.target.value)} title={LANGUAGES.find((l) => l.code === lang)?.label}>
                 {LANGUAGES.map((l) => (
-                  <option key={l.code} value={l.code} aria-label={l.label}>{l.code.toUpperCase()}</option>
+                  <option key={l.code} value={l.code} lang={l.code}>{l.label}</option>
                 ))}
               </select>
             </label>
