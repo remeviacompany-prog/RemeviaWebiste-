@@ -9674,7 +9674,7 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 .builder__subs dt { flex: none; padding: 1px 8px; border-radius: 999px; background: var(--c); color: #fff; font: 700 11px var(--display); letter-spacing: .04em; text-transform: uppercase; }
 .builder__subs dd { margin: 0; color: var(--slate); }
 
-/* ---------- Science: synergy duel v5 (perfect alignment, synchronized 3.5s motion) ---------- */
+/* ---------- Science: synergy duel v6 (synchronized impact: membrane breaks on hit, rich green gradient) ---------- */
 .sduel {
   margin-bottom: 32px;
   display: grid;
@@ -9738,7 +9738,7 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
               linear-gradient(155deg, #FFFFFF 0%, #F0FDF4 45%, #DCFCE7 100%) !important;
   border: 1px solid #86EFAC !important;
   box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
-  animation: synBlendCardGlow 3.5s ease-out infinite;
+  animation: synBlendCardGlow 4s ease-out infinite;
 }
 
 .sduel .duel__card--blend:hover {
@@ -9748,10 +9748,10 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 @keyframes synBlendCardGlow {
-  0%, 30%, 100% {
+  0%, 39%, 100% {
     box-shadow: 0 16px 40px -20px rgba(22, 163, 74, 0.2);
   }
-  38%, 70% {
+  42%, 76% {
     box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.55), 0 24px 54px -16px rgba(34, 197, 94, 0.35);
   }
 }
@@ -9857,7 +9857,7 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .duel__footer-pill--good {
   background: #F0FDF4;
-  color: #14532D;
+  color: #166534;
   border: 1px solid #BBF7D0;
 }
 
@@ -9886,11 +9886,11 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 /* ========================================================
-   ANIMATIONS: CARD 1 (Single Synthetic Active - 3.5s cycle)
+   ANIMATIONS: CARD 1 (Single Synthetic Active - 4s cycle)
    ======================================================== */
 .syn-capsule-runner {
   transform-origin: 0 0;
-  animation: synCapsuleCycle 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation: synCapsuleCycle 4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 @keyframes synCapsuleCycle {
@@ -9898,27 +9898,29 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
     transform: translate(56px, 105px) scale(0.85);
     opacity: 0;
   }
-  6% {
+  5% {
     opacity: 1;
     transform: translate(56px, 105px) scale(1);
   }
-  34% {
+  /* 39%: Reaches the shield at the exact same instant molecules hit the cell wall! */
+  39% {
     transform: translate(232px, 105px) scale(1);
     opacity: 1;
   }
-  36% {
+  /* 40%: Collision impact */
+  40% {
     transform: translate(234px, 105px) scale(1.08);
     opacity: 1;
   }
-  40% {
+  43% {
     transform: translate(208px, 122px) rotate(-26deg);
     opacity: 0.95;
   }
-  62% {
+  64% {
     transform: translate(140px, 178px) rotate(-48deg);
     opacity: 0.55;
   }
-  70%, 100% {
+  72%, 100% {
     transform: translate(140px, 178px) rotate(-48deg);
     opacity: 0;
   }
@@ -9926,23 +9928,23 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .syn-shield-group {
   transform-origin: 235px 105px;
-  animation: synShieldImpact 3.5s ease-in-out infinite;
+  animation: synShieldImpact 4s ease-in-out infinite;
 }
 
 @keyframes synShieldImpact {
-  0%, 32% {
+  0%, 39% {
     transform: scale(1);
     filter: drop-shadow(0 0 0 rgba(220, 38, 38, 0));
   }
-  35% {
-    transform: scale(1.14);
-    filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.9));
-  }
   40% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 14px rgba(220, 38, 38, 0.95));
+  }
+  45% {
     transform: scale(1.02);
     filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.5));
   }
-  48% {
+  54% {
     transform: scale(1);
     filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.25));
   }
@@ -9956,65 +9958,65 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 
 .syn-impact-burst {
   transform-origin: 235px 105px;
-  animation: synImpactBurst 3.5s ease-out infinite;
+  animation: synImpactBurst 4s ease-out infinite;
 }
 
 @keyframes synImpactBurst {
-  0%, 33% {
+  0%, 39% {
     opacity: 0;
     transform: scale(0.2);
   }
-  35% {
+  40% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1.1);
   }
-  42% {
+  46% {
     opacity: 0.8;
     transform: scale(1.7);
   }
-  50%, 100% {
+  54%, 100% {
     opacity: 0;
     transform: scale(2.4);
   }
 }
 
 .syn-ricochet-line {
-  animation: synRicochetFlash 3.5s ease-out infinite;
+  animation: synRicochetFlash 4s ease-out infinite;
 }
 
 @keyframes synRicochetFlash {
-  0%, 34% { opacity: 0; }
-  37%, 62% { opacity: 1; }
-  70%, 100% { opacity: 0.35; }
+  0%, 39% { opacity: 0; }
+  41%, 66% { opacity: 1; }
+  74%, 100% { opacity: 0.35; }
 }
 
 .syn-bacteria-mother {
   transform-origin: 315px 110px;
-  animation: synMotherPulse 3.5s ease-in-out infinite;
+  animation: synMotherPulse 4s ease-in-out infinite;
 }
 
 @keyframes synMotherPulse {
-  0%, 36% { transform: scale(1); }
-  44% { transform: scale(1.08); }
-  54% { transform: scale(1.12, 0.93); }
-  66%, 92% { transform: scale(1); }
+  0%, 40% { transform: scale(1); }
+  46% { transform: scale(1.08); }
+  56% { transform: scale(1.12, 0.93); }
+  68%, 92% { transform: scale(1); }
   100% { transform: scale(1); }
 }
 
 .syn-bacteria-daughter {
   transform-origin: 315px 110px;
-  animation: synDaughterGrow 3.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: synDaughterGrow 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 @keyframes synDaughterGrow {
-  0%, 42% {
+  0%, 44% {
     opacity: 0;
     transform: translate(-30px, 24px) scale(0.2);
   }
-  48% {
+  50% {
     opacity: 0.7;
   }
-  60%, 88% {
+  62%, 88% {
     opacity: 1;
     transform: translate(0, 0) scale(1);
   }
@@ -10025,19 +10027,19 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 .syn-mutation-halo {
-  animation: synMutationGlow 3.5s ease-in-out infinite;
+  animation: synMutationGlow 4s ease-in-out infinite;
 }
 
 @keyframes synMutationGlow {
-  0%, 50% {
+  0%, 52% {
     opacity: 0;
     transform: scale(0.8);
   }
-  60% {
+  62% {
     opacity: 1;
     transform: scale(1.15);
   }
-  72%, 88% {
+  74%, 88% {
     opacity: 0.8;
     transform: scale(1);
   }
@@ -10048,16 +10050,16 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
 }
 
 /* ========================================================
-   ANIMATIONS: CARD 2 (Remevia Synergy Blend - 3.5s cycle)
+   ANIMATIONS: CARD 2 (Remevia Synergy Blend - 4s cycle)
    ======================================================== */
 .syn-drop-bob {
   transform-origin: 0 0;
-  animation: synDropBob 3.5s ease-in-out infinite alternate;
+  animation: synDropBob 4s ease-in-out infinite alternate;
 }
 
 .syn-drop-bob--a { animation-delay: 0s; }
-.syn-drop-bob--b { animation-delay: 0.3s; }
-.syn-drop-bob--c { animation-delay: 0.6s; }
+.syn-drop-bob--b { animation-delay: 0.35s; }
+.syn-drop-bob--c { animation-delay: 0.7s; }
 
 @keyframes synDropBob {
   0% { transform: translateY(-3px) scale(0.97); }
@@ -10074,132 +10076,186 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   to { stroke-dashoffset: 0; }
 }
 
+/* Tri-Point Impact Flash on Cell Wall (Triggers at 40% = 1.6s) */
+.syn-tri-impact {
+  animation: synTriImpactBurst 4s ease-out infinite;
+}
+
+@keyframes synTriImpactBurst {
+  0%, 39% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  46% {
+    opacity: 0.8;
+    transform: scale(1.6);
+  }
+  54%, 100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+/* Outer Membrane: 100% SOLID and INTACT until 40% (1.6s), then BREAKS open! */
 .syn-target-reticle {
   transform-origin: 325px 105px;
-  animation: synReticleCycle 3.5s ease-in-out infinite;
+  animation: synReticleCycle 4s ease-in-out infinite;
 }
 
 @keyframes synReticleCycle {
-  0%, 28% {
-    stroke: #DC2626;
-    stroke-dasharray: 40 10;
-    transform: rotate(0deg) scale(1);
-  }
-  34% {
-    stroke: #F59E0B;
-    transform: rotate(45deg) scale(1.12);
-  }
-  44%, 88% {
+  /* 0% to 39.5%: Solid, unbroken cell membrane while molecules travel */
+  0%, 39.5% {
     stroke: #16A34A;
-    stroke-dasharray: 25 25;
-    transform: rotate(90deg) scale(0.95);
+    stroke-dasharray: 240 0;
+    transform: rotate(0deg) scale(1);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
   }
-  96%, 100% {
-    stroke: #DC2626;
-    stroke-dasharray: 40 10;
+  /* 40%: The 3 molecules hit the cell wall simultaneously -> IMPACT SHOCK! */
+  40% {
+    stroke: #F59E0B;
+    stroke-dasharray: 240 0;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px #F59E0B);
+  }
+  /* 44%: The cell membrane BREAKS open into disjointed jagged segments! */
+  44% {
+    stroke: #EF4444;
+    stroke-dasharray: 30 30;
+    transform: rotate(35deg) scale(1.06);
+    filter: drop-shadow(0 0 8px #EF4444);
+  }
+  /* 52% to 84%: Breached, collapsed, and neutralizing */
+  52%, 84% {
+    stroke: #10B981;
+    stroke-dasharray: 20 40;
+    transform: rotate(90deg) scale(0.95);
+    filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.4));
+  }
+  /* 95% to 100%: Resets cleanly to solid unbroken membrane for the next attack wave */
+  95%, 100% {
+    stroke: #16A34A;
+    stroke-dasharray: 240 0;
     transform: rotate(0deg) scale(1);
   }
 }
 
+/* Cell Core: Infected Red while molecules travel, transitions to Green on impact */
 .syn-target-core {
   transform-origin: 325px 105px;
-  animation: synCoreCycle 3.5s ease-in-out infinite;
+  animation: synCoreCycle 4s ease-in-out infinite;
 }
 
 @keyframes synCoreCycle {
-  0%, 30% {
+  /* 0% to 39.5%: Infected red core while molecules travel */
+  0%, 39.5% {
     fill: #DC2626;
     transform: scale(1);
   }
-  34% {
+  /* 40%: Impact shock */
+  40% {
     fill: #EF4444;
-    transform: scale(1.2);
+    transform: scale(1.22);
   }
-  44% {
+  /* 48%: Collapsing */
+  48% {
     fill: #22C55E;
     transform: scale(0.85);
   }
-  54%, 88% {
+  /* 58% to 84%: Neutralized botanical green! */
+  58%, 84% {
     fill: #16A34A;
     transform: scale(0.7);
     opacity: 0.85;
   }
-  96%, 100% {
+  95%, 100% {
     fill: #DC2626;
     transform: scale(1);
     opacity: 1;
   }
 }
 
+/* Fissure crack lines (appear ONLY when membrane breaks!) */
 .syn-target-cracks {
-  animation: synCracksCycle 3.5s ease-out infinite;
+  animation: synCracksCycle 4s ease-out infinite;
   stroke-dasharray: 100;
 }
 
 @keyframes synCracksCycle {
-  0%, 30% {
+  /* 0% to 39.5%: Completely hidden while molecules travel */
+  0%, 39.5% {
     opacity: 0;
     stroke-dashoffset: 100;
   }
-  34% {
+  /* 40%: The molecules hit -> cracks burst open across the cell! */
+  40.5% {
     opacity: 1;
+    stroke-dashoffset: 70;
   }
-  44%, 88% {
-    opacity: 0.9;
+  48%, 84% {
+    opacity: 0.95;
     stroke-dashoffset: 0;
   }
-  94%, 100% {
+  92%, 100% {
     opacity: 0;
     stroke-dashoffset: 100;
   }
 }
 
+/* Dispersing Shards (explode outward ONLY after membrane breaks at 40%!) */
 .syn-shards-group {
   transform-origin: 325px 105px;
-  animation: synShardsCycle 3.5s ease-out infinite;
+  animation: synShardsCycle 4s ease-out infinite;
 }
 
 @keyframes synShardsCycle {
-  0%, 32% {
+  /* 0% to 41%: Hidden while molecules travel */
+  0%, 41% {
     opacity: 0;
-    transform: translate(0, 0) scale(0.3);
+    transform: translate(0, 0) scale(0.2);
   }
-  36% {
+  /* 42%: Burst of fragments right after membrane breaks! */
+  43% {
     opacity: 1;
+    transform: translate(4px, -1px) scale(0.7);
   }
   64% {
-    opacity: 0.9;
-    transform: translate(16px, -4px) scale(1);
+    opacity: 0.95;
+    transform: translate(18px, -5px) scale(1.05);
   }
-  86% {
-    opacity: 0.6;
-    transform: translate(28px, -8px) scale(1.1);
+  82% {
+    opacity: 0.5;
+    transform: translate(30px, -9px) scale(1.15);
   }
-  94%, 100% {
+  90%, 100% {
     opacity: 0;
-    transform: translate(32px, -10px) scale(1.2);
+    transform: translate(35px, -12px) scale(1.2);
   }
 }
 
+/* Micro-bubbles */
 .syn-bubble-drifter {
-  animation: synBubbleCycle 3.5s ease-out infinite;
+  animation: synBubbleCycle 4s ease-out infinite;
 }
 
 @keyframes synBubbleCycle {
-  0%, 34% {
+  0%, 42% {
     opacity: 0;
-    transform: translate(0, 0) scale(0.4);
+    transform: translate(0, 0) scale(0.3);
   }
-  40% {
+  48% {
     opacity: 1;
   }
-  70% {
+  72% {
     opacity: 0.85;
-    transform: translate(12px, -16px) scale(1);
+    transform: translate(14px, -18px) scale(1);
   }
   88%, 100% {
     opacity: 0;
-    transform: translate(20px, -28px) scale(1.2);
+    transform: translate(22px, -28px) scale(1.2);
   }
 }
 

@@ -175,44 +175,52 @@ export default function SynergyDuel() {
                 <stop offset="100%" stopColor="#DCFCE7" />
               </radialGradient>
               <filter id="sd-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="4.5" result="blur" />
+                <feGaussianBlur stdDeviation="4" result="blur" />
                 <feComposite in="SourceGraphic" in2="blur" operator="over" />
               </filter>
+              {/* Top Stream: Royal Blue Gradient */}
               <linearGradient id="sd-stream-a" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#60A5FA" />
+                <stop offset="0%" stopColor="#3B82F6" />
+                <stop offset="50%" stopColor="#2563EB" />
                 <stop offset="100%" stopColor="#1D4ED8" />
               </linearGradient>
+              {/* Middle Stream: Rich Green Gradient (per user request) */}
               <linearGradient id="sd-stream-b" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#38BDF8" />
-                <stop offset="100%" stopColor="#0284C7" />
+                <stop offset="0%" stopColor="#34D399" />
+                <stop offset="50%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#047857" />
               </linearGradient>
+              {/* Bottom Stream: Deep Botanical Forest Green Gradient */}
               <linearGradient id="sd-stream-c" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#4ADE80" />
-                <stop offset="100%" stopColor="#15803D" />
+                <stop offset="50%" stopColor="#16A34A" />
+                <stop offset="100%" stopColor="#14532D" />
               </linearGradient>
+              {/* Droplet 3D Gradients */}
               <radialGradient id="sd-drop-a" cx="35%" cy="35%" r="70%">
                 <stop offset="0%" stopColor="#93C5FD" />
                 <stop offset="50%" stopColor="#3B82F6" />
                 <stop offset="100%" stopColor="#1D4ED8" />
               </radialGradient>
               <radialGradient id="sd-drop-b" cx="35%" cy="35%" r="70%">
-                <stop offset="0%" stopColor="#7DD3FC" />
-                <stop offset="50%" stopColor="#0284C7" />
-                <stop offset="100%" stopColor="#0369A1" />
+                <stop offset="0%" stopColor="#A7F3D0" />
+                <stop offset="50%" stopColor="#10B981" />
+                <stop offset="100%" stopColor="#047857" />
               </radialGradient>
               <radialGradient id="sd-drop-c" cx="35%" cy="35%" r="70%">
                 <stop offset="0%" stopColor="#86EFAC" />
                 <stop offset="50%" stopColor="#22C55E" />
                 <stop offset="100%" stopColor="#15803D" />
               </radialGradient>
-              <marker id="sd-tip-a" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+              {/* Arrowhead Markers */}
+              <marker id="sd-tip-a" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
                 <path d="M 0 1 L 9 5 L 0 9 Z" fill="#1D4ED8" />
               </marker>
-              <marker id="sd-tip-b" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#0284C7" />
+              <marker id="sd-tip-b" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#047857" />
               </marker>
-              <marker id="sd-tip-c" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
-                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#15803D" />
+              <marker id="sd-tip-c" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+                <path d="M 0 1 L 9 5 L 0 9 Z" fill="#14532D" />
               </marker>
             </defs>
 
@@ -221,37 +229,98 @@ export default function SynergyDuel() {
 
             {/* Three Tri-Vector Synergy Streams */}
             {[
-              { id: 'a', d: 'M 72 52 C 160 52, 230 76, 288 94', grad: 'url(#sd-stream-a)', tip: 'url(#sd-tip-a)', glow: '#3B82F6' },
-              { id: 'b', d: 'M 72 105 C 150 105, 220 105, 282 105', grad: 'url(#sd-stream-b)', tip: 'url(#sd-tip-b)', glow: '#0284C7' },
-              { id: 'c', d: 'M 72 158 C 160 158, 230 134, 288 116', grad: 'url(#sd-stream-c)', tip: 'url(#sd-tip-c)', glow: '#22C55E' },
-            ].map(({ id, d, grad, tip, glow }) => (
+              {
+                id: 'a',
+                d: 'M 72 52 C 160 52, 230 76, 288 94',
+                grad: 'url(#sd-stream-a)',
+                tip: 'url(#sd-tip-a)',
+                glow: '#3B82F6',
+                dashColor: '#93C5FD',
+                photonColor: '#2563EB',
+              },
+              {
+                id: 'b',
+                d: 'M 72 105 C 150 105, 220 105, 282 105',
+                grad: 'url(#sd-stream-b)',
+                tip: 'url(#sd-tip-b)',
+                glow: '#10B981',
+                dashColor: '#6EE7B7',
+                photonColor: '#059669',
+              },
+              {
+                id: 'c',
+                d: 'M 72 158 C 160 158, 230 134, 288 116',
+                grad: 'url(#sd-stream-c)',
+                tip: 'url(#sd-tip-c)',
+                glow: '#16A34A',
+                dashColor: '#86EFAC',
+                photonColor: '#15803D',
+              },
+            ].map(({ id, d, grad, tip, glow, dashColor, photonColor }) => (
               <g key={id} className={`syn-stream-group syn-stream-group--${id}`}>
-                {/* Luminous glow underlayer */}
-                <path d={d} stroke={glow} strokeWidth="10" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity="0.32" />
-                {/* Core gradient stream */}
-                <path d={d} stroke={grad} strokeWidth="3.5" strokeLinecap="round" fill="none" markerEnd={tip} />
-                {/* Continuous flowing laser dash */}
-                <path d={d} stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" fill="none" className="syn-stream-core" />
-                {/* Traveling photon bead */}
-                <circle r="4.5" fill="#FFFFFF" stroke={glow} strokeWidth="2" filter="url(#sd-glow)">
-                  <animateMotion
-                    dur="3.5s"
-                    repeatCount="indefinite"
-                    path={d}
-                  />
-                </circle>
+                {/* Luminous wide glow aura */}
+                <path d={d} stroke={glow} strokeWidth="12" strokeLinecap="round" fill="none" filter="url(#sd-glow)" opacity="0.35" />
+                {/* Thick vibrant core gradient stream */}
+                <path d={d} stroke={grad} strokeWidth="4.5" strokeLinecap="round" fill="none" markerEnd={tip} />
+                {/* Continuous flowing internal laser pulse */}
+                <path d={d} stroke={dashColor} strokeWidth="2.2" strokeLinecap="round" fill="none" className="syn-stream-core" />
+
+                {/* Traveling Molecule / Active Bio-Photon (Travels 0s-1.6s, breaches at 1.6s) */}
+                <g>
+                  <circle r="6" fill={photonColor} stroke="#FFFFFF" strokeWidth="2" filter="url(#sd-glow)">
+                    <animateMotion
+                      dur="4s"
+                      repeatCount="indefinite"
+                      keyPoints="0; 1; 1; 1"
+                      keyTimes="0; 0.40; 0.90; 1"
+                      calcMode="linear"
+                      path={d}
+                    />
+                    <animate
+                      attributeName="opacity"
+                      dur="4s"
+                      repeatCount="indefinite"
+                      values="0; 1; 1; 0; 0; 0"
+                      keyTimes="0; 0.04; 0.39; 0.41; 0.90; 1"
+                    />
+                  </circle>
+                  <circle r="2.5" fill="#FFFFFF">
+                    <animateMotion
+                      dur="4s"
+                      repeatCount="indefinite"
+                      keyPoints="0; 1; 1; 1"
+                      keyTimes="0; 0.40; 0.90; 1"
+                      calcMode="linear"
+                      path={d}
+                    />
+                    <animate
+                      attributeName="opacity"
+                      dur="4s"
+                      repeatCount="indefinite"
+                      values="0; 1; 1; 0; 0; 0"
+                      keyTimes="0; 0.04; 0.39; 0.41; 0.90; 1"
+                    />
+                  </circle>
+                </g>
               </g>
             ))}
 
-            {/* Target Pathogen & Synergistic Breakdown */}
+            {/* Target Pathogen & Synergistic Breakdown (Breaks ONLY when all 3 molecules hit at 1.6s / 40%!) */}
             <g className="syn-pathogen-target">
-              {/* Outer Membrane / Target Reticle */}
-              <circle cx="325" cy="105" r="38" fill="none" strokeWidth="3.5" className="syn-target-reticle" />
+              {/* Outer Membrane (Solid while traveling, BREAKS on impact at 40%!) */}
+              <circle cx="325" cy="105" r="38" fill="none" strokeWidth="4" className="syn-target-reticle" />
 
-              {/* Bacterial Cell Core (transitions red -> green) */}
+              {/* Bacterial Cell Core (transitions red -> green on impact) */}
               <circle cx="325" cy="105" r="16" className="syn-target-core" />
 
-              {/* Fissure crack lines */}
+              {/* Tri-Point Impact Flares at 40% */}
+              <g className="syn-tri-impact">
+                <circle cx="288" cy="94" r="8" fill="#60A5FA" opacity="0.85" filter="url(#sd-glow)" />
+                <circle cx="282" cy="105" r="9" fill="#34D399" opacity="0.9" filter="url(#sd-glow)" />
+                <circle cx="288" cy="116" r="8" fill="#4ADE80" opacity="0.85" filter="url(#sd-glow)" />
+              </g>
+
+              {/* Fissure crack lines (appear ONLY when membrane breaks!) */}
               <path
                 d="M 312 92 L 322 102 L 334 98 M 308 112 L 320 110 L 325 122 M 332 118 L 340 125"
                 stroke="#064E3B"
@@ -261,7 +330,7 @@ export default function SynergyDuel() {
                 className="syn-target-cracks"
               />
 
-              {/* Dispersing Shards */}
+              {/* Dispersing Shards (explode outward ONLY after membrane breaks!) */}
               <g className="syn-shards-group">
                 {SHARDS.map((d, i) => (
                   <path key={i} d={d} fill={i % 2 === 0 ? '#22C55E' : '#10B981'} opacity="0.9" />
@@ -284,16 +353,16 @@ export default function SynergyDuel() {
               ))}
             </g>
 
-            {/* Three Botanical Droplets (separated position and float to prevent disappearance) */}
+            {/* Three Botanical Droplets (aligned vertically on x=56, local bobbing) */}
             {[
               { id: 'a', y: 52, fill: 'url(#sd-drop-a)', glow: '#3B82F6' },
-              { id: 'b', y: 105, fill: 'url(#sd-drop-b)', glow: '#0284C7' },
+              { id: 'b', y: 105, fill: 'url(#sd-drop-b)', glow: '#10B981' },
               { id: 'c', y: 158, fill: 'url(#sd-drop-c)', glow: '#22C55E' },
             ].map(({ id, y, fill, glow }) => (
               <g key={id} transform={`translate(56, ${y})`}>
                 <g className={`syn-drop-bob syn-drop-bob--${id}`}>
                   {/* Droplet ambient glow */}
-                  <path d="M 0 -18 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -18 Z" fill={glow} filter="url(#sd-glow)" opacity="0.4" />
+                  <path d="M 0 -18 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -18 Z" fill={glow} filter="url(#sd-glow)" opacity="0.45" />
                   {/* 3D Liquid Drop */}
                   <path d="M 0 -18 C 8 -7 13 0 13 8 A 13 13 0 0 1 -13 8 C -13 0 -8 -7 0 -18 Z" fill={fill} />
                   {/* Specular curved gloss reflection */}
