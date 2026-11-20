@@ -351,7 +351,7 @@ export default function ProgrammeBuilder() {
                   <div className="gantt__axis" aria-hidden="true">
                     {ticks.map((day) => (
                       <span key={day} style={{ insetInlineStart: `${(day / flock.days) * 100}%` }}>
-                        {t(flock.axis)} {flockKey === 'broiler' ? day : day / 7}
+                        {t(flock.axis)} {flock.axis === 'Week' ? day / 7 : day}
                       </span>
                     ))}
                   </div>
