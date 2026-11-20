@@ -10459,3 +10459,63 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   .footer__contact { grid-column: span 2; }
   .footer__bottom { flex-wrap: wrap; row-gap: 10px; padding-inline-end: 84px; }
 }
+
+/* ===== Programme Builder: weather + fixed dose per bird ===== */
+.builder__climate { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.builder__climate label {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 10px 6px; border-radius: 12px; border: 1.5px solid var(--line); background: #fff;
+  cursor: pointer; text-align: center; transition: border-color .2s, background .2s;
+}
+.builder__climate input { position: absolute; opacity: 0; pointer-events: none; }
+.builder__climate b { font: 600 14px var(--display); color: var(--ink); }
+.builder__climate small { font-size: 12px; color: var(--slate); }
+.builder__climate label:hover { border-color: #9FD3A8; }
+.builder__climate label.is-on { border-color: #2E9E48; background: linear-gradient(135deg, #EAF8EC, #fff); box-shadow: 0 6px 16px -10px rgba(46, 158, 72, .7); }
+.builder__climate label:has(input:focus-visible) { outline: 2px solid #2E9E48; outline-offset: 2px; }
+.builder__principle {
+  margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: #F1F8F2;
+  border-inline-start: 4px solid #2E9E48; font-size: 13.5px; line-height: 1.5; color: var(--slate);
+}
+.builder__principle b { display: block; margin-bottom: 2px; font: 600 14.5px var(--display); color: #1F6E35; }
+
+.builder__orders li { flex-wrap: wrap; }
+.builder__mix { flex: 1 0 100%; margin-top: 4px; padding-top: 10px; border-top: 1px dashed color-mix(in srgb, var(--c) 45%, transparent); }
+.builder__mix p { margin: 0 0 8px; font-size: 13px; line-height: 1.45; color: var(--slate); }
+.builder__mix p b { color: var(--ink); }
+.builder__mix table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.builder__mix th { text-align: start; font-weight: 600; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--slate); padding: 4px 6px; }
+.builder__mix td { padding: 6px; border-top: 1px solid rgba(15, 27, 61, .08); color: var(--ink); font-variant-numeric: tabular-nums; }
+.builder__mix td:last-child { font-weight: 600; color: var(--ci); }
+.builder__mix td small { color: var(--slate); }
+.builder__tip { margin-top: 12px; }
+@media (max-width: 480px) {
+  .builder__climate { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .builder__mix table { font-size: 12px; }
+  .builder__mix th, .builder__mix td { padding: 5px 3px; }
+}
+
+/* Footer: each solution sits on the same row as its product (TLTREAT ↔ AGP alternative, …) */
+.footer__col--blue ul,
+.footer__col--teal ul { display: grid !important; grid-auto-rows: 1fr; row-gap: 4px !important; gap: 4px !important; }
+.footer__col--blue li,
+.footer__col--teal li { display: flex; align-items: center; min-height: 30px; margin: 0 !important; }
+.footer__col--blue a,
+.footer__col--teal a { line-height: 1.3 !important; padding-block: 2px !important; }
+@media (max-width: 1080px) {
+  .footer__col--blue li,
+  .footer__col--teal li { min-height: 42px; }
+}
+.builder__orders li:has(.builder__mix) { grid-column: 1 / -1; }
+.builder__climate { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.builder__climate label { flex-direction: row; justify-content: space-between; padding: 9px 12px; }
+.builder__orders li { grid-column: 1 / -1; }
+.builder__mix { flex: 0 0 auto !important; width: 100%; min-width: 0; }
+.builder__mix table { table-layout: fixed; }
+.builder__mix th:first-child, .builder__mix td:first-child { width: 26%; }
+.builder__mix table { min-width: 0 !important; width: 100% !important; }
+.builder__mix td { white-space: nowrap; }
+@media (max-width: 480px) {
+  .builder__mix th:first-child, .builder__mix td:first-child { width: 22%; }
+  .builder__mix th { font-size: 10px; letter-spacing: .02em; }
+}

@@ -102,7 +102,7 @@ function ContactForm() {
             { label: t("1. We reply"), value: t("Within 48 hours or 2 working days") },
             { label: t("2. We review"), value: t("Your flock and goals") },
             { label: t("3. We recommend"), value: t("A programme for your farm") },
-            { label: t("4. You trial"), value: t("With our technical support"), highlight: true },
+            { label: t("4. Your trial"), value: t("With our technical support"), highlight: true },
           ],
         }}
       >
