@@ -16,7 +16,7 @@ export const PRODUCTS_DATA = {
       'Eliminates the need for antibiotic growth promoters (AGPs)',
       'Enhances natural immunity against bacterial, viral & fungal infections',
       'Healthier birds, lower mortality, and significantly improved FCR',
-      'Extends commercial laying cycle from the 60th to 100th week'
+      'Extends commercial laying cycle from the 50th week onwards'
     ],
     facts: [
       { label: 'Format', val: 'Feed powder' },
@@ -76,8 +76,9 @@ export const PRODUCTS_DATA = {
     ],
     dosageTable: [
       { use: 'Broilers (Starter to Finisher)', rate: '1 kg per 1,000 kg feed', prog: 'From Day 1 to 40th Day continuously in feed mash or pellets' },
-      { use: 'Commercial Layers (Extended Cycle)', rate: '2 kg per 1,000 kg feed', prog: 'From 60th to 100th week to support extended laying cycle & egg quality' },
-      { use: 'Breeders / Environmental Stress', rate: '2 kg per 1,000 kg feed', prog: 'During disease challenge, feed transition, or post-vaccination stress' }
+      { use: 'Commercial Layers (Extended Cycle)', rate: '2 kg per 1,000 kg feed', prog: 'From 50th week onwards to support extended laying cycle & egg quality' },
+      { use: 'Breeders', rate: '2 kg per 1,000 kg feed', prog: 'From 18th week onwards for better ovulation and more vibrant chicks' },
+      { use: 'Environmental Stress', rate: '2 kg per 1,000 kg feed', prog: 'During disease challenge, feed transition, or post-vaccination stress' }
     ],
     specs: [
       { dt: 'Packing', dd: '50 kg PP woven outer laminated bags with HMHDPE inner liner' },
@@ -100,7 +101,7 @@ export const PRODUCTS_DATA = {
     ],
     faqs: [
       { q: 'Can TLTREAT completely replace chemical antibiotic growth promoters?', a: 'Yes. TLTREAT is formulated as a natural, highly efficacious replacer for AGPs. Commercial trials demonstrate equivalent or superior growth rates and FCR without generating microbial resistance or leaving chemical residues.' },
-      { q: 'When should commercial layers be fed TLTREAT?', a: 'Include TLTREAT at 2 kg per tonne of layer feed continuously from the 60th week up to the 100th week. This sustains peak laying persistence, strengthens eggshell integrity, and enhances flock longevity during extended laying.' },
+      { q: 'When should commercial layers be fed TLTREAT?', a: 'Include TLTREAT at 2 kg per tonne of layer feed continuously from the 50th week onwards. This sustains peak laying persistence, strengthens eggshell integrity, and enhances flock longevity during extended laying.' },
       { q: 'Does TLTREAT help prevent coccidiosis in broilers?', a: 'Yes. Regular dietary inclusion from Day 1 creates a protective environment along the intestinal mucosa, suppressing Eimeria sporozoite mobility and significantly reducing the incidence of coccidial lesions.' },
       { q: 'Is TLTREAT heat-stable during feed pelleting and extrusion?', a: 'Yes. The active botanical polyphenols and essential oil fractions are bound within an inert plant matrix, maintaining full biological activity through standard commercial pelleting temperatures up to 85°C.' }
     ],
@@ -184,6 +185,7 @@ export const PRODUCTS_DATA = {
     ],
     dosageTable: [
       { use: 'Prevention of Respiratory Diseases', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 7–14 days' },
+      { use: 'Layers & Breeders', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a week from 14th week onwards' },
       { use: '48 Hours After Live Vaccination', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 4 days with an 8-hour interval between doses' },
       { use: 'Adjunct Therapy During Active Infections', rate: '200 ml per 1,000 L drinking water', prog: 'Twice a day for 4 days with an 8-hour interval between doses' },
       { use: 'Heat Stress Management', rate: '200 ml per 1,000 L drinking water', prog: 'Administer during the hottest hours of the day (11 AM to 4 PM)' }
@@ -615,7 +617,7 @@ export const PRODUCTS_DATA = {
       { name: 'Natural grain carrier', note: 'Free-flowing plant carrier ensuring uniform micro-distribution in feed' }
     ],
     dosageTable: [
-      { use: 'Commercial Layers (Standard Feed)', rate: '1 kg per 1,000 kg feed', prog: 'From 14th week, continuously in layer mash or pellets, so yolks are golden from the first egg' },
+      { use: 'Commercial Layers (Standard Feed)', rate: '1 kg per 1,000 kg feed', prog: 'From 14th week till the end of egg laying, continuously in layer mash or pellets, so yolks are golden from the first egg' },
       { use: 'Alternative Grain Diets (Wheat / Rice)', rate: '1.2 to 1.5 kg per 1,000 kg feed', prog: 'Continuous inclusion when yellow maize is reduced' },
       { use: 'Breeding Hens', rate: '1 kg per 1,000 kg feed', prog: 'Continuous feeding to support embryonic antioxidant reserves' }
     ],

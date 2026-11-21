@@ -9,15 +9,16 @@ const LAYER_DAYS = 84;
 const FEED_BAG_KG = 50;
 
 // Dosing days on the label's schedule. Days are 1-based.
-const courseDays = (length) => Array.from({ length }, (_, i) => i + 1);
-// 2 days ON / 2 days OFF from day 16: days 16-17, 20-21, 24-25, 28-29 and 32-33, so 10 dosing days.
+const rangeDays = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
+// EKSIT-CRD: 2 days ON / 2 days OFF from day 16 to day 36, so 11 dosing days
+// (16-17, 20-21, 24-25, 28-29, 32-33 and 36).
 const eksitDays = () => {
   const out = [];
-  for (let day = 16; day <= 33; day += 4) out.push(day, day + 1);
+  for (let day = 16; day <= 36; day += 4) out.push(...[day, day + 1].filter((d) => d <= 36));
   return out;
 };
-// CURTECT-CRD runs continuously from day 8 to day 14.
-const rangeDays = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
+// Twice a week: the 1st and 4th day of every week.
+const twiceWeekly = (days) => Array.from({ length: days }, (_, i) => i + 1).filter((day) => [1, 4].includes(((day - 1) % 7) + 1));
 const alternateWeeks = (days, startWeek) => {
   const out = [];
   for (let day = 1; day <= days; day += 1) {
@@ -26,39 +27,21 @@ const alternateWeeks = (days, startWeek) => {
   return out;
 };
 
-// Shed weather. Birds drink far more in the heat, but the dose each bird needs does not change,
-// so weather only changes how much water the day's product is mixed into.
-const CLIMATES = [
-  { key: 'normal', label: 'Normal', temp: '~21°C' },
-  { key: 'warm', label: 'Warm', temp: '~27°C' },
-  { key: 'hot', label: 'Hot', temp: '~32°C' },
-  { key: 'extreme', label: 'Extreme heat', temp: '40°C+' },
-];
+// Standard drinking water, ml per bird per day (Remevia technical team, Excel calculation, 21 Nov 2026).
+// The dose is worked out once from this standard, so it stays the same per bird whatever the weather.
+const BROILER_WATER_ML = {
+  16: 141, 17: 154, 18: 165, 19: 178, 20: 189, 21: 202, 22: 213, 23: 224, 24: 236, 25: 247, 26: 257,
+  27: 267, 28: 276, 29: 285, 30: 292, 31: 299, 32: 305, 33: 310, 34: 315, 35: 317, 36: 320,
+};
+// Days 8 to 14 together come to 650 ml per bird.
+for (let day = 8; day <= 14; day += 1) BROILER_WATER_ML[day] = 650 / 7;
+// Layers and breeders drink about 200 ml per bird per day.
+const LAYER_WATER_ML = 200;
+const waterMlOn = (flockKey, day) => (flockKey === 'broiler' ? BROILER_WATER_ML[day] || 0 : LAYER_WATER_ML);
 
-// Broiler drinking water, litres per 1,000 birds per day, by age and shed temperature
-// (Venkateshwara Hatcheries / Vencobb broiler management standard).
-const BROILER_WATER = [
-  { to: 7, normal: 27, warm: 28, hot: 32, extreme: 78 },
-  { to: 14, normal: 72, warm: 85, hot: 122, extreme: 216 },
-  { to: 21, normal: 108, warm: 153, hot: 248, extreme: 324 },
-  { to: 28, normal: 144, warm: 200, hot: 324, extreme: 432 },
-  { to: 35, normal: 184, warm: 256, hot: 400, extreme: 552 },
-  { to: 42, normal: 221, warm: 302, hot: 464, extreme: 663 },
-];
-// Layer drinking water, litres per 1,000 birds per day. BV-300 standard is about 250 L at 28°C;
-// the other bands follow the same heat curve as the broiler chart.
-const LAYER_WATER = { normal: 180, warm: 250, hot: 380, extreme: 550 };
 // Vencobb 430Y broiler feed intake, grams per bird per week, weeks 1–6.
 const BROILER_FEED_WEEK = [165, 350, 610, 908, 1154, 1380];
 const broilerFeedOnDay = (day) => BROILER_FEED_WEEK[Math.min(5, Math.floor((day - 1) / 7))] / 7;
-
-const waterPer1000 = (flockKey, day, climate) => {
-  if (flockKey === 'broiler') {
-    const band = BROILER_WATER.find((b) => day <= b.to) || BROILER_WATER[BROILER_WATER.length - 1];
-    return band[climate];
-  }
-  return LAYER_WATER[climate];
-};
 
 const FLOCKS = {
   broiler: {
@@ -105,8 +88,8 @@ const PLANS = {
       : {
         continuous: true,
         subs: [
-          { label: 'Layers', note: '2 kg per tonne of feed from 60th week to extend the laying cycle & egg quality' },
-          { label: 'Breeders', note: 'From 40th week for better ovulation and more vibrant chicks with a higher weight ratio' },
+          { label: 'Layers', note: '2 kg per tonne of feed from 50th week onwards to extend the laying cycle & egg quality' },
+          { label: 'Breeders', note: 'From 18th week onwards for better ovulation and more vibrant chicks with a higher weight ratio' },
         ],
       }),
     rate: (flock) => (flock === 'broiler' ? { kind: 'feed', min: 1, max: 1 } : { kind: 'feed', min: 2, max: 2 }),
@@ -115,20 +98,20 @@ const PLANS = {
     name: 'CURTECT-CRD', cls: 't-curtect', goal: 'Respiratory support',
     schedule: (flock, days) => (flock === 'broiler'
       ? { days: rangeDays(8, 14), note: 'Continuously from 8th day to 14th day' }
-      : { days: courseDays(Math.min(14, days)), note: 'Twice a day for 7–14 days', waterShare: 1 }),
-    // Broilers: the same per-bird daily dose as EKSIT-CRD (0.0533 ml per bird per day).
-    // Layers: label rate 200 ml per 1,000 L at the BV-300 standard of 250 L per 1,000 birds = 0.05 ml per bird per day.
-    rate: (flock) => (flock === 'broiler' ? { kind: 'bird', mlPerDay: 0.0533 } : { kind: 'bird', mlPerDay: 0.05 }),
+      : { days: twiceWeekly(days), note: 'Twice a week from 14th week onwards' }),
+    // 200 ml per 1,000 L of the standard water intake. Broilers: 650 ml water per bird over days 8-14,
+    // so 0.13 ml per bird (130 ml per 1,000 birds). Layers & breeders: 200 ml water, so 0.04 ml per bird each dosing day.
+    rate: () => ({ kind: 'water', mlPerLitre: 0.2 }),
   },
   eksit: {
     name: 'EKSIT-CRD', cls: 't-eksit', goal: 'CRD & Mycoplasma',
     schedule: () => ({ days: eksitDays(), note: 'From 16th day up to 36th day: 2-days ON / 2-days OFF cycle' }),
-    // 0.533 ml per bird over the 10 dosing days, so 5.3 L for 10,000 birds.
-    rate: () => ({ kind: 'bird', mlPerDay: 0.0533 }),
+    // 200 ml per 1,000 L of each day's standard water: 0.533 ml per bird over the 11 dosing days.
+    rate: () => ({ kind: 'water', mlPerLitre: 0.2 }),
   },
   tlegg: {
     name: 'TLEGG', cls: 't-egg', goal: 'Egg quality',
-    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 14th week. Laying starts around week 18 and the hen builds the yolk about 30 days before her first egg, so yolks are golden from the very first egg' }),
+    schedule: () => ({ continuous: true, note: 'Added to layer mash feed from 14th week and continued till the end of egg laying. The hen builds the yolk about 30 days before her first egg, so yolks are golden from the very first egg' }),
     rate: () => ({ kind: 'feed', min: 1, max: 1 }),
   },
   repeal: {
@@ -137,10 +120,9 @@ const PLANS = {
       days: alternateWeeks(days, 0),
       altDays: alternateWeeks(days, 1),
       note: 'Alternate between water administration one week and perimeter spray the next week',
-      waterShare: 1,
     }),
-    // Label rate 150 ml per 1,000 L at the BV-300 standard of 250 L per 1,000 birds = 0.0375 ml per bird per day.
-    rate: () => ({ kind: 'bird', mlPerDay: 0.0375 }),
+    // Label rate 150 ml per 1,000 L of the standard 200 ml water = 0.03 ml per bird per dosing day.
+    rate: () => ({ kind: 'water', mlPerLitre: 0.15 }),
   },
   healer: {
     name: 'TL HEALER', cls: 't-healer', goal: 'Wounds & skin',
@@ -155,14 +137,14 @@ const amount = (value) => number(value, value < 10 ? 1 : 0);
 
 const productText = (ml) => (ml >= 1000 ? `${number(ml / 1000, 2)} L` : `${number(ml, ml < 10 ? 1 : 0)} ml`);
 
-// Groups the dosing days into runs of consecutive days that share the same water figure.
-const mixingRuns = (days, waterOn) => {
+// Groups consecutive dosing days that need exactly the same amount.
+const doseRuns = (days, perBirdOn) => {
   const runs = [];
   days.forEach((day) => {
-    const water = waterOn(day);
+    const perBird = perBirdOn(day);
     const last = runs[runs.length - 1];
-    if (last && last.to === day - 1 && last.water === water) last.to = day;
-    else runs.push({ from: day, to: day, water });
+    if (last && last.to === day - 1 && Math.abs(last.perBird - perBird) < 1e-9) last.to = day;
+    else runs.push({ from: day, to: day, perBird });
   });
   return runs;
 };
@@ -176,17 +158,12 @@ export default function ProgrammeBuilder() {
   const { t } = useLanguage();
   const [flockKey, setFlockKey] = useState('broiler');
   const [birds, setBirds] = useState('10000');
-  const [feed, setFeed] = useState(FLOCKS.broiler.feed);
-  const [water, setWater] = useState('');
-  const [climate, setClimate] = useState('warm');
   const [selected, setSelected] = useState(FLOCKS.broiler.defaults);
 
   const flock = FLOCKS[flockKey];
 
   const changeFlock = (key) => {
     setFlockKey(key);
-    setFeed(FLOCKS[key].feed);
-    setWater('');
     setSelected(FLOCKS[key].defaults);
   };
 
@@ -196,15 +173,11 @@ export default function ProgrammeBuilder() {
 
   const plan = useMemo(() => {
     const birdCount = clampNumber(birds, 0);
-    const ownFeed = clampNumber(feed, 0);
-    // Broilers follow the Vencobb feed curve unless the farm enters its own average.
-    const feedPerBird = ownFeed > 0 || flockKey !== 'broiler'
-      ? ownFeed * flock.days
-      : Array.from({ length: flock.days }, (_, i) => broilerFeedOnDay(i + 1)).reduce((a, b) => a + b, 0);
+    // Broilers follow the Vencobb feed curve; layers and breeders eat about 115 g a day.
+    const feedPerBird = flockKey === 'broiler'
+      ? Array.from({ length: flock.days }, (_, i) => broilerFeedOnDay(i + 1)).reduce((a, b) => a + b, 0)
+      : Number(flock.feed || 0) * flock.days;
     const feedTonnes = (birdCount * feedPerBird) / 1000000;
-    const ownWater = clampNumber(water, 0);
-    // Litres of drinking water for the whole flock on a given day.
-    const flockWaterOn = (day) => ((ownWater || waterPer1000(flockKey, day, climate)) * birdCount) / 1000;
 
     const rows = flock.products.filter((key) => selected.includes(key)).map((key) => {
       const def = PLANS[key];
@@ -220,19 +193,24 @@ export default function ProgrammeBuilder() {
           text: min === max ? `${amount(max)} kg` : `${amount(min)}–${amount(max)} kg`,
           packs: Math.ceil(max / FEED_BAG_KG),
         };
-      } else if (rate.kind === 'bird') {
-        // Fixed dose per bird per day: the total never changes with the weather.
-        const dailyMl = birdCount * rate.mlPerDay;
-        const litres = (schedule.days.length * dailyMl) / 1000;
-        quantity = { text: `${amount(litres)} L` };
-        let runs = mixingRuns(schedule.days, flockWaterOn).map((run) => ({
-          ...run, product: dailyMl, strength: run.water > 0 ? dailyMl / run.water : 0,
+      } else if (rate.kind === 'water') {
+        // ml of product per bird on a dosing day = label rate (ml per litre) × standard water (litres per bird).
+        const perBirdOn = (day) => (rate.mlPerLitre * waterMlOn(flockKey, day)) / 1000;
+        const perBirdTotal = schedule.days.reduce((sum, day) => sum + perBirdOn(day), 0);
+        quantity = { text: productText(perBirdTotal * birdCount) };
+        let runs = doseRuns(schedule.days, perBirdOn).map((run) => ({
+          ...run,
+          count: run.to - run.from + 1,
+          waterMl: waterMlOn(flockKey, run.from),
+          per1000: run.perBird * 1000,
+          flock: run.perBird * birdCount,
+          flockWater: (waterMlOn(flockKey, run.from) * birdCount) / 1000,
         }));
-        // Same water every dosing day (layers, or a measured figure): one line is enough.
-        if (runs.length > 1 && runs.every((run) => run.water === runs[0].water)) {
+        // Same amount on every dosing day (layers): one line is enough.
+        if (runs.length > 1 && runs.every((run) => Math.abs(run.perBird - runs[0].perBird) < 1e-9)) {
           runs = [{ ...runs[0], all: true, count: schedule.days.length }];
         }
-        mix = { perBird: rate.mlPerDay, per1000: rate.mlPerDay * 1000, runs };
+        mix = { labelRate: rate.mlPerLitre * 1000, perBirdTotal, per1000Total: perBirdTotal * 1000, dosingDays: schedule.days.length, runs };
       }
 
       return { key, ...def, schedule, quantity, mix };
@@ -244,7 +222,7 @@ export default function ProgrammeBuilder() {
       // Remevia's field claim: 1 kg of TLTREAT (the dose for 1 tonne of feed) delivers up to 15 kg of additional meat.
       extraMeat: flockKey === 'broiler' && selected.includes('tltreat') ? feedTonnes * 15 : 0,
     };
-  }, [birds, feed, water, climate, flock, flockKey, selected]);
+  }, [birds, flock, flockKey, selected]);
 
   const ticks = [];
   for (let day = flock.tick; day <= flock.days; day += flock.tick) ticks.push(day);
@@ -302,45 +280,12 @@ export default function ProgrammeBuilder() {
               </div>
             </fieldset>
 
-            {!flock.noFeed && (
-              <fieldset>
-                <legend>{t("3. Weather in the shed")}</legend>
-                <div className="builder__climate" role="radiogroup" aria-label={t("Weather in the shed")}>
-                  {CLIMATES.map((c) => (
-                    <label key={c.key} className={climate === c.key ? 'is-on' : undefined}>
-                      <input type="radio" name="climate" value={c.key} checked={climate === c.key} onChange={() => setClimate(c.key)} />
-                      <b>{t(c.label)}</b>
-                      <small><bdi>{c.temp}</bdi></small>
-                    </label>
-                  ))}
-                </div>
-                <p className="builder__principle">
-                  <b>{t("Same dose per bird, whatever the weather")}</b>
-                  {t("Birds can drink twice as much water in hot weather. The product each bird needs stays the same, so the daily dose per bird is fixed and only the amount of water it is mixed into changes. No overdose in summer, no underdose in winter.")}
-                </p>
-              </fieldset>
-            )}
-
-            {!flock.noFeed && <details className="builder__assume">
-              <summary>{t("Adjust feed and water figures")}</summary>
-              <p>{t("Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.")}</p>
-              <div className="builder__pair">
-                <label className="field">
-                  {t("Feed per bird per day (g)")}
-                  <input type="number" min="1" inputMode="decimal" placeholder={t("Breed standard")} value={feed} onChange={(e) => setFeed(e.target.value)} />
-                </label>
-                <label className="field">
-                  {t("Measured water use (L per 1,000 birds per day)")}
-                  <input type="number" min="1" step="1" inputMode="decimal" placeholder={t("Breed standard")} value={water} onChange={(e) => setWater(e.target.value)} />
-                </label>
-              </div>
-            </details>}
           </form>
 
           <div className="builder__output" aria-live="polite">
             <div className="builder__summary">
               <h3>{t("Your programme")}</h3>
-              <span>{t(flock.window)} · {number(clampNumber(birds, 0))} {t(flock.unit || "birds")}{!flock.noFeed && <> · {amount(plan.feedTonnes)} {t("tonnes of feed")} · {t(CLIMATES.find((c) => c.key === climate).label)}</>}</span>
+              <span>{t(flock.window)} · {number(clampNumber(birds, 0))} {t(flock.unit || "birds")}{!flock.noFeed && <> · {amount(plan.feedTonnes)} {t("tonnes of feed")}</>}</span>
             </div>
 
             {plan.rows.length === 0 ? (
@@ -398,16 +343,18 @@ export default function ProgrammeBuilder() {
                       {row.mix && (
                         <div className="builder__mix">
                           <p>
-                            {t("Fixed dose:")} <b><bdi>{number(row.mix.per1000, 1)} ml</bdi></b> {t("per 1,000 birds per day.")}{' '}
-                            {t("Mix the day's product into the water the flock will drink that day:")}
+                            <b><bdi>{number(row.mix.labelRate)} ml</bdi></b> {t("per 1,000 L of drinking water, worked out on the standard water intake.")}{' '}
+                            {t("Total per bird:")} <b><bdi>{number(row.mix.perBirdTotal, 3)} ml</bdi></b> {t("over")} <bdi>{row.mix.dosingDays}</bdi> {t("dosing days")}
+                            {' '}(<bdi>{number(row.mix.per1000Total)} ml</bdi> {t("per 1,000 birds")}).{' '}
+                            {t("Add this much {name} to the flock's drinking water on each dosing day:").replace('{name}', row.name)}
                           </p>
                           <table>
                             <thead>
                               <tr>
-                                <th scope="col">{t("Days")}</th>
-                                <th scope="col">{t("Water / day")}</th>
-                                <th scope="col">{t("Add / day")}</th>
-                                <th scope="col">{t("Strength")}</th>
+                                <th scope="col">{flockKey === 'broiler' ? t("Day") : t("Days")}</th>
+                                <th scope="col">{t("Water / bird")}</th>
+                                <th scope="col">{t("Per 1,000 birds")}</th>
+                                <th scope="col">{t("Your flock")}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -415,10 +362,12 @@ export default function ProgrammeBuilder() {
                                 <tr key={run.from}>
                                   <td>{run.all
                                     ? <>{t("Each dosing day")} <small>(<bdi>{run.count}</bdi>)</small></>
-                                    : <bdi>{run.from === run.to ? run.from : `${run.from}–${run.to}`}</bdi>}</td>
-                                  <td><bdi>{number(run.water)} L</bdi></td>
-                                  <td><bdi>{productText(run.product)}</bdi></td>
-                                  <td><bdi>{number(run.strength, 2)} ml/L</bdi></td>
+                                    : run.from === run.to
+                                      ? <bdi>{run.from}</bdi>
+                                      : <><bdi>{`${run.from}–${run.to}`}</bdi> <small>{t("each day")}</small></>}</td>
+                                  <td><bdi>{number(run.waterMl)} ml</bdi></td>
+                                  <td><bdi>{number(run.per1000, 1)} ml</bdi></td>
+                                  <td><b><bdi>{productText(run.flock)}</bdi></b> <small>{t("in")} <bdi>{number(run.flockWater)} L</bdi></small></td>
                                 </tr>
                               ))}
                             </tbody>
