@@ -994,10 +994,8 @@
   "Actives:": "المواد الفعالة:",
   "Flock Programme Builder": "أداة بناء برنامج القطيع",
   "Plan your antibiotic-free programme in under a minute": "خطط لبرنامجك الخالي من المضادات الحيوية في أقل من دقيقة",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "أدخل بيانات قطيعك وأهدافك. واحصل على جدول جرعات يومي والكميات المطلوب طلبها، محسوبة وفق معدلات ملصق Remevia.",
   "1. Your flock": "1. قطيعك",
   "Number of birds": "عدد الطيور",
-  "2. Your goals": "2. أهدافك",
   "Adjust feed and water figures": "تعديل أرقام العلف والماء",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "اتركه فارغًا لاستخدام معيار السلالة لكل عمر (لاحم Vencobb، بياض BV-300). أدخل أرقام مزرعتك للحصول على تقدير أدق.",
   "Feed per bird per day (g)": "العلف لكل طائر يوميًا (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "برنامجك",
   "birds": "طائر",
   "tonnes of feed": "طن من العلف",
-  "Choose at least one goal to see your programme.": "اختر هدفًا واحدًا على الأقل لعرض برنامجك.",
   "As needed": "عند الحاجة",
   "bags": "أكياس",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "لحم إضافي محتمل، استنادًا إلى ادعاء Remevia الميداني لمنتج TLTREAT بمعدل 1 kg لكل طن",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "العودة إلى جدول الملصق",
   "average": "متوسط",
   "Day-by-day mixing guide": "دليل الخلط يومًا بيوم",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "تُضاف جرعة كل يوم إلى ماء ذلك اليوم، لذلك تتغير الكمية لكل 1,000 لتر كلما أكلت الطيور وشربت أكثر."
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "تُضاف جرعة كل يوم إلى ماء ذلك اليوم، لذلك تتغير الكمية لكل 1,000 لتر كلما أكلت الطيور وشربت أكثر.",
+  "2. Select products": "2. اختر المنتجات",
+  "Select at least one product to see your programme.": "اختر منتجًا واحدًا على الأقل لعرض برنامجك.",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "أدخل بيانات قطيعك واختر منتجاتك. احصل على تقويم جرعات يومي والكميات المطلوب طلبها، محسوبة وفق معدلات ملصقات Remevia."
 }

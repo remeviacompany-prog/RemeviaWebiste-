@@ -365,7 +365,7 @@ export default function ProgrammeBuilder() {
         <div className="head">
           <span className="eyebrow eyebrow--light">{t("Flock Programme Builder")}</span>
           <h2>{t("Plan your antibiotic-free programme in under a minute")}</h2>
-          <p className="lede">{t("Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.")}</p>
+          <p className="lede">{t("Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.")}</p>
         </div>
 
         <div className="builder">
@@ -387,7 +387,7 @@ export default function ProgrammeBuilder() {
             </fieldset>
 
             <fieldset>
-              <legend>{t("2. Your goals")}</legend>
+              <legend>{t("2. Select products")}</legend>
               <div className="builder__goals">
                 {flock.products.map((key) => {
                   const def = PLANS[key];
@@ -395,8 +395,8 @@ export default function ProgrammeBuilder() {
                     <label key={key} className={def.cls}>
                       <input type="checkbox" checked={selected.includes(key)} onChange={() => toggle(key)} />
                       <span>
-                        <b>{t(def.goal)}</b>
-                        <small>{def.name}</small>
+                        <b>{def.name}</b>
+                        <small>{t(def.goal)}</small>
                       </span>
                     </label>
                   );
@@ -427,7 +427,7 @@ export default function ProgrammeBuilder() {
             </div>
 
             {plan.rows.length === 0 ? (
-              <p className="builder__empty">{t("Choose at least one goal to see your programme.")}</p>
+              <p className="builder__empty">{t("Select at least one product to see your programme.")}</p>
             ) : (
               <>
                 <div className="gantt">

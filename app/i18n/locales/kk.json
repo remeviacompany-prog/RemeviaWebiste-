@@ -994,10 +994,8 @@
   "Actives:": "Белсенді заттар:",
   "Flock Programme Builder": "Табын бағдарламасын құрастырушы",
   "Plan your antibiotic-free programme in under a minute": "Антибиотиксіз бағдарламаңызды бір минутқа жетпей жоспарлаңыз",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Табыныңыз бен мақсаттарыңызды енгізіңіз. Remevia заттаңбасындағы мөлшерлер бойынша есептелген күнделікті дозалау күнтізбесі мен тапсырыс көлемін алыңыз.",
   "1. Your flock": "1. Табыныңыз",
   "Number of birds": "Құс саны",
-  "2. Your goals": "2. Мақсаттарыңыз",
   "Adjust feed and water figures": "Жем мен су көрсеткіштерін өзгерту",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "Әр жасқа тұқым стандартын (Vencobb бройлерлер, BV-300 мекиен) қолдану үшін бос қалдырыңыз. Дәлірек есеп үшін өз фермаңыздың көрсеткіштерін енгізіңіз.",
   "Feed per bird per day (g)": "Бір құсқа тәулігіне жем (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "Сіздің бағдарламаңыз",
   "birds": "құс",
   "tonnes of feed": "тонна жем",
-  "Choose at least one goal to see your programme.": "Бағдарламаны көру үшін кемінде бір мақсат таңдаңыз.",
   "As needed": "Қажет болғанда",
   "bags": "қап",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "ықтимал қосымша ет, Remevia компаниясының TLTREAT үшін тоннасына 1 kg далалық дерегі бойынша",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "Затбелгі кестесіне қайту",
   "average": "орташа",
   "Day-by-day mixing guide": "Күн сайынғы араластыру нұсқаулығы",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Әр күннің дозасы сол күннің суына қосылады, сондықтан құстар көбірек жеп-ішкен сайын 1 000 л-ге мөлшер өзгереді."
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Әр күннің дозасы сол күннің суына қосылады, сондықтан құстар көбірек жеп-ішкен сайын 1 000 л-ге мөлшер өзгереді.",
+  "2. Select products": "2. Өнімдерді таңдаңыз",
+  "Select at least one product to see your programme.": "Бағдарламаңызды көру үшін кемінде бір өнімді таңдаңыз.",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Табыныңызды енгізіп, өнімдерді таңдаңыз. Remevia заттаңба мөлшерлері бойынша есептелген күнделікті дозалау күнтізбесі мен тапсырыс көлемін алыңыз."
 }

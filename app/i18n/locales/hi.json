@@ -994,10 +994,8 @@
   "Actives:": "सक्रिय तत्व:",
   "Flock Programme Builder": "झुंड कार्यक्रम निर्माता",
   "Plan your antibiotic-free programme in under a minute": "एक मिनट से कम में अपना एंटीबायोटिक-मुक्त कार्यक्रम बनाएं",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "अपना झुंड और लक्ष्य दर्ज करें। Remevia लेबल दरों के आधार पर दिन-प्रतिदिन का खुराक कैलेंडर और ऑर्डर की जाने वाली मात्रा पाएं।",
   "1. Your flock": "1. आपका झुंड",
   "Number of birds": "पक्षियों की संख्या",
-  "2. Your goals": "2. आपके लक्ष्य",
   "Adjust feed and water figures": "चारा और पानी के आंकड़े बदलें",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "हर उम्र के लिए नस्ल मानक (Vencobb ब्रॉयलर, BV-300 लेयर) इस्तेमाल करने के लिए खाली छोड़ें। अधिक सटीक अनुमान के लिए अपने फ़ार्म के आँकड़े डालें।",
   "Feed per bird per day (g)": "प्रति पक्षी प्रति दिन चारा (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "आपका कार्यक्रम",
   "birds": "पक्षी",
   "tonnes of feed": "टन चारा",
-  "Choose at least one goal to see your programme.": "अपना कार्यक्रम देखने के लिए कम से कम एक लक्ष्य चुनें।",
   "As needed": "आवश्यकतानुसार",
   "bags": "बैग",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "संभावित अतिरिक्त मांस, 1 kg प्रति टन पर TLTREAT के लिए Remevia के फ़ील्ड दावे के आधार पर",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "लेबल शेड्यूल पर वापस",
   "average": "औसत",
   "Day-by-day mixing guide": "दिन-प्रतिदिन मिश्रण गाइड",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "हर दिन की खुराक उसी दिन के पानी में जाती है, इसलिए पक्षियों के ज़्यादा खाने-पीने के साथ प्रति 1,000 L मात्रा बदलती है।"
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "हर दिन की खुराक उसी दिन के पानी में जाती है, इसलिए पक्षियों के ज़्यादा खाने-पीने के साथ प्रति 1,000 L मात्रा बदलती है।",
+  "2. Select products": "2. उत्पाद चुनें",
+  "Select at least one product to see your programme.": "अपना कार्यक्रम देखने के लिए कम से कम एक उत्पाद चुनें।",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "अपने झुंड की जानकारी दें और उत्पाद चुनें। Remevia लेबल दरों से तैयार, दिन-प्रतिदिन का खुराक कैलेंडर और ऑर्डर की मात्रा पाएँ।"
 }

@@ -994,10 +994,8 @@
   "Actives:": "สารออกฤทธิ์:",
   "Flock Programme Builder": "เครื่องมือสร้างโปรแกรมสำหรับฝูง",
   "Plan your antibiotic-free programme in under a minute": "วางแผนโปรแกรมปราศจากยาปฏิชีวนะได้ในเวลาไม่ถึงนาที",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "กรอกข้อมูลฝูงและเป้าหมาย แล้วรับปฏิทินการให้ยารายวันและปริมาณที่ต้องสั่งซื้อ ซึ่งคำนวณจากอัตราบนฉลากของ Remevia",
   "1. Your flock": "1. ฝูงของคุณ",
   "Number of birds": "จำนวนสัตว์ปีก",
-  "2. Your goals": "2. เป้าหมายของคุณ",
   "Adjust feed and water figures": "ปรับตัวเลขอาหารและน้ำ",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "เว้นว่างไว้เพื่อใช้ค่ามาตรฐานสายพันธุ์ตามอายุ (ไก่เนื้อ Vencobb, ไก่ไข่ BV-300) หรือใส่ตัวเลขของฟาร์มคุณเพื่อการประมาณที่แม่นยำขึ้น",
   "Feed per bird per day (g)": "อาหารต่อตัวต่อวัน (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "โปรแกรมของคุณ",
   "birds": "ตัว",
   "tonnes of feed": "ตันอาหาร",
-  "Choose at least one goal to see your programme.": "เลือกอย่างน้อยหนึ่งเป้าหมายเพื่อดูโปรแกรมของคุณ",
   "As needed": "ตามความจำเป็น",
   "bags": "ถุง",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "เนื้อเพิ่มที่เป็นไปได้ ตามข้อมูลภาคสนามของ Remevia สำหรับ TLTREAT ที่ 1 kg ต่อตัน",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "กลับไปใช้ตารางตามฉลาก",
   "average": "เฉลี่ย",
   "Day-by-day mixing guide": "คู่มือการผสมรายวัน",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "ขนาดยาของแต่ละวันผสมในน้ำของวันนั้น ปริมาณต่อ 1,000 ลิตรจึงเปลี่ยนไปเมื่อสัตว์ปีกกินและดื่มมากขึ้น"
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "ขนาดยาของแต่ละวันผสมในน้ำของวันนั้น ปริมาณต่อ 1,000 ลิตรจึงเปลี่ยนไปเมื่อสัตว์ปีกกินและดื่มมากขึ้น",
+  "2. Select products": "2. เลือกผลิตภัณฑ์",
+  "Select at least one product to see your programme.": "เลือกผลิตภัณฑ์อย่างน้อยหนึ่งรายการเพื่อดูโปรแกรมของคุณ",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "กรอกข้อมูลฝูงและเลือกผลิตภัณฑ์ของคุณ รับตารางการให้ยารายวันและปริมาณที่ต้องสั่ง คำนวณจากอัตราตามฉลากของ Remevia"
 }

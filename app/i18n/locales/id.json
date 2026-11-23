@@ -994,10 +994,8 @@
   "Actives:": "Bahan aktif:",
   "Flock Programme Builder": "Penyusun Program Kawanan",
   "Plan your antibiotic-free programme in under a minute": "Rencanakan program bebas antibiotik Anda dalam waktu kurang dari semenit",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Masukkan kawanan dan tujuan Anda. Dapatkan kalender dosis harian dan jumlah yang perlu dipesan, dihitung dari dosis label Remevia.",
   "1. Your flock": "1. Kawanan Anda",
   "Number of birds": "Jumlah unggas",
-  "2. Your goals": "2. Tujuan Anda",
   "Adjust feed and water figures": "Sesuaikan angka pakan dan air",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "Kosongkan untuk memakai standar strain sesuai umur (broiler Vencobb, petelur BV-300). Masukkan angka peternakan Anda untuk perkiraan yang lebih tepat.",
   "Feed per bird per day (g)": "Pakan per ekor per hari (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "Program Anda",
   "birds": "ekor",
   "tonnes of feed": "ton pakan",
-  "Choose at least one goal to see your programme.": "Pilih setidaknya satu tujuan untuk melihat program Anda.",
   "As needed": "Sesuai kebutuhan",
   "bags": "karung",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "potensi daging tambahan, berdasarkan klaim lapangan Remevia untuk TLTREAT pada 1 kg per ton",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "Kembali ke jadwal label",
   "average": "rata-rata",
   "Day-by-day mixing guide": "Panduan campuran harian",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Dosis setiap hari masuk ke air hari itu, jadi jumlah per 1.000 L berubah seiring unggas makan dan minum lebih banyak."
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Dosis setiap hari masuk ke air hari itu, jadi jumlah per 1.000 L berubah seiring unggas makan dan minum lebih banyak.",
+  "2. Select products": "2. Pilih produk",
+  "Select at least one product to see your programme.": "Pilih setidaknya satu produk untuk melihat program Anda.",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Masukkan data flok Anda dan pilih produk. Dapatkan kalender dosis harian dan jumlah yang perlu dipesan, dihitung dari dosis label Remevia."
 }

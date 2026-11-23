@@ -994,10 +994,8 @@
   "Actives:": "Activos:",
   "Flock Programme Builder": "Creador de programas para lotes",
   "Plan your antibiotic-free programme in under a minute": "Planifique su programa sin antibióticos en menos de un minuto",
-  "Enter your flock and goals. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Introduzca su lote y sus objetivos. Obtenga un calendario de dosificación día a día y las cantidades a pedir, calculados con las dosis de la etiqueta de Remevia.",
   "1. Your flock": "1. Su lote",
   "Number of birds": "Número de aves",
-  "2. Your goals": "2. Sus objetivos",
   "Adjust feed and water figures": "Ajustar cifras de pienso y agua",
   "Leave blank to use the breed standard for each age (Vencobb broilers, BV-300 layers). Enter your own farm's figures for a closer estimate.": "Déjelo en blanco para usar el estándar de la raza para cada edad (broilers Vencobb, ponedoras BV-300). Introduzca las cifras de su granja para una estimación más precisa.",
   "Feed per bird per day (g)": "Pienso por ave al día (g)",
@@ -1005,7 +1003,6 @@
   "Your programme": "Su programa",
   "birds": "aves",
   "tonnes of feed": "toneladas de pienso",
-  "Choose at least one goal to see your programme.": "Elija al menos un objetivo para ver su programa.",
   "As needed": "Según necesidad",
   "bags": "sacos",
   "potential extra meat, based on the Remevia field claim for TLTREAT at 1 kg per tonne": "de carne extra potencial, según el dato de campo de Remevia para TLTREAT a 1 kg por tonelada",
@@ -1258,5 +1255,8 @@
   "Back to label schedule": "Volver al calendario de etiqueta",
   "average": "promedio",
   "Day-by-day mixing guide": "Guía de mezcla día a día",
-  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "La dosis de cada día va en el agua de ese día, así que la cantidad por 1.000 L cambia a medida que las aves comen y beben más."
+  "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "La dosis de cada día va en el agua de ese día, así que la cantidad por 1.000 L cambia a medida que las aves comen y beben más.",
+  "2. Select products": "2. Elija los productos",
+  "Select at least one product to see your programme.": "Elija al menos un producto para ver su programa.",
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Introduzca su parvada y elija sus productos. Obtenga un calendario de dosificación día a día y las cantidades a pedir, calculadas con las dosis de etiqueta de Remevia."
 }
