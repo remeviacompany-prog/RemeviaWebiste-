@@ -1213,9 +1213,7 @@
   "Standard (default)": "Стандарт (әдепкі)",
   "Hot weather or open shed": "Ыстық ауа райы немесе ашық қора",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "Құстар әр 1 кг жемге шамамен {n} л су ішеді. Су тұтыну жасқа, тұқымға, ауа райына және қора түріне қарай өзгереді, сондықтан фермаңызға сәйкесін таңдаңыз.",
-  "Total {name} for your flock": "Отарыңызға арналған барлық {name}",
   "per 1,000 birds over": "1 000 құсқа, барлығы",
-  "Add to every 1,000 L of drinking water": "Әр 1 000 л ауыз суға қосыңыз",
   "At a feed-to-water ratio of": "Жем мен су арақатынасы",
   "Per 1,000 L": "1 000 л-ге",
   "{n} days, total": "{n} күн, барлығы",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Әр күннің дозасы сол күннің суына қосылады, сондықтан құстар көбірек жеп-ішкен сайын 1 000 л-ге мөлшер өзгереді.",
   "2. Select products": "2. Өнімдерді таңдаңыз",
   "Select at least one product to see your programme.": "Бағдарламаңызды көру үшін кемінде бір өнімді таңдаңыз.",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Табыныңызды енгізіп, өнімдерді таңдаңыз. Remevia заттаңба мөлшерлері бойынша есептелген күнделікті дозалау күнтізбесі мен тапсырыс көлемін алыңыз."
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Табыныңызды енгізіп, өнімдерді таңдаңыз. Remevia заттаңба мөлшерлері бойынша есептелген күнделікті дозалау күнтізбесі мен тапсырыс көлемін алыңыз.",
+  "Total cycle requirement": "Бүкіл циклге қажетті жалпы мөлшер",
+  "Daily mixing rate (per 1,000 L of water)": "Күнделікті араластыру мөлшері (1 000 л суға)"
 }

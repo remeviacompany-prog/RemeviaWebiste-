@@ -1213,9 +1213,7 @@
   "Standard (default)": "Estándar (predeterminado)",
   "Hot weather or open shed": "Clima caluroso o nave abierta",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "Las aves beben unos {n} L de agua por cada 1 kg de alimento. El consumo cambia con la edad, la raza, el clima y el tipo de nave; elija lo que se ajuste a su granja.",
-  "Total {name} for your flock": "Total de {name} para su lote",
   "per 1,000 birds over": "por cada 1.000 aves en",
-  "Add to every 1,000 L of drinking water": "Añadir a cada 1.000 L de agua de bebida",
   "At a feed-to-water ratio of": "Con una relación alimento-agua de",
   "Per 1,000 L": "Por 1.000 L",
   "{n} days, total": "{n} días, total",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "La dosis de cada día va en el agua de ese día, así que la cantidad por 1.000 L cambia a medida que las aves comen y beben más.",
   "2. Select products": "2. Elija los productos",
   "Select at least one product to see your programme.": "Elija al menos un producto para ver su programa.",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Introduzca su parvada y elija sus productos. Obtenga un calendario de dosificación día a día y las cantidades a pedir, calculadas con las dosis de etiqueta de Remevia."
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Introduzca su parvada y elija sus productos. Obtenga un calendario de dosificación día a día y las cantidades a pedir, calculadas con las dosis de etiqueta de Remevia.",
+  "Total cycle requirement": "Necesidad total del ciclo",
+  "Daily mixing rate (per 1,000 L of water)": "Dosis diaria de mezcla (por 1.000 L de agua)"
 }

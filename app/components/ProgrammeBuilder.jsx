@@ -31,12 +31,15 @@ const BROILER_WATER_ML = {
 };
 // Days 8 to 14 together come to 650 ml per bird.
 for (let day = 8; day <= 14; day += 1) BROILER_WATER_ML[day] = 650 / 7;
-// Layers and breeders drink about 200 ml per bird per day.
+// Layers and breeders in lay drink about 200 ml per bird per day (Remevia technical team, 21 Nov 2026).
 const LAYER_WATER_ML = 200;
-// Outside the days the technical team worked out, broilers fall back to the standard 1:2 feed-to-water ratio.
-const waterMlOn = (flockKey, day) => (flockKey === 'broiler'
-  ? BROILER_WATER_ML[day] ?? feedGramsOn(flockKey, day) * 2
-  : LAYER_WATER_ML);
+// Standard water at the default 1:2 feed-to-water ratio, ml per bird per day: the technical team's own figures
+// where they gave them (broilers days 8-14 and 16-36, layers in lay), otherwise 2 ml for every gram of feed.
+// The dose per bird is fixed from this standard, so at 1:2 every day mixes at exactly the label rate.
+const waterMlOn = (flockKey, day) => {
+  if (flockKey === 'broiler') return BROILER_WATER_ML[day] ?? feedGramsOn(flockKey, day) * 2;
+  return weekOf(day) > 18 ? LAYER_WATER_ML : feedGramsOn(flockKey, day) * 2;
+};
 
 // Broiler feed intake, kg per bird per day, days 1-42 (Remevia technical team, "Feed Intake per bird.xlsx", 22 Nov 2026).
 const BROILER_FEED_KG = [
@@ -139,7 +142,7 @@ const PLANS = {
       ? { days: rangeDays(from, to), note: 'Continuously from 8th day to 14th day' }
       : { days: twiceWeekly(from, to), note: 'Twice a week from 14th week onwards' }),
     // 200 ml per 1,000 L of the standard water intake. Broilers: 650 ml water per bird over days 8-14,
-    // so 0.13 ml per bird (130 ml per 1,000 birds). Layers & breeders: 200 ml water, so 0.04 ml per bird each dosing day.
+    // so 0.13 ml per bird (130 ml per 1,000 birds). Layers & breeders in lay: 200 ml water, so 0.04 ml per bird each dosing day.
     rate: () => ({ kind: 'water', mlPerLitre: 0.2 }),
   },
   eksit: {
@@ -278,7 +281,8 @@ export default function ProgrammeBuilder() {
         // the same amount of product whatever the weather. The farmer's feed-to-water ratio only decides
         // how much water that dose is spread in, which sets the mixing rate per 1,000 L.
         const dosePerBird = (day) => (rate.mlPerLitre * waterMlOn(flockKey, day)) / 1000;
-        const waterPerBird = (day) => feedGramsOn(flockKey, day) * ratio; // ml
+        // The farmer's ratio scales the standard water: 1:3 is 1.5 times the 1:2 standard, 1:1 half of it.
+        const waterPerBird = (day) => (waterMlOn(flockKey, day) * ratio) / 2; // ml
         const perBirdTotal = schedule.days.reduce((sum, day) => sum + dosePerBird(day), 0);
         quantity = { text: productText(perBirdTotal * birdCount) };
         let runs = dayBlocks(schedule.days).map((block) => {
@@ -530,12 +534,12 @@ export default function ProgrammeBuilder() {
                         <div className="builder__mix">
                           <div className="builder__results">
                             <div>
-                              <span>{t("Total {name} for your flock").replace('{name}', row.name)}</span>
+                              <span>{t("Total cycle requirement")}</span>
                               <b><bdi>{row.quantity.text}</bdi></b>
-                              <small><bdi>{number(row.mix.per1000Total, 1)} ml</bdi> {t("per 1,000 birds over")} <bdi>{row.mix.dosingDays}</bdi> {t("dosing days")}</small>
+                              <small>{row.name} · <bdi>{number(row.mix.per1000Total, 1)} ml</bdi> {t("per 1,000 birds over")} <bdi>{row.mix.dosingDays}</bdi> {t("dosing days")}</small>
                             </div>
                             <div>
-                              <span>{t("Add to every 1,000 L of drinking water")}</span>
+                              <span>{t("Daily mixing rate (per 1,000 L of water)")}</span>
                               <b><bdi>{Math.abs(row.mix.maxKl - row.mix.minKl) < 0.5
                                 ? `${number(row.mix.maxKl)} ml`
                                 : `${number(row.mix.minKl)}–${number(row.mix.maxKl)} ml`}</bdi></b>

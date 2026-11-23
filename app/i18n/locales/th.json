@@ -1213,9 +1213,7 @@
   "Standard (default)": "มาตรฐาน (ค่าเริ่มต้น)",
   "Hot weather or open shed": "อากาศร้อนหรือโรงเรือนเปิด",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "สัตว์ปีกดื่มน้ำประมาณ {n} ลิตรต่ออาหาร 1 กก. ปริมาณน้ำเปลี่ยนตามอายุ สายพันธุ์ อากาศ และประเภทโรงเรือน จึงควรเลือกให้ตรงกับฟาร์มของคุณ",
-  "Total {name} for your flock": "{name} ทั้งหมดสำหรับฝูงของคุณ",
   "per 1,000 birds over": "ต่อ 1,000 ตัว ตลอด",
-  "Add to every 1,000 L of drinking water": "เติมลงในน้ำดื่มทุก 1,000 ลิตร",
   "At a feed-to-water ratio of": "ที่อัตราส่วนอาหารต่อน้ำ",
   "Per 1,000 L": "ต่อ 1,000 ลิตร",
   "{n} days, total": "{n} วัน รวม",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "ขนาดยาของแต่ละวันผสมในน้ำของวันนั้น ปริมาณต่อ 1,000 ลิตรจึงเปลี่ยนไปเมื่อสัตว์ปีกกินและดื่มมากขึ้น",
   "2. Select products": "2. เลือกผลิตภัณฑ์",
   "Select at least one product to see your programme.": "เลือกผลิตภัณฑ์อย่างน้อยหนึ่งรายการเพื่อดูโปรแกรมของคุณ",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "กรอกข้อมูลฝูงและเลือกผลิตภัณฑ์ของคุณ รับตารางการให้ยารายวันและปริมาณที่ต้องสั่ง คำนวณจากอัตราตามฉลากของ Remevia"
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "กรอกข้อมูลฝูงและเลือกผลิตภัณฑ์ของคุณ รับตารางการให้ยารายวันและปริมาณที่ต้องสั่ง คำนวณจากอัตราตามฉลากของ Remevia",
+  "Total cycle requirement": "ปริมาณที่ต้องใช้ทั้งรอบ",
+  "Daily mixing rate (per 1,000 L of water)": "อัตราผสมรายวัน (ต่อน้ำ 1,000 ลิตร)"
 }

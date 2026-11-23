@@ -1213,9 +1213,7 @@
   "Standard (default)": "मानक (डिफ़ॉल्ट)",
   "Hot weather or open shed": "गर्म मौसम या खुला शेड",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "पक्षी हर 1 kg आहार पर लगभग {n} L पानी पीते हैं। पानी की खपत उम्र, नस्ल, मौसम और शेड के प्रकार से बदलती है, इसलिए अपने फार्म के अनुसार चुनें।",
-  "Total {name} for your flock": "आपके झुंड के लिए कुल {name}",
   "per 1,000 birds over": "प्रति 1,000 पक्षी, कुल",
-  "Add to every 1,000 L of drinking water": "हर 1,000 L पीने के पानी में मिलाएं",
   "At a feed-to-water ratio of": "आहार-पानी अनुपात",
   "Per 1,000 L": "प्रति 1,000 L",
   "{n} days, total": "{n} दिन, कुल",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "हर दिन की खुराक उसी दिन के पानी में जाती है, इसलिए पक्षियों के ज़्यादा खाने-पीने के साथ प्रति 1,000 L मात्रा बदलती है।",
   "2. Select products": "2. उत्पाद चुनें",
   "Select at least one product to see your programme.": "अपना कार्यक्रम देखने के लिए कम से कम एक उत्पाद चुनें।",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "अपने झुंड की जानकारी दें और उत्पाद चुनें। Remevia लेबल दरों से तैयार, दिन-प्रतिदिन का खुराक कैलेंडर और ऑर्डर की मात्रा पाएँ।"
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "अपने झुंड की जानकारी दें और उत्पाद चुनें। Remevia लेबल दरों से तैयार, दिन-प्रतिदिन का खुराक कैलेंडर और ऑर्डर की मात्रा पाएँ।",
+  "Total cycle requirement": "पूरे चक्र की कुल आवश्यकता",
+  "Daily mixing rate (per 1,000 L of water)": "दैनिक मिश्रण दर (प्रति 1,000 L पानी)"
 }

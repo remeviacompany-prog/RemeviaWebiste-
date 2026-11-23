@@ -1213,9 +1213,7 @@
   "Standard (default)": "Standar (bawaan)",
   "Hot weather or open shed": "Cuaca panas atau kandang terbuka",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "Unggas minum sekitar {n} L air untuk setiap 1 kg pakan. Konsumsi air berubah menurut umur, galur, cuaca dan jenis kandang, jadi pilih yang sesuai dengan peternakan Anda.",
-  "Total {name} for your flock": "Total {name} untuk kawanan Anda",
   "per 1,000 birds over": "per 1.000 ekor selama",
-  "Add to every 1,000 L of drinking water": "Tambahkan ke setiap 1.000 L air minum",
   "At a feed-to-water ratio of": "Pada rasio pakan-air",
   "Per 1,000 L": "Per 1.000 L",
   "{n} days, total": "{n} hari, total",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "Dosis setiap hari masuk ke air hari itu, jadi jumlah per 1.000 L berubah seiring unggas makan dan minum lebih banyak.",
   "2. Select products": "2. Pilih produk",
   "Select at least one product to see your programme.": "Pilih setidaknya satu produk untuk melihat program Anda.",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Masukkan data flok Anda dan pilih produk. Dapatkan kalender dosis harian dan jumlah yang perlu dipesan, dihitung dari dosis label Remevia."
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "Masukkan data flok Anda dan pilih produk. Dapatkan kalender dosis harian dan jumlah yang perlu dipesan, dihitung dari dosis label Remevia.",
+  "Total cycle requirement": "Kebutuhan total satu siklus",
+  "Daily mixing rate (per 1,000 L of water)": "Takaran campuran harian (per 1.000 L air)"
 }

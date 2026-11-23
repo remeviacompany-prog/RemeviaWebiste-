@@ -1213,9 +1213,7 @@
   "Standard (default)": "قياسي (افتراضي)",
   "Hot weather or open shed": "طقس حار أو حظيرة مفتوحة",
   "Birds drink about {n} L of water for every 1 kg of feed. Water intake changes with age, breed, weather and shed type, so pick what matches your farm.": "تشرب الطيور نحو {n} لتر ماء لكل 1 كغ علف. يتغير استهلاك الماء مع العمر والسلالة والطقس ونوع الحظيرة، فاختر ما يناسب مزرعتك.",
-  "Total {name} for your flock": "إجمالي {name} لقطيعك",
   "per 1,000 birds over": "لكل 1,000 طائر خلال",
-  "Add to every 1,000 L of drinking water": "أضف إلى كل 1,000 لتر من ماء الشرب",
   "At a feed-to-water ratio of": "عند نسبة علف إلى ماء",
   "Per 1,000 L": "لكل 1,000 لتر",
   "{n} days, total": "{n} أيام، الإجمالي",
@@ -1258,5 +1256,7 @@
   "Each day's dose goes into that day's water, so the amount per 1,000 L changes as the birds eat and drink more.": "تُضاف جرعة كل يوم إلى ماء ذلك اليوم، لذلك تتغير الكمية لكل 1,000 لتر كلما أكلت الطيور وشربت أكثر.",
   "2. Select products": "2. اختر المنتجات",
   "Select at least one product to see your programme.": "اختر منتجًا واحدًا على الأقل لعرض برنامجك.",
-  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "أدخل بيانات قطيعك واختر منتجاتك. احصل على تقويم جرعات يومي والكميات المطلوب طلبها، محسوبة وفق معدلات ملصقات Remevia."
+  "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "أدخل بيانات قطيعك واختر منتجاتك. احصل على تقويم جرعات يومي والكميات المطلوب طلبها، محسوبة وفق معدلات ملصقات Remevia.",
+  "Total cycle requirement": "إجمالي الكمية للدورة",
+  "Daily mixing rate (per 1,000 L of water)": "معدل الخلط اليومي (لكل 1,000 لتر ماء)"
 }
