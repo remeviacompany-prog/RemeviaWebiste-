@@ -55,9 +55,14 @@ const LAYER_FEED_PERIODS = [
   { toWeek: 100, grams: (61200 - 46500) / (20 * 7) }, // about 105 g a day late in lay
 ];
 const layerFeedGrams = (day) => (LAYER_FEED_PERIODS.find((period) => weekOf(day) <= period.toWeek) || LAYER_FEED_PERIODS[2]).grams;
-const feedGramsOn = (flockKey, day) => (flockKey === 'broiler'
-  ? (BROILER_FEED_KG[Math.min(day, BROILER_FEED_KG.length) - 1] || 0) * 1000
-  : layerFeedGrams(day));
+// Breeders (males and females) eat about 125 g a day on average from week 18 (Remevia, 23 Nov 2026).
+// Before that the rearing figure from the BV300 guide is used.
+const BREEDER_FEED_G = 125;
+const breederFeedGrams = (day) => (weekOf(day) >= 18 ? BREEDER_FEED_G : LAYER_FEED_PERIODS[0].grams);
+const feedGramsOn = (flockKey, day) => {
+  if (flockKey === 'broiler') return (BROILER_FEED_KG[Math.min(day, BROILER_FEED_KG.length) - 1] || 0) * 1000;
+  return flockKey === 'breeder' ? breederFeedGrams(day) : layerFeedGrams(day);
+};
 const feedGramsBetween = (flockKey, from, to) => rangeDays(from, to).reduce((sum, day) => sum + feedGramsOn(flockKey, day), 0);
 
 // Feed-to-water ratio picked by the farmer: litres of water drunk per kg of feed eaten.
@@ -237,7 +242,7 @@ export default function ProgrammeBuilder() {
 
   const plan = useMemo(() => {
     const birdCount = clampNumber(birds, 0);
-    // Broilers follow the technical team's daily feed curve; layers and breeders the BV300 guide.
+    // Broilers follow the technical team's daily feed curve, layers the BV300 guide, breeders 125 g a day from week 18.
     const feedPerBird = flock.noFeed ? 0 : feedGramsBetween(flockKey, 1, flock.days);
     const feedTonnes = (birdCount * feedPerBird) / 1000000;
 
@@ -628,8 +633,11 @@ export default function ProgrammeBuilder() {
             {plan.rows.some((row) => row.mix) && (
               <p className="note builder__tip">{t("Tip for hot days: mix the full day's dose into the water the birds drink in 2–4 cool morning hours, then switch back to plain water.")}</p>
             )}
-            {flock.axis === 'Week' && (
+            {flockKey === 'layer' && (
               <p className="note">{t("Layer feed intake from the BV300 guide (VH Group): 5.6 kg per bird to week 18, 46.5 kg for weeks 19–80 and 61.2 kg for weeks 19–100.")}</p>
+            )}
+            {flockKey === 'breeder' && (
+              <p className="note">{t("Breeder feed intake: about 125 g per bird per day (males and females) from week 18.")}</p>
             )}
             <p className="note">{t("Planning estimate from Remevia label rates and the figures above. Our technical team will confirm the final programme for your farm.")}</p>
           </div>

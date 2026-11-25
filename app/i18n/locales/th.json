@@ -1258,5 +1258,6 @@
   "Select at least one product to see your programme.": "เลือกผลิตภัณฑ์อย่างน้อยหนึ่งรายการเพื่อดูโปรแกรมของคุณ",
   "Enter your flock and pick your products. Get a day-by-day dosing calendar and the quantities to order, worked out from Remevia label rates.": "กรอกข้อมูลฝูงและเลือกผลิตภัณฑ์ของคุณ รับตารางการให้ยารายวันและปริมาณที่ต้องสั่ง คำนวณจากอัตราตามฉลากของ Remevia",
   "Total cycle requirement": "ปริมาณที่ต้องใช้ทั้งรอบ",
-  "Daily mixing rate (per 1,000 L of water)": "อัตราผสมรายวัน (ต่อน้ำ 1,000 ลิตร)"
+  "Daily mixing rate (per 1,000 L of water)": "อัตราผสมรายวัน (ต่อน้ำ 1,000 ลิตร)",
+  "Breeder feed intake: about 125 g per bird per day (males and females) from week 18.": "ปริมาณอาหารของไก่พ่อแม่พันธุ์: ประมาณ 125 กรัมต่อตัวต่อวัน (ตัวผู้และตัวเมีย) ตั้งแต่สัปดาห์ที่ 18"
 }

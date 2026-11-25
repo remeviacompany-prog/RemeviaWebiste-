@@ -10572,3 +10572,88 @@ main .section, .section { padding-block: clamp(36px, 4vw, 56px); }
   .builder__sheet th, .builder__sheet td { padding: 6px 7px; }
   .builder__sheet tbody th { white-space: normal; width: 28%; min-width: 92px; font-size: 11px; }
 }
+
+/* ==========================================================================
+   Light theme from George's UI references (23 Nov 2026): white background with a
+   soft molecule pattern, navy headings, light cards. Challenge, quote panels and
+   the programme builder.
+   ========================================================================== */
+:root {
+  --lt-navy: #1D3A9C;
+  --lt-ink: #24324F;
+  --lt-text: #3E4A66;
+  --lt-bg: #F5F9FC;
+  --lt-line: #E1E9F1;
+  --lt-molecules: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke='%23A9C7D8' stroke-width='1.4' stroke-opacity='.55'%3E%3Cpath d='M40 60L96 38L150 70L150 132L96 160L44 128ZM150 70L208 44M150 132L210 160L262 128L262 72L208 44M96 160L104 222L60 262M210 160L214 226L262 258M104 222L160 246L214 226'/%3E%3C/g%3E%3Cg fill='%23A9C7D8' fill-opacity='.55'%3E%3Ccircle cx='40' cy='60' r='5'/%3E%3Ccircle cx='96' cy='38' r='7'/%3E%3Ccircle cx='150' cy='70' r='5'/%3E%3Ccircle cx='150' cy='132' r='8'/%3E%3Ccircle cx='96' cy='160' r='5'/%3E%3Ccircle cx='44' cy='128' r='6'/%3E%3Ccircle cx='208' cy='44' r='6'/%3E%3Ccircle cx='210' cy='160' r='6'/%3E%3Ccircle cx='262' cy='128' r='9'/%3E%3Ccircle cx='262' cy='72' r='5'/%3E%3Ccircle cx='104' cy='222' r='7'/%3E%3Ccircle cx='60' cy='262' r='5'/%3E%3Ccircle cx='214' cy='226' r='6'/%3E%3Ccircle cx='262' cy='258' r='5'/%3E%3Ccircle cx='160' cy='246' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Challenge: light panel, navy heading, white cards with red crosses */
+body .split__side--problem {
+  color: var(--lt-text);
+  background: var(--lt-molecules) right -60px top -40px / 300px no-repeat, var(--lt-molecules) left -90px bottom -120px / 280px no-repeat, linear-gradient(170deg, #FFFFFF, var(--lt-bg));
+  border: 1px solid var(--lt-line);
+}
+body .split__side--problem h2 { color: var(--lt-navy); }
+body .split__side--problem p { color: var(--lt-text); }
+body .split__side--problem .split__tag { background: #FDECEC; color: #C2343B; }
+body .split__side--problem li {
+  align-items: center;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--lt-line);
+  border-radius: 12px;
+  color: var(--lt-ink);
+  box-shadow: 0 6px 16px -14px rgba(29, 58, 156, .5);
+}
+body .split__side--problem li svg {
+  width: 28px;
+  height: 28px;
+  margin-top: 0;
+  padding: 6px;
+  border-radius: 50%;
+  color: #E0464E;
+  background: #FDECEC;
+}
+
+/* Hippocrates and Fleming panels: light, navy serif quote, gold ring and rule */
+body .triad__panel--past,
+body .triad__panel--modern {
+  color: var(--lt-ink);
+  background: var(--lt-molecules) right -70px top -50px / 300px no-repeat, var(--lt-molecules) left -110px bottom -110px / 300px no-repeat, linear-gradient(175deg, #FFFFFF, var(--lt-bg));
+}
+body .triad__panel--past::after,
+body .triad__panel--modern::after { display: none; }
+body .triad__portrait { border: 4px solid #E3A43A; box-shadow: 0 0 0 3px var(--lt-navy), 0 18px 34px -18px rgba(29, 58, 156, .55); }
+body .triad blockquote p { color: var(--lt-navy); }
+body .triad blockquote em { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: #C2740E; }
+body .triad blockquote em.is-green { color: #2E9E48; }
+body .triad blockquote footer { color: var(--lt-ink); }
+body .triad__rule { background: linear-gradient(90deg, transparent, #E3A43A, transparent); }
+body .triad__note { color: var(--lt-text); }
+
+/* Programme builder: light section, navy heading, green pill eyebrow */
+body .programme {
+  color: var(--lt-ink);
+  background: var(--lt-molecules) right -40px top -30px / 340px no-repeat, var(--lt-molecules) left -120px top 38% / 320px no-repeat, linear-gradient(180deg, #FFFFFF, var(--lt-bg)) !important;
+}
+body .programme::before,
+body .programme::after { display: none !important; }
+body .programme .head h2 { color: var(--lt-navy) !important; }
+body .programme .lede,
+body .programme .head p { color: var(--lt-text) !important; }
+body .programme .head .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #E7F6EA !important;
+  color: #1F7A3A !important;
+  border: 1px solid #CDEBD3;
+}
+body .programme .head .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #2E9E48; }
+body .programme .builder__inputs,
+body .programme .builder__output {
+  border: 1px solid var(--lt-line);
+  box-shadow: 0 18px 40px -30px rgba(29, 58, 156, .45);
+}

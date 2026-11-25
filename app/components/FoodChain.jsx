@@ -5,9 +5,13 @@ import { useLanguage } from '../context/LanguageContext';
 import { Icon } from './icons';
 
 // Wraps the given English words in a gold highlight. Translations without those words render plainly.
-const gold = (text, words) => {
-  const re = new RegExp(`(${words.join('|')})`, 'g');
-  return text.split(re).map((part, i) => (words.includes(part) ? <em key={i}>{part}</em> : part));
+// Words listed in `green` get the green highlight instead.
+const gold = (text, words, green = []) => {
+  const all = [...words, ...green];
+  const re = new RegExp(`(${all.join('|')})`, 'g');
+  return text.split(re).map((part, i) => (all.includes(part)
+    ? <em key={i} className={green.includes(part) ? 'is-green' : undefined}>{part}</em>
+    : part));
 };
 
 const CHAIN = [
@@ -42,7 +46,7 @@ export default function FoodChain() {
         <article className="triad__panel triad__panel--modern">
           <img className="triad__portrait" src="/assets/img/portrait-fleming.png" alt={t("Portrait of Alexander Fleming")} width="224" height="288" loading="lazy" />
           <blockquote>
-            <p>{gold(t("“Nature gave us penicillin; nature gives us its replacement.”"), ['nature gives us its'])}</p>
+            <p>{gold(t("“Nature gave us penicillin; nature gives us its replacement.”"), ['nature'], ['gives us its'])}</p>
             <footer>{t("Alexander Fleming's legacy")}</footer>
           </blockquote>
           <span className="triad__rule" aria-hidden="true" />
