@@ -10657,3 +10657,44 @@ body .programme .builder__output {
   border: 1px solid var(--lt-line);
   box-shadow: 0 18px 40px -30px rgba(29, 58, 156, .45);
 }
+
+/* Home hero, light version: George's leaf-with-molecules image on white (25 Nov 2026) */
+body .bhero {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--lt-bg) 100%);
+}
+body .bhero__stage::before {
+  background: url("/assets/img/hero-leaf-light.jpg") right top 14% / auto 165% no-repeat;
+  opacity: 1;
+  filter: none;
+}
+body .bhero__stage::after {
+  background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, .94) 38%, rgba(255, 255, 255, .35) 62%, rgba(255, 255, 255, 0) 80%);
+}
+body .bhero h1,
+body .bhero h1 > span:not(.bhero__accent) { color: var(--lt-navy) !important; -webkit-text-fill-color: var(--lt-navy); }
+body .bhero__accent {
+  background: linear-gradient(105deg, #2E9E48 0%, #1F8A5B 55%, #1A97A4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+body .bhero__lead { color: var(--lt-ink) !important; }
+body .bhero__sub { color: var(--lt-text) !important; }
+body .bhero .btn--ghost-light {
+  color: var(--lt-navy) !important;
+  background: #fff !important;
+  border: 1.5px solid #C9D6EA !important;
+}
+body .bhero .btn--ghost-light:hover { border-color: var(--lt-navy) !important; }
+
+@media (max-width: 860px) {
+  body .bhero__stage::before {
+    background-position: center top;
+    background-size: 100% auto;
+  }
+  body .bhero__stage::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 58vw, #FFFFFF 78vw);
+  }
+  body .bhero__stage .bhero__grid { padding-top: 62vw; }
+}
